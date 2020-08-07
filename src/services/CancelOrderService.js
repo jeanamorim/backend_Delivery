@@ -3,7 +3,7 @@ import db from '../database';
 import Order from '../app/models/Order';
 import Estabelecimento from '../app/models/Estabelecimento';
 
-import Queue from '../lib/Queue';
+// Queue from '../lib/Queue';
 import Cache from '../lib/Cache';
 
 import OrderCancellationMail from '../app/jobs/OrderCancellationMail';
@@ -35,7 +35,7 @@ class CancelOrderService {
       order.status = 'CANCELADO';
 
       await order.save(transaction);
-
+/*
       const estabelecimento = await Estabelecimento.findByPk(
         order.estabelecimento_id,
       );
@@ -47,7 +47,7 @@ class CancelOrderService {
           orderDate: order.date,
         },
       });
-
+*/
       await Cache.invalidatePrefix('orders:estabelecimento');
 
       await transaction.commit();

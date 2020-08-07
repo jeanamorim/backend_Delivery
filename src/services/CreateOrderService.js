@@ -8,7 +8,7 @@ import Category from '../app/models/Category';
 import File from '../app/models/File';
 import Setting from '../app/models/Setting';
 
-import Queue from '../lib/Queue';
+// import Queue from '../lib/Queue';
 import Cache from '../lib/Cache';
 import NewOrderMail from '../app/jobs/NewOrderMail';
 
@@ -89,9 +89,9 @@ class CreateOrderService {
         })),
       );
 
-      const user = await User.findByPk(user_id);
+      // const user = await User.findByPk(user_id);
 
-      const settings = JSON.parse(JSON.stringify(await Setting.findAll()));
+      // const settings = JSON.parse(JSON.stringify(await Setting.findAll()));
 
       // Get order complete details
 
@@ -147,6 +147,7 @@ class CreateOrderService {
         }, {}),
       );
 */
+      /*
       const orderProductsCount = products.reduce((result, { quantity }) => {
         return result + quantity;
       }, 0);
@@ -182,7 +183,7 @@ class CreateOrderService {
           },
         },
       });
-
+*/
       await Cache.invalidatePrefix('orders:users');
 
       await transaction.commit();
