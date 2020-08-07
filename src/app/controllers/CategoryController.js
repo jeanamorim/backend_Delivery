@@ -1,7 +1,7 @@
 import Category from '../models/Category';
 import File from '../models/File';
 import Estabelecimento from '../models/Estabelecimento';
-import Cache from '../../lib/Cache';
+// import Cache from '../../lib/Cache';
 
 // import AdminCheckService from '../../services/AdminCheckService';
 
@@ -57,7 +57,7 @@ class CategoryController {
 
     const { id, name, image_id } = await category.update(req.body);
 
-    await Cache.invalidate('categories');
+    //await Cache.invalidate('categories');
 
     return res.json({ id, name, image_id });
   }
@@ -71,7 +71,7 @@ class CategoryController {
       },
     });
 
-    await Cache.invalidate('categories');
+    // await Cache.invalidate('categories');
 
     return res.json();
   }

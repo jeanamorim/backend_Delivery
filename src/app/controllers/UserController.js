@@ -1,6 +1,6 @@
 import User from '../models/User';
 
-import Cache from '../../lib/Cache';
+// import Cache from '../../lib/Cache';
 
 // import AdminCheckService from '../../services/AdminCheckService';
 
@@ -27,7 +27,7 @@ class UserController {
       cpf,
     } = await User.create(req.body);
 
-    await Cache.invalidate('users');
+    // /await Cache.invalidate('users');
 
     return res.json({
       id,
@@ -44,9 +44,9 @@ class UserController {
   async index(req, res) {
     // await AdminCheckService.run({ user_id: req.userId });
 
-    const cached = await Cache.get('users');
+    // const cached = await Cache.get('users');
 
-    if (cached) return res.json(cached);
+    // if (cached) return res.json(cached);
 
     const users = await User.findAll({
       attributes: [
@@ -61,7 +61,7 @@ class UserController {
       ],
     });
 
-    await Cache.set('users', users);
+    // await Cache.set('users', users);
 
     return res.json(users);
   }
@@ -99,7 +99,7 @@ class UserController {
       cpf,
     } = await user.update(req.body);
 
-    await Cache.invalidate('users');
+    // await Cache.invalidate('users');
 
     return res.json({
       id,

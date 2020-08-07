@@ -1,16 +1,16 @@
 import db from '../database';
 
 import Order from '../app/models/Order';
-import User from '../app/models/User';
+// import User from '../app/models/User';
 import OrderDetail from '../app/models/OrderDetail';
 import Product from '../app/models/Product';
 import Category from '../app/models/Category';
 import File from '../app/models/File';
-import Setting from '../app/models/Setting';
+// import Setting from '../app/models/Setting';
 
 // import Queue from '../lib/Queue';
-import Cache from '../lib/Cache';
-import NewOrderMail from '../app/jobs/NewOrderMail';
+// import Cache from '../lib/Cache';
+// import NewOrderMail from '../app/jobs/NewOrderMail';
 
 const sequelize = db.connection;
 
@@ -184,7 +184,7 @@ class CreateOrderService {
         },
       });
 */
-      await Cache.invalidatePrefix('orders:users');
+      // await Cache.invalidatePrefix('orders:users');
 
       await transaction.commit();
 

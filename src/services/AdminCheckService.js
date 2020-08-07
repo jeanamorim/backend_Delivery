@@ -1,19 +1,19 @@
 import Admin from '../app/models/Admin';
 import User from '../app/models/User';
 
-import Cache from '../lib/Cache';
+// import Cache from '../lib/Cache';
 
 class AdminCheckService {
   async run({ user_id }) {
-    const cached = await Cache.get('admins');
+    // const cached = await Cache.get('admins');
 
-    if (cached) {
-      const isAdmin = cached.findIndex(admin => admin.user.id === user_id);
+    // if (cached) {
+    //   const isAdmin = cached.findIndex(admin => admin.user.id === user_id);
 
-      if (isAdmin >= 0) return true;
+    //   if (isAdmin >= 0) return true;
 
-      throw new Error('Permission denied. Could not perform this operation');
-    }
+    //   throw new Error('Permission denied. Could not perform this operation');
+    // }
 
     const admins = await Admin.findAll({
       attributes: ['id'],
@@ -35,7 +35,7 @@ class AdminCheckService {
       ],
     });
 
-    await Cache.set('admins', admins);
+    // await Cache.set('admins', admins);
 
     const isAdmin = admins.findIndex(admin => admin.user.id === user_id);
 

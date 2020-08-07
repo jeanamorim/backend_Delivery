@@ -1,6 +1,6 @@
 import Setting from '../models/Setting';
 
-import Cache from '../../lib/Cache';
+// import Cache from '../../lib/Cache';
 
 // import AdminCheckService from '../../services/AdminCheckService';
 
@@ -22,13 +22,13 @@ class SettingController {
   }
 
   async index(req, res) {
-    const cached = await Cache.get('settings');
+    // const cached = await Cache.get('settings');
 
-    if (cached) return res.json(cached);
+    // if (cached) return res.json(cached);
 
     const settings = await Setting.findAll();
 
-    await Cache.set('settings', settings);
+   //  await Cache.set('settings', settings);
 
     return res.json(settings);
   }
@@ -40,7 +40,7 @@ class SettingController {
 
     const settingsUpdated = await settings.update(req.body);
 
-    await Cache.invalidate('settings');
+    // await Cache.invalidate('settings');
 
     return res.json(settingsUpdated);
   }

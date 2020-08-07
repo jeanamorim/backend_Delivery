@@ -1,6 +1,6 @@
 import { isBefore, parseISO } from 'date-fns';
 
-import Cache from '../lib/Cache';
+// import Cache from '../lib/Cache';
 
 import Product from '../app/models/Product';
 import Offer from '../app/models/Offer';
@@ -32,51 +32,50 @@ class FormatProductService {
       });
     }
 
-    let offers;
+    // let offers;
 
-    const cachedOffers = await Cache.get('offers');
+    // const cachedOffers = await Cache.get('offers');
 
-    if (cachedOffers) {
-      offers = cachedOffers;
-    } else {
-      offers = await Offer.findAll({
-        attributes: [
-          'id',
-          'product_id',
-          'quantity',
-          'unit',
-          'from',
-          'to',
-          'expiration_date',
-        ],
-        include: [
-          {
-            model: Product,
-            as: 'product',
-            attributes: [
-              'id',
-              'name',
-              'description',
-              'price',
-              'unit',
-              'quantity',
-            ],
-            include: [
-              {
-                model: File,
-                as: 'image',
-                attributes: ['path', 'url'],
-              },
-              {
-                model: Category,
-                as: 'category',
-                attributes: ['name'],
-              },
-            ],
-          },
-        ],
-      });
-    }
+    // if (cachedOffers) {
+    //   offers = cachedOffers;
+    // } else {
+    const offers = await Offer.findAll({
+      attributes: [
+        'id',
+        'product_id',
+        'quantity',
+        'unit',
+        'from',
+        'to',
+        'expiration_date',
+      ],
+      include: [
+        {
+          model: Product,
+          as: 'product',
+          attributes: [
+            'id',
+            'name',
+            'description',
+            'price',
+            'unit',
+            'quantity',
+          ],
+          include: [
+            {
+              model: File,
+              as: 'image',
+              attributes: ['path', 'url'],
+            },
+            {
+              model: Category,
+              as: 'category',
+              attributes: ['name'],
+            },
+          ],
+        },
+      ],
+    });
 
     const productsArray = JSON.parse(JSON.stringify(products));
 
