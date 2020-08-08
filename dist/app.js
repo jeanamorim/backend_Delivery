@@ -33,14 +33,13 @@ var Sentry = _interopRequireWildcard(require("@sentry/node"));
 
 require("express-async-errors");
 
-var _rateLimiter = _interopRequireDefault(require("./app/middlewares/rateLimiter"));
-
 var _routes2 = _interopRequireDefault(require("./routes"));
 
 var _sentry = _interopRequireDefault(require("./config/sentry"));
 
 require("./database");
 
+// import rateLimiter from './app/middlewares/rateLimiter';
 var App = /*#__PURE__*/function () {
   function App() {
     (0, _classCallCheck2["default"])(this, App);
@@ -58,18 +57,9 @@ var App = /*#__PURE__*/function () {
       this.server.use((0, _helmet["default"])());
       this.server.use((0, _cors["default"])());
       this.server.use(_express["default"].json());
-      this.server.use('/files', _express["default"]["static"](_path["default"].resolve(__dirname, '..', 'tmp', 'uploads')));
-
-      if (process.env.NODE_ENV !== 'development') {
-        this.server.use(_rateLimiter["default"]);
-      } // Server delay for tests
-
-      /*
-      this.server.use((req, res, next) => {
-        setTimeout(next, 3000);
-      });
-      */
-
+      this.server.use('/files', _express["default"]["static"](_path["default"].resolve(__dirname, '..', 'tmp', 'uploads'))); // if (process.env.NODE_ENV !== 'development') {
+      //   this.server.use(rateLimiter);
+      // }
     }
   }, {
     key: "routes",
