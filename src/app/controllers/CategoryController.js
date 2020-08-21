@@ -35,7 +35,7 @@ class CategoryController {
         {
           model: File,
           as: 'image',
-          attributes: ['path', 'url'],
+          attributes: ['id', 'path', 'url'],
         },
         {
           model: Estabelecimento,
@@ -57,7 +57,7 @@ class CategoryController {
 
     const { id, name, image_id } = await category.update(req.body);
 
-    //await Cache.invalidate('categories');
+    // await Cache.invalidate('categories');
 
     return res.json({ id, name, image_id });
   }

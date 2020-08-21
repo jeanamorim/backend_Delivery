@@ -203,7 +203,7 @@ routes.delete('/admins/:id', AdminController.delete);
 
 routes.get('/listOpcao/:id', ListOpcaoEdit.index); // lista opcao por id
 routes.get('/categorialist/:id', ListCategoriaEdit.index); // lista categoria por id
-routes.get('/productslist/:id', authMiddleware, ListProductEdit.index); // lista produto por id
+routes.get('/productsEdit/:id', authMiddleware, ListProductEdit.index); // lista produto por id
 routes.get('/variacaoedit/:id', ListVariacaoEdit.index); // lista variacao por id
 // carrinho em geral post/put/delete
 routes.post('/cart', CartControllers.store);
@@ -239,7 +239,7 @@ routes.post(
   ProductController.store,
 );
 routes.get('/products', authMiddleware, ProductController.index);
-routes.get('/productsEdit', authMiddleware, ProductListControllers.index);
+routes.get('/productsList', authMiddleware, ProductListControllers.index);
 routes.get('/products/:id', authMiddleware, ProductDetails.index);
 routes.delete('/products/:id', authMiddleware, ProductController.delete);
 routes.put(

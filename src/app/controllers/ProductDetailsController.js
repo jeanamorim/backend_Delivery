@@ -11,12 +11,12 @@ class ProductDetailsController {
         estabelecimento_id: req.estabelecimentoId,
         category_id: req.params.id,
       },
-      attributes: ['id', 'name', 'description', 'price'],
+      attributes: ['id', 'name', 'description', 'price', 'unit', 'quantity'],
       include: [
         {
           model: File,
           as: 'image',
-          attributes: ['path', 'url'],
+          attributes: ['id', 'path', 'url'],
         },
         {
           model: Category,
@@ -26,14 +26,14 @@ class ProductDetailsController {
             {
               model: File,
               as: 'image',
-              attributes: ['path', 'url'],
+              attributes: ['id', 'path', 'url'],
             },
           ],
         },
         {
           model: Variacao,
           as: 'variacao',
-          attributes: ['name', 'minimo', 'maximo'],
+          attributes: ['id', 'name', 'minimo', 'maximo'],
           through: { attributes: [] },
           include: [
             {

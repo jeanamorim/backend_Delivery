@@ -51,7 +51,7 @@ class ProductController {
           {
             model: File,
             as: 'image',
-            attributes: ['path', 'url'],
+            attributes: ['id', 'path', 'url'],
           },
           {
             model: Category,
@@ -66,7 +66,7 @@ class ProductController {
           {
             model: Variacao,
             as: 'variacao',
-            attributes: ['name', 'minimo', 'maximo'],
+            attributes: ['id', 'name', 'minimo', 'maximo'],
             through: { attributes: [] },
             include: [
               {
@@ -103,7 +103,7 @@ class ProductController {
             {
               model: File,
               as: 'image',
-              attributes: ['path', 'url'],
+              attributes: ['id', 'path', 'url'],
             },
             {
               model: Category,
@@ -118,7 +118,7 @@ class ProductController {
             {
               model: Variacao,
               as: 'variacao',
-              attributes: ['name', 'minimo', 'maximo'],
+              attributes: ['id', 'name', 'minimo', 'maximo'],
               through: { attributes: [] },
               include: [
                 {
@@ -155,7 +155,7 @@ class ProductController {
             {
               model: File,
               as: 'image',
-              attributes: ['path', 'url'],
+              attributes: ['id', 'path', 'url'],
             },
             {
               model: Category,
@@ -170,7 +170,7 @@ class ProductController {
             {
               model: Variacao,
               as: 'variacao',
-              attributes: ['name', 'minimo', 'maximo'],
+              attributes: ['id', 'name', 'minimo', 'maximo'],
               through: { attributes: [] },
               include: [
                 {
