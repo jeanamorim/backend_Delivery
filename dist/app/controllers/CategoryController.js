@@ -83,7 +83,7 @@ var CategoryController = /*#__PURE__*/function () {
                   include: [{
                     model: _File["default"],
                     as: 'image',
-                    attributes: ['path', 'url']
+                    attributes: ['id', 'path', 'url']
                   }, {
                     model: _Estabelecimento["default"],
                     as: 'estabelecimento',
