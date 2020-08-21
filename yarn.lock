@@ -4706,10 +4706,10 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
-sequelize-cli@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-6.2.0.tgz#fd02bfeae23b8226872f9947f3f8212cc49a4771"
-  integrity sha512-6WQ2x91hg30dUn66mXHnzvHATZ4pyI1GHSNbS/TNN/vRR4BLRSLijadeMgC8zqmKDsL0VqzVVopJWfJakuP++Q==
+sequelize-cli@^6.0.0-beta.3:
+  version "6.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-6.0.0-beta.3.tgz#0e27e9354c04cda9823fbc43b8bf9dc2470fa2c1"
+  integrity sha512-rDCT3FHuool24QXn/znyGcgB0oK2irrWXbV31TFSWmesn1kXqVS0HSO2yZ9BaQGkc3MoMlE6PLs8lEM9Pi30xw==
   dependencies:
     cli-color "^1.4.0"
     fs-extra "^7.0.1"
