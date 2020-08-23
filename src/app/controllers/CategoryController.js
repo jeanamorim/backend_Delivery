@@ -1,4 +1,4 @@
-import Category from '../models/Category';
+import Category from '../models/Categorias';
 import File from '../models/File';
 import Estabelecimento from '../models/Estabelecimento';
 // import Cache from '../../lib/Cache';

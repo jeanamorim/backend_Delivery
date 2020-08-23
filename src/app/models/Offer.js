@@ -20,7 +20,7 @@ class Offer extends Model {
 
   static associate(models) {
     this.belongsTo(models.Product, { as: 'product', foreignKey: 'product_id' });
-    this.belongsTo(models.Estabelecimento, {
+    this.belongsTo(models.Estabelecimentos, {
       foreignKey: 'estabelecimento_id',
       as: 'estabelecimentos',
     });

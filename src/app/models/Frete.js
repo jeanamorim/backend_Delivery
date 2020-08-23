@@ -17,7 +17,7 @@ class Frete extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Estabelecimento, {
+    this.belongsTo(models.Estabelecimentos, {
       foreignKey: 'estabelecimento_id',
       as: 'estabelecimentos',
     });

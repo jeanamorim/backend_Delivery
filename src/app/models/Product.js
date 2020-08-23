@@ -20,7 +20,7 @@ class Product extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { as: 'image', foreignKey: 'image_id' });
-    this.belongsTo(models.Estabelecimento, {
+    this.belongsTo(models.Estabelecimentos, {
       foreignKey: 'estabelecimento_id',
       as: 'estabelecimentos',
     });
