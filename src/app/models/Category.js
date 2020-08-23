@@ -18,7 +18,7 @@ class Category extends Model {
     this.belongsTo(models.File, { foreignKey: 'image_id', as: 'image' });
     this.belongsTo(models.Estabelecimento, {
       foreignKey: 'estabelecimento_id',
-      as: 'estabelecimento',
+      as: 'estabelecimentos',
     });
   }
 }

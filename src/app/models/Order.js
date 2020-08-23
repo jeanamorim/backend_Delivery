@@ -39,7 +39,7 @@ class Order extends Model {
     this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
     this.belongsTo(models.Estabelecimento, {
       foreignKey: 'estabelecimento_id',
-      as: 'estabelecimento',
+      as: 'estabelecimentos',
     });
     this.hasMany(models.OrderDetail, { as: 'order_details' });
   }

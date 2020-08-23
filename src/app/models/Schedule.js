@@ -19,7 +19,7 @@ class Schedule extends Model {
   static associate(models) {
     this.belongsTo(models.Estabelecimento, {
       foreignKey: 'estabelecimento_id',
-      as: 'estabelecimento',
+      as: 'estabelecimentos',
     });
   }
 }

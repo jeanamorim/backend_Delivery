@@ -21,7 +21,7 @@ class Cart extends Model {
     this.belongsTo(models.Product, { as: 'product', foreignKey: 'product_id' });
     this.belongsTo(models.Estabelecimento, {
       foreignKey: 'estabelecimento_id',
-      as: 'estabelecimento',
+      as: 'estabelecimentos',
     });
   }
 }

@@ -22,7 +22,7 @@ class Product extends Model {
     this.belongsTo(models.File, { as: 'image', foreignKey: 'image_id' });
     this.belongsTo(models.Estabelecimento, {
       foreignKey: 'estabelecimento_id',
-      as: 'estabelecimento',
+      as: 'estabelecimentos',
     });
     this.belongsTo(models.Category, {
       as: 'category',
