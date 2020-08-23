@@ -25,7 +25,7 @@ class Product extends Model {
       as: 'estabelecimentos',
     });
     this.belongsTo(models.Category, {
-      as: 'category',
+      as: 'categorias',
       foreignKey: 'category_id',
     });
     this.belongsToMany(models.Variacao, {
