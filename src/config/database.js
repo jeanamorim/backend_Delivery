@@ -1,8 +1,6 @@
 require('dotenv/config');
 
 module.exports = {
-  // dialect: 'postgres',
-  // url: process.env.DATABASE_URL,
   dialect: process.env.DB_DIALECT,
   host: process.env.DB_HOST,
   username: process.env.DB_USER,
@@ -14,5 +12,4 @@ module.exports = {
     underscored: true,
     underscoredAll: true,
   },
-  useNullAsDefault: true,
 };

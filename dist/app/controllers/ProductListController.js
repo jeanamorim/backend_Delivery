@@ -23,10 +23,6 @@ var _Category = _interopRequireDefault(require("../models/Category"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
-var _Variacao = _interopRequireDefault(require("../models/Variacao"));
-
-var _Opcao = _interopRequireDefault(require("../models/Opcao"));
-
 var _FormatProductService = _interopRequireDefault(require("../../services/FormatProductService"));
 
 var ProductListController = /*#__PURE__*/function () {
@@ -61,21 +57,6 @@ var ProductListController = /*#__PURE__*/function () {
                     model: _Estabelecimento["default"],
                     as: 'estabelecimento',
                     attributes: ['id', 'name_loja']
-                  }, {
-                    model: _Variacao["default"],
-                    as: 'variacao',
-                    attributes: ['id', 'name', 'minimo', 'maximo'],
-                    through: {
-                      attributes: []
-                    },
-                    include: [{
-                      model: _Opcao["default"],
-                      as: 'opcao',
-                      attributes: ['id', 'name', 'price', 'status'],
-                      through: {
-                        attributes: []
-                      }
-                    }]
                   }]
                 });
 

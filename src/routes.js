@@ -48,7 +48,7 @@ import BuscarPorCategoria from './app/controllers/ControllersMobile/BuscarEstabe
 import RemoveCartUser from './app/controllers/ControllersMobile/RemoveCartTotal';
 
 import TotalCancelados from './app/controllers/ControllerRelatorios/TotalCancelado';
-import TotalCartao from './app/controllers/ControllerRelatorios/TotalCartão';
+import TotalCartao from './app/controllers/ControllerRelatorios/TotalCartao';
 import TotalDinheiro from './app/controllers/ControllerRelatorios/TotalDinheiro';
 import Totalentregues from './app/controllers/ControllerRelatorios/TotalEntregues';
 import TotalPedidos from './app/controllers/ControllerRelatorios/TotalPedidos';

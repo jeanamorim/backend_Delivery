@@ -110,7 +110,7 @@ var ProductController = /*#__PURE__*/function () {
                   include: [{
                     model: _File["default"],
                     as: 'image',
-                    attributes: ['id', 'path', 'url']
+                    attributes: ['path', 'url']
                   }, {
                     model: _Category["default"],
                     as: 'category',
@@ -122,7 +122,7 @@ var ProductController = /*#__PURE__*/function () {
                   }, {
                     model: _Variacao["default"],
                     as: 'variacao',
-                    attributes: ['id', 'name', 'minimo', 'maximo'],
+                    attributes: ['name', 'minimo', 'maximo'],
                     through: {
                       attributes: []
                     },
@@ -166,7 +166,7 @@ var ProductController = /*#__PURE__*/function () {
                   include: [{
                     model: _File["default"],
                     as: 'image',
-                    attributes: ['id', 'path', 'url']
+                    attributes: ['path', 'url']
                   }, {
                     model: _Category["default"],
                     as: 'category',
@@ -178,7 +178,7 @@ var ProductController = /*#__PURE__*/function () {
                   }, {
                     model: _Variacao["default"],
                     as: 'variacao',
-                    attributes: ['id', 'name', 'minimo', 'maximo'],
+                    attributes: ['name', 'minimo', 'maximo'],
                     through: {
                       attributes: []
                     },
@@ -217,7 +217,7 @@ var ProductController = /*#__PURE__*/function () {
                   include: [{
                     model: _File["default"],
                     as: 'image',
-                    attributes: ['id', 'path', 'url']
+                    attributes: ['path', 'url']
                   }, {
                     model: _Category["default"],
                     as: 'category',
@@ -229,7 +229,7 @@ var ProductController = /*#__PURE__*/function () {
                   }, {
                     model: _Variacao["default"],
                     as: 'variacao',
-                    attributes: ['id', 'name', 'minimo', 'maximo'],
+                    attributes: ['name', 'minimo', 'maximo'],
                     through: {
                       attributes: []
                     },

@@ -20,12 +20,12 @@ class Product extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { as: 'image', foreignKey: 'image_id' });
-    this.belongsTo(models.Estabelecimentos, {
+    this.belongsTo(models.Estabelecimento, {
       foreignKey: 'estabelecimento_id',
-      as: 'estabelecimentos',
+      as: 'estabelecimento',
     });
     this.belongsTo(models.Category, {
-      as: 'categorias',
+      as: 'category',
       foreignKey: 'category_id',
     });
     this.belongsToMany(models.Variacao, {
