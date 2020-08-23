@@ -93,7 +93,7 @@ var _RemoveCartTotal = _interopRequireDefault(require("./app/controllers/Control
 
 var _TotalCancelado = _interopRequireDefault(require("./app/controllers/ControllerRelatorios/TotalCancelado"));
 
-var _TotalCartO = _interopRequireDefault(require("./app/controllers/ControllerRelatorios/TotalCart\xE3o"));
+var _TotalCartao = _interopRequireDefault(require("./app/controllers/ControllerRelatorios/TotalCartao"));
 
 var _TotalDinheiro = _interopRequireDefault(require("./app/controllers/ControllerRelatorios/TotalDinheiro"));
 
@@ -221,7 +221,7 @@ routes["delete"]('/banners/:id', _BannerController["default"]["delete"]); // rel
 
 routes.get('/relatoriopedidos', _authEstabelecimento["default"], _RelatorioPedidosDataControlers["default"].index);
 routes.get('/totalCancelado', _authEstabelecimento["default"], _TotalCancelado["default"].index);
-routes.get('/totalCartao', _authEstabelecimento["default"], _TotalCartO["default"].index);
+routes.get('/totalCartao', _authEstabelecimento["default"], _TotalCartao["default"].index);
 routes.get('/totalDinheiro', _authEstabelecimento["default"], _TotalDinheiro["default"].index);
 routes.get('/totalEntregue', _authEstabelecimento["default"], _TotalEntregues["default"].index);
 routes.get('/totalPedido', _authEstabelecimento["default"], _TotalPedidos["default"].index);
@@ -234,7 +234,7 @@ routes.get('/listOpcao/:id', _ListOpcaoIds["default"].index); // lista opcao por
 
 routes.get('/categorialist/:id', _ListCategoriaIds["default"].index); // lista categoria por id
 
-routes.get('/productslist/:id', _authEstabelecimento["default"], _ListProductIds["default"].index); // lista produto por id
+routes.get('/productsEdit/:id', _authEstabelecimento["default"], _ListProductIds["default"].index); // lista produto por id
 
 routes.get('/variacaoedit/:id', _ListVariacaoId["default"].index); // lista variacao por id
 // carrinho em geral post/put/delete
@@ -257,7 +257,7 @@ routes.get('/faturamentoTotal', _authEstabelecimento["default"], _FaturamentoTot
 
 routes.post('/products', _authEstabelecimento["default"], _ProductStore["default"], _ProductController["default"].store);
 routes.get('/products', _authEstabelecimento["default"], _ProductController["default"].index);
-routes.get('/productsEdit', _authEstabelecimento["default"], _ProductListController["default"].index);
+routes.get('/productsList', _authEstabelecimento["default"], _ProductListController["default"].index);
 routes.get('/products/:id', _authEstabelecimento["default"], _ProductDetailsController["default"].index);
 routes["delete"]('/products/:id', _authEstabelecimento["default"], _ProductController["default"]["delete"]);
 routes.put('/products/:id', _authEstabelecimento["default"], _ProductUpdate["default"], _ProductController["default"].update); // cadastra imagem de produtos/categorias

@@ -45,11 +45,11 @@ var ProductDetailsController = /*#__PURE__*/function () {
                     estabelecimento_id: req.estabelecimentoId,
                     category_id: req.params.id
                   },
-                  attributes: ['id', 'name', 'description', 'price'],
+                  attributes: ['id', 'name', 'description', 'price', 'unit', 'quantity'],
                   include: [{
                     model: _File["default"],
                     as: 'image',
-                    attributes: ['path', 'url']
+                    attributes: ['id', 'path', 'url']
                   }, {
                     model: _Category["default"],
                     as: 'category',
@@ -57,12 +57,12 @@ var ProductDetailsController = /*#__PURE__*/function () {
                     include: [{
                       model: _File["default"],
                       as: 'image',
-                      attributes: ['path', 'url']
+                      attributes: ['id', 'path', 'url']
                     }]
                   }, {
                     model: _Variacao["default"],
                     as: 'variacao',
-                    attributes: ['name', 'minimo', 'maximo'],
+                    attributes: ['id', 'name', 'minimo', 'maximo'],
                     through: {
                       attributes: []
                     },

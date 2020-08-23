@@ -30,8 +30,7 @@ var _default = /*#__PURE__*/function () {
               category_id: Yup.number(),
               quantity: Yup.number(),
               unit: Yup.string(),
-              price: Yup.number(),
-              observacao: Yup.string()
+              price: Yup.number()
             });
             _context.next = 4;
             return schema.validate(req.body, {
