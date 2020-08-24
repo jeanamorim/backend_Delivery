@@ -10,6 +10,7 @@ class Opcao extends Model {
       },
       {
         sequelize: connection,
+        tableName: 'opcao'
       },
     );
 

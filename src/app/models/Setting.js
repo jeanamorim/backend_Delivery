@@ -8,6 +8,7 @@ class Setting extends Model {
       },
       {
         sequelize: connection,
+        tableName: 'settings'
       },
     );
 

@@ -10,6 +10,7 @@ class Frete extends Model {
       },
       {
         sequelize: connection,
+        tableName: 'frete'
       },
     );
 

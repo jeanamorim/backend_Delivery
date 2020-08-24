@@ -10,6 +10,7 @@ class Cart extends Model {
       },
       {
         sequelize: connection,
+        tableName: 'cart'
       },
     );
 

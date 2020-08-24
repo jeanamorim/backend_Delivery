@@ -10,6 +10,7 @@ class Schedule extends Model {
       },
       {
         sequelize: connection,
+        tableName: 'schedules'
       },
     );
 

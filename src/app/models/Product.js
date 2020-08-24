@@ -12,6 +12,8 @@ class Product extends Model {
       },
       {
         sequelize: connection,
+        tableName: 'products'
+       
       },
     );
 
