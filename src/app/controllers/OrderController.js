@@ -263,13 +263,8 @@ class OrderController {
   async delete(req, res) {
     // await AdminCheckService.run({ user_id: req.userId });
 
-    // const CancelOrder = await CancelOrderService.run({
-    //   order_id: req.params.id,
-    // });
-    const CancelOrder = await Order.destroy({
-      where: {
-        id: req.params.id,
-      },
+    const CancelOrder = await CancelOrderService.run({
+      order_id: req.params.id,
     });
 
     return res.json(CancelOrder);
