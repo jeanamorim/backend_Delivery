@@ -266,13 +266,13 @@ class OrderController {
     // const CancelOrder = await CancelOrderService.run({
     //   order_id: req.params.id,
     // });
-    await Order.destroy({
+    const CancelOrder = await Order.destroy({
       where: {
-        order_id: req.params.id,
+        id: req.params.id,
       },
     });
 
-    // return res.json(CancelOrder);
+    return res.json(CancelOrder);
   }
 }
 
