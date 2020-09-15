@@ -10,7 +10,7 @@ class OrderDetail extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'order_details'
+        tableName: 'order_details',
       },
     );
 

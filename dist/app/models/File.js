@@ -46,7 +46,8 @@ var File = /*#__PURE__*/function (_Model) {
         size: _sequelize["default"].INTEGER,
         url: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'files'
       });
       return this;
     }

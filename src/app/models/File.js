@@ -11,7 +11,7 @@ class File extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'files'
+        tableName: 'files',
       },
     );
 

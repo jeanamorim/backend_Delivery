@@ -64,7 +64,8 @@ var Order = /*#__PURE__*/function (_Model) {
         cc_last_4_digits: _sequelize["default"].STRING,
         canceled_at: _sequelize["default"].DATE
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'orders'
       });
       return this;
     }

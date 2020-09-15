@@ -44,7 +44,8 @@ var Cart = /*#__PURE__*/function (_Model) {
         observacao: _sequelize["default"].STRING,
         quantidade: _sequelize["default"].FLOAT
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'cart'
       });
       return this;
     }

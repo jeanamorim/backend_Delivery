@@ -12,7 +12,7 @@ class Offer extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'offers'
+        tableName: 'offers',
       },
     );
 

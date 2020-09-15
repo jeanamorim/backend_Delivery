@@ -29,7 +29,7 @@ class Order extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'orders'
+        tableName: 'orders',
       },
     );
 

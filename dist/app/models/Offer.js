@@ -47,7 +47,8 @@ var Offer = /*#__PURE__*/function (_Model) {
         to: _sequelize["default"].FLOAT,
         expiration_date: _sequelize["default"].DATE
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'offers'
       });
       return this;
     }

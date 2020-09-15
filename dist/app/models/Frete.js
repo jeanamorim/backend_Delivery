@@ -45,7 +45,8 @@ var Frete = /*#__PURE__*/function (_Model) {
         price: _sequelize["default"].FLOAT,
         status: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'frete'
       });
       return this;
     }

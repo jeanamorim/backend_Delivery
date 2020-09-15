@@ -34,9 +34,12 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 // import Setting from '../app/models/Setting';
-// import Queue from '../lib/Queue';
+var _require = require('../websocket'),
+    sendMessage = _require.sendMessage; // import Queue from '../lib/Queue';
 // import Cache from '../lib/Cache';
 // import NewOrderMail from '../app/jobs/NewOrderMail';
+
+
 var sequelize = _database["default"].connection;
 var transaction;
 
@@ -49,7 +52,7 @@ var CreateOrderService = /*#__PURE__*/function () {
     key: "run",
     value: function () {
       var _run = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(data) {
-        var user_id, estabelecimento_id, status, addressee, observacao, troco, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, _data$ship_complement, ship_complement, _data$ship_reference, ship_reference, _data$delivery_fee, delivery_fee, _data$discount, discount, payment_method, _data$payment_conditi, payment_condition, _data$cc_brand, cc_brand, _data$cc_last_4_digit, cc_last_4_digits, products, orderSubTotal, orderTotal, _yield$Order$create, id, date, order_details;
+        var user_id, estabelecimento_id, status, addressee, observacao, troco, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, _data$ship_complement, ship_complement, _data$ship_reference, ship_reference, _data$delivery_fee, delivery_fee, _data$discount, discount, payment_method, _data$payment_conditi, payment_condition, _data$cc_brand, cc_brand, _data$cc_last_4_digit, cc_last_4_digits, products, orderSubTotal, orderTotal, pedido, order_details;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
@@ -95,21 +98,21 @@ var CreateOrderService = /*#__PURE__*/function () {
                 }, transaction);
 
               case 9:
-                _yield$Order$create = _context.sent;
-                id = _yield$Order$create.id;
-                date = _yield$Order$create.date;
-                _context.next = 14;
+                pedido = _context.sent;
+                sendMessage('new-order', pedido); // add order products to db
+
+                _context.next = 13;
                 return _OrderDetail["default"].bulkCreate(products.map(function (product) {
                   return _objectSpread({
-                    order_id: id
+                    order_id: pedido.id
                   }, product);
                 }));
 
-              case 14:
-                _context.next = 16;
+              case 13:
+                _context.next = 15;
                 return _OrderDetail["default"].findAll({
                   where: {
-                    order_id: id
+                    order_id: pedido.id
                   },
                   attributes: ['quantity', 'price', 'total'],
                   include: [{
@@ -128,15 +131,15 @@ var CreateOrderService = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 16:
+              case 15:
                 order_details = _context.sent;
-                _context.next = 19;
+                _context.next = 18;
                 return transaction.commit();
 
-              case 19:
+              case 18:
                 return _context.abrupt("return", {
-                  id: id,
-                  date: date,
+                  id: pedido.id,
+                  date: pedido.date,
                   user_id: user_id,
                   status: status,
                   addressee: addressee,
@@ -161,27 +164,27 @@ var CreateOrderService = /*#__PURE__*/function () {
                   order_details: order_details
                 });
 
-              case 22:
-                _context.prev = 22;
+              case 21:
+                _context.prev = 21;
                 _context.t0 = _context["catch"](0);
 
                 if (!transaction) {
-                  _context.next = 27;
+                  _context.next = 26;
                   break;
                 }
 
-                _context.next = 27;
+                _context.next = 26;
                 return transaction.rollback();
 
-              case 27:
+              case 26:
                 throw new Error(_context.t0);
 
-              case 28:
+              case 27:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 22]]);
+        }, _callee, null, [[0, 21]]);
       }));
 
       function run(_x) {

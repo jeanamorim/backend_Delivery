@@ -43,7 +43,8 @@ var Setting = /*#__PURE__*/function (_Model) {
       (0, _get2["default"])((0, _getPrototypeOf2["default"])(Setting), "init", this).call(this, {
         delivery_fee: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'settings'
       });
       return this;
     }

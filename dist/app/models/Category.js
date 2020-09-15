@@ -43,7 +43,8 @@ var Category = /*#__PURE__*/function (_Model) {
       (0, _get2["default"])((0, _getPrototypeOf2["default"])(Category), "init", this).call(this, {
         name: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'categories'
       });
       return this;
     }

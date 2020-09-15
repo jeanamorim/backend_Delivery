@@ -7,7 +7,7 @@ import Product from '../app/models/Product';
 import Category from '../app/models/Category';
 import File from '../app/models/File';
 // import Setting from '../app/models/Setting';
-
+const { sendMessage } = require('../websocket');
 // import Queue from '../lib/Queue';
 // import Cache from '../lib/Cache';
 // import NewOrderMail from '../app/jobs/NewOrderMail';
@@ -51,7 +51,7 @@ class CreateOrderService {
 
       const orderTotal = orderSubTotal + delivery_fee - discount;
 
-      const { id, date } = await Order.create(
+      const pedido = await Order.create(
         {
           date: new Date(),
           user_id,
@@ -79,12 +79,12 @@ class CreateOrderService {
         },
         transaction,
       );
-
+      sendMessage('new-order', pedido);
       // add order products to db
 
       await OrderDetail.bulkCreate(
         products.map(product => ({
-          order_id: id,
+          order_id: pedido.id,
           ...product,
         })),
       );
@@ -97,7 +97,7 @@ class CreateOrderService {
 
       const order_details = await OrderDetail.findAll({
         where: {
-          order_id: id,
+          order_id: pedido.id,
         },
         attributes: ['quantity', 'price', 'total'],
         include: [
@@ -189,8 +189,8 @@ class CreateOrderService {
       await transaction.commit();
 
       return {
-        id,
-        date,
+        id: pedido.id,
+        date: pedido.date,
         user_id,
         status,
         addressee,

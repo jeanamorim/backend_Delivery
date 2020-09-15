@@ -45,7 +45,8 @@ var Schedule = /*#__PURE__*/function (_Model) {
         from: _sequelize["default"].STRING,
         to: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'schedules'
       });
       return this;
     }

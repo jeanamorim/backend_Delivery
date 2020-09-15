@@ -47,7 +47,8 @@ var Product = /*#__PURE__*/function (_Model) {
         quantity: _sequelize["default"].FLOAT,
         unit: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'products'
       });
       return this;
     }

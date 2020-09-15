@@ -21,6 +21,8 @@ require("dotenv/config");
 
 var _express = _interopRequireDefault(require("express"));
 
+var _http = _interopRequireDefault(require("http"));
+
 var _path = _interopRequireDefault(require("path"));
 
 var _cors = _interopRequireDefault(require("cors"));
@@ -33,17 +35,22 @@ var Sentry = _interopRequireWildcard(require("@sentry/node"));
 
 require("express-async-errors");
 
+var _websocket = require("./websocket");
+
 var _routes2 = _interopRequireDefault(require("./routes"));
 
 var _sentry = _interopRequireDefault(require("./config/sentry"));
 
 require("./database");
 
+/* eslint-disable import/named */
 // import rateLimiter from './app/middlewares/rateLimiter';
 var App = /*#__PURE__*/function () {
   function App() {
     (0, _classCallCheck2["default"])(this, App);
     this.server = (0, _express["default"])();
+    this.socket = _http["default"].Server(this.server);
+    (0, _websocket.setupWebSocket)(this.socket);
     Sentry.init(_sentry["default"]);
     this.middlewares();
     this.routes();
@@ -111,5 +118,5 @@ var App = /*#__PURE__*/function () {
   return App;
 }();
 
-var _default = new App().server;
+var _default = new App().socket;
 exports["default"] = _default;

@@ -6,7 +6,7 @@ class Banner extends Model {
       {},
       {
         sequelize: connection,
-        tableName: 'banners'
+        tableName: 'banners',
       },
     );
 

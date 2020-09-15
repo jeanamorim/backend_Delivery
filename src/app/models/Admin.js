@@ -6,7 +6,7 @@ class Admin extends Model {
       {},
       {
         sequelize: connection,
-        tableName: 'admins'
+        tableName: 'admins',
       },
     );
 

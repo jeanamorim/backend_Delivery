@@ -45,7 +45,8 @@ var Variacao = /*#__PURE__*/function (_Model) {
         minimo: _sequelize["default"].FLOAT,
         maximo: _sequelize["default"].FLOAT
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'variacao'
       });
       return this;
     }

@@ -17,7 +17,7 @@ class User extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'users'
+        tableName: 'users',
       },
     );
 

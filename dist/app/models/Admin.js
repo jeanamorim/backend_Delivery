@@ -39,7 +39,8 @@ var Admin = /*#__PURE__*/function (_Model) {
     key: "init",
     value: function init(connection) {
       (0, _get2["default"])((0, _getPrototypeOf2["default"])(Admin), "init", this).call(this, {}, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'admins'
       });
       return this;
     }

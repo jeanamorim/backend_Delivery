@@ -45,7 +45,8 @@ var OrderDetail = /*#__PURE__*/function (_Model) {
         price: _sequelize["default"].FLOAT,
         total: _sequelize["default"].FLOAT
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'order_details'
       });
       return this;
     }

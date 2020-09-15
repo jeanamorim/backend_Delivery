@@ -21,7 +21,7 @@ class Estabelecimento extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'estabelecimento'
+        tableName: 'estabelecimento',
       },
     );
 

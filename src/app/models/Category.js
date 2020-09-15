@@ -8,7 +8,7 @@ class Category extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'categories'
+        tableName: 'categories',
       },
     );
 

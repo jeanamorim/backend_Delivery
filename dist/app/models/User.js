@@ -62,7 +62,8 @@ var User = /*#__PURE__*/function (_Model) {
         gender: _sequelize["default"].STRING,
         cpf: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'users'
       });
       this.addHook('beforeSave', /*#__PURE__*/function () {
         var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(user) {

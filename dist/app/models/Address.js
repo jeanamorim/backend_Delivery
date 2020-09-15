@@ -50,7 +50,8 @@ var Address = /*#__PURE__*/function (_Model) {
         complement: _sequelize["default"].STRING,
         reference: _sequelize["default"].STRING
       }, {
-        sequelize: connection
+        sequelize: connection,
+        tableName: 'adresses'
       });
       return this;
     }

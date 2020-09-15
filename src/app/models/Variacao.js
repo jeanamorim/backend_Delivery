@@ -10,7 +10,7 @@ class Variacao extends Model {
       },
       {
         sequelize: connection,
-        tableName: 'variacao'
+        tableName: 'variacao',
       },
     );
 
