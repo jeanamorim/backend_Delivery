@@ -88,7 +88,7 @@ var OrderController = /*#__PURE__*/function () {
 
                 _context2.next = 3;
                 return _Order["default"].findByPk(req.query.id, {
-                  attributes: ['id', 'date', 'status', 'observacao', 'addressee', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
+                  attributes: ['id', 'date', 'status', 'addressee', 'observacao', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
                   include: [{
                     model: _OrderDetail["default"],
                     as: 'order_details',
@@ -124,7 +124,7 @@ var OrderController = /*#__PURE__*/function () {
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
-                  attributes: ['id', 'date', 'status', 'observacao', 'addressee', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
+                  attributes: ['id', 'date', 'status', 'addressee', 'observacao', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
                   include: [{
                     model: _OrderDetail["default"],
                     as: 'order_details',
@@ -172,7 +172,7 @@ var OrderController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
-        var order, _yield$order$update, id, date, estabelecimento_id, status, observacao, addressee, troco, name, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, ship_complement, ship_reference, delivery_fee, discount, subtotal, total, payment_method, payment_condition, cc_brand, cc_last_4_digits;
+        var order, _yield$order$update, id, date, estabelecimento_id, status, addressee, observacao, troco, name, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, ship_complement, ship_reference, delivery_fee, discount, subtotal, total, payment_method, payment_condition, cc_brand, cc_last_4_digits;
 
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
@@ -198,8 +198,8 @@ var OrderController = /*#__PURE__*/function () {
                 date = _yield$order$update.date;
                 estabelecimento_id = _yield$order$update.estabelecimento_id;
                 status = _yield$order$update.status;
-                observacao = _yield$order$update.observacao;
                 addressee = _yield$order$update.addressee;
+                observacao = _yield$order$update.observacao;
                 troco = _yield$order$update.troco;
                 name = _yield$order$update.name;
                 ship_postal_code = _yield$order$update.ship_postal_code;
@@ -265,8 +265,8 @@ var OrderController = /*#__PURE__*/function () {
                   date: date,
                   estabelecimento_id: estabelecimento_id,
                   status: status,
-                  observacao: observacao,
                   addressee: addressee,
+                  observacao: observacao,
                   troco: troco,
                   name: name,
                   ship_postal_code: ship_postal_code,
@@ -298,8 +298,8 @@ var OrderController = /*#__PURE__*/function () {
                   date: date,
                   estabelecimento_id: estabelecimento_id,
                   status: status,
-                  observacao: observacao,
                   addressee: addressee,
+                  observacao: observacao,
                   troco: troco,
                   name: name,
                   ship_postal_code: ship_postal_code,
