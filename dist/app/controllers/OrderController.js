@@ -88,7 +88,7 @@ var OrderController = /*#__PURE__*/function () {
 
                 _context2.next = 3;
                 return _Order["default"].findByPk(req.query.id, {
-                  attributes: ['id', 'date', 'status', 'observacao', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
+                  attributes: ['id', 'date', 'status', 'observacao', 'addressee', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
                   include: [{
                     model: _OrderDetail["default"],
                     as: 'order_details',
@@ -124,7 +124,7 @@ var OrderController = /*#__PURE__*/function () {
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
-                  attributes: ['id', 'date', 'status', 'observacao', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
+                  attributes: ['id', 'date', 'status', 'observacao', 'addressee', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
                   include: [{
                     model: _OrderDetail["default"],
                     as: 'order_details',
@@ -172,7 +172,7 @@ var OrderController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
-        var order, _yield$order$update, id, date, estabelecimento_id, status, observacao, troco, name, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, ship_complement, ship_reference, delivery_fee, discount, subtotal, total, payment_method, payment_condition, cc_brand, cc_last_4_digits;
+        var order, _yield$order$update, id, date, estabelecimento_id, status, observacao, addressee, troco, name, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, ship_complement, ship_reference, delivery_fee, discount, subtotal, total, payment_method, payment_condition, cc_brand, cc_last_4_digits;
 
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
@@ -199,6 +199,7 @@ var OrderController = /*#__PURE__*/function () {
                 estabelecimento_id = _yield$order$update.estabelecimento_id;
                 status = _yield$order$update.status;
                 observacao = _yield$order$update.observacao;
+                addressee = _yield$order$update.addressee;
                 troco = _yield$order$update.troco;
                 name = _yield$order$update.name;
                 ship_postal_code = _yield$order$update.ship_postal_code;
@@ -219,7 +220,7 @@ var OrderController = /*#__PURE__*/function () {
                 cc_last_4_digits = _yield$order$update.cc_last_4_digits;
 
                 if (!req.body.products) {
-                  _context4.next = 38;
+                  _context4.next = 39;
                   break;
                 }
 
@@ -255,16 +256,17 @@ var OrderController = /*#__PURE__*/function () {
                     return _ref.apply(this, arguments);
                   };
                 }());
-                _context4.next = 37;
+                _context4.next = 38;
                 return transaction.commit();
 
-              case 37:
+              case 38:
                 return _context4.abrupt("return", res.json({
                   id: id,
                   date: date,
                   estabelecimento_id: estabelecimento_id,
                   status: status,
                   observacao: observacao,
+                  addressee: addressee,
                   troco: troco,
                   name: name,
                   ship_postal_code: ship_postal_code,
@@ -286,17 +288,18 @@ var OrderController = /*#__PURE__*/function () {
                   products: req.body.products
                 }));
 
-              case 38:
-                _context4.next = 40;
+              case 39:
+                _context4.next = 41;
                 return transaction.commit();
 
-              case 40:
+              case 41:
                 return _context4.abrupt("return", res.json({
                   id: id,
                   date: date,
                   estabelecimento_id: estabelecimento_id,
                   status: status,
                   observacao: observacao,
+                  addressee: addressee,
                   troco: troco,
                   name: name,
                   ship_postal_code: ship_postal_code,
@@ -317,29 +320,29 @@ var OrderController = /*#__PURE__*/function () {
                   cc_last_4_digits: cc_last_4_digits
                 }));
 
-              case 43:
-                _context4.prev = 43;
+              case 44:
+                _context4.prev = 44;
                 _context4.t0 = _context4["catch"](0);
 
                 if (!transaction) {
-                  _context4.next = 48;
+                  _context4.next = 49;
                   break;
                 }
 
-                _context4.next = 48;
+                _context4.next = 49;
                 return transaction.rollback();
 
-              case 48:
+              case 49:
                 return _context4.abrupt("return", res.status(400).json({
                   error: _context4.t0
                 }));
 
-              case 49:
+              case 50:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 43]]);
+        }, _callee4, null, [[0, 44]]);
       }));
 
       function update(_x5, _x6) {
