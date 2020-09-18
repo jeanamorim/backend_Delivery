@@ -6,7 +6,7 @@ import Estabelecimento from '../models/Estabelecimento';
 import Product from '../models/Product';
 import File from '../models/File';
 import User from '../models/User';
-
+import { sendMessage } from '../../websocket';
 import CreateOrderService from '../../services/CreateOrderService';
 import CancelOrderService from '../../services/CancelOrderService';
 // import AdminCheckService from '../../services/AdminCheckService';
@@ -163,12 +163,12 @@ class OrderController {
       const {
         id,
         date,
+        user_id,
         estabelecimento_id,
         status,
         addressee,
         observacao,
         troco,
-        name,
         ship_postal_code,
         ship_street,
         ship_street_n,
@@ -200,15 +200,43 @@ class OrderController {
 
         await transaction.commit();
 
-        return res.json({
+        const result = {
           id,
           date,
+          user_id,
           estabelecimento_id,
           status,
           addressee,
           observacao,
           troco,
-          name,
+          ship_postal_code,
+          ship_street,
+          ship_street_n,
+          ship_neighborhood,
+          ship_city,
+          ship_state,
+          ship_complement,
+          ship_reference,
+          subtotal,
+          delivery_fee,
+          discount,
+          total,
+          payment_method,
+          payment_condition,
+          cc_brand,
+          cc_last_4_digits,
+          products: req.body.products,
+        };
+        sendMessage(user_id, 'Update-order', result);
+        return res.json({
+          id,
+          date,
+          user_id,
+          estabelecimento_id,
+          status,
+          addressee,
+          observacao,
+          troco,
           ship_postal_code,
           ship_street,
           ship_street_n,
@@ -231,15 +259,42 @@ class OrderController {
 
       await transaction.commit();
 
-      return res.json({
+      const result1 = {
         id,
         date,
+        user_id,
         estabelecimento_id,
         status,
         addressee,
         observacao,
         troco,
-        name,
+        ship_postal_code,
+        ship_street,
+        ship_street_n,
+        ship_neighborhood,
+        ship_city,
+        ship_state,
+        ship_complement,
+        ship_reference,
+        subtotal,
+        delivery_fee,
+        discount,
+        total,
+        payment_method,
+        payment_condition,
+        cc_brand,
+        cc_last_4_digits,
+      };
+      sendMessage(user_id, 'Update-order', result1);
+      return res.json({
+        id,
+        date,
+        user_id,
+        estabelecimento_id,
+        status,
+        addressee,
+        observacao,
+        troco,
         ship_postal_code,
         ship_street,
         ship_street_n,
