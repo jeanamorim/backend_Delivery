@@ -52,7 +52,7 @@ var CreateOrderService = /*#__PURE__*/function () {
     key: "run",
     value: function () {
       var _run = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(data) {
-        var user_id, estabelecimento_id, status, addressee, observacao, troco, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, _data$ship_complement, ship_complement, _data$ship_reference, ship_reference, _data$delivery_fee, delivery_fee, _data$discount, discount, payment_method, _data$payment_conditi, payment_condition, _data$cc_brand, cc_brand, _data$cc_last_4_digit, cc_last_4_digits, products, orderSubTotal, orderTotal, pedido, order_details;
+        var user_id, estabelecimento_id, status, addressee, observacao, troco, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, _data$ship_complement, ship_complement, _data$ship_reference, ship_reference, _data$delivery_fee, delivery_fee, _data$discount, discount, payment_method, _data$payment_conditi, payment_condition, _data$cc_brand, cc_brand, _data$cc_last_4_digit, cc_last_4_digits, products, orderSubTotal, orderTotal, pedido, order_details, orders;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
@@ -99,17 +99,15 @@ var CreateOrderService = /*#__PURE__*/function () {
 
               case 9:
                 pedido = _context.sent;
-                sendMessage('new-order', pedido); // add order products to db
-
-                _context.next = 13;
+                _context.next = 12;
                 return _OrderDetail["default"].bulkCreate(products.map(function (product) {
                   return _objectSpread({
                     order_id: pedido.id
                   }, product);
                 }));
 
-              case 13:
-                _context.next = 15;
+              case 12:
+                _context.next = 14;
                 return _OrderDetail["default"].findAll({
                   where: {
                     order_id: pedido.id
@@ -131,12 +129,103 @@ var CreateOrderService = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 15:
+              case 14:
                 order_details = _context.sent;
+                // Organize products by categories
+
+                /*
+                const orderProductsGrouped = Object.values(
+                  orderProducts.reduce((result, { quantity, price, total, product }) => {
+                    // Create new group if necessary
+                    if (!result[product.category.name]) {
+                      result[product.category.name] = {
+                        category: product.category.name,
+                        products: [],
+                      };
+                    }
+                     // Append to group
+                    result[product.category.name].products.push({
+                      name: product.name,
+                      image: product.image,
+                      unit: product.unit,
+                      quantity: product.quantity,
+                      amount: quantity,
+                      price,
+                      total,
+                    });
+                    return result;
+                  }, {}),
+                );
+                */
+
+                /*
+                const orderProductsCount = products.reduce((result, { quantity }) => {
+                  return result + quantity;
+                }, 0);
+                 await Queue.add(NewOrderMail.key, {
+                  deliveryFeeLimit: JSON.parse(settings[0].delivery_fee)[1],
+                  orderDetails: {
+                    user,
+                    orderNumber: id,
+                    orderProductsGrouped: order_details,
+                    orderProductsCount,
+                    deliveryFee: delivery_fee,
+                    discount,
+                    orderSubTotal,
+                    orderTotal,
+                    orderDate: date,
+                    paymentDetails: {
+                      paymentMethod: payment_method,
+                      paymentCondition: payment_condition,
+                      creditCardBrand: cc_brand,
+                      creditCardLast4Digits: cc_last_4_digits,
+                    },
+                    shippingDetails: {
+                      addressee,
+                      postalCode: ship_postal_code,
+                      street: ship_street,
+                      streetN: ship_street_n,
+                      neighborhood: ship_neighborhood,
+                      city: ship_city,
+                      state: ship_state,
+                      complement: ship_complement,
+                      reference: ship_reference,
+                    },
+                  },
+                });
+                */
+                // await Cache.invalidatePrefix('orders:users');
+                orders = {
+                  id: pedido.id,
+                  date: pedido.date,
+                  user_id: user_id,
+                  status: status,
+                  addressee: addressee,
+                  observacao: observacao,
+                  troco: troco,
+                  ship_postal_code: ship_postal_code,
+                  ship_street: ship_street,
+                  ship_street_n: ship_street_n,
+                  ship_neighborhood: ship_neighborhood,
+                  ship_city: ship_city,
+                  ship_state: ship_state,
+                  ship_complement: ship_complement,
+                  ship_reference: ship_reference,
+                  delivery_fee: delivery_fee,
+                  discount: discount,
+                  subtotal: orderSubTotal,
+                  total: orderTotal,
+                  payment_method: payment_method,
+                  payment_condition: payment_condition,
+                  cc_brand: cc_brand,
+                  cc_last_4_digits: cc_last_4_digits,
+                  order_details: order_details
+                };
                 _context.next = 18;
                 return transaction.commit();
 
               case 18:
+                sendMessage(pedido.estabelecimento_id, 'new-order', orders);
                 return _context.abrupt("return", {
                   id: pedido.id,
                   date: pedido.date,
@@ -164,27 +253,27 @@ var CreateOrderService = /*#__PURE__*/function () {
                   order_details: order_details
                 });
 
-              case 21:
-                _context.prev = 21;
+              case 22:
+                _context.prev = 22;
                 _context.t0 = _context["catch"](0);
 
                 if (!transaction) {
-                  _context.next = 26;
+                  _context.next = 27;
                   break;
                 }
 
-                _context.next = 26;
+                _context.next = 27;
                 return transaction.rollback();
 
-              case 26:
+              case 27:
                 throw new Error(_context.t0);
 
-              case 27:
+              case 28:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 21]]);
+        }, _callee, null, [[0, 22]]);
       }));
 
       function run(_x) {
