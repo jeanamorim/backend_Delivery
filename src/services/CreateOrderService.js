@@ -79,7 +79,8 @@ class CreateOrderService {
         },
         transaction,
       );
-      sendMessage('new-order', pedido);
+
+      // sendMessage('new-order', pedido);
       // add order products to db
 
       await OrderDetail.bulkCreate(
@@ -186,8 +187,35 @@ class CreateOrderService {
 */
       // await Cache.invalidatePrefix('orders:users');
 
-      await transaction.commit();
+      const orders = {
+        id: pedido.id,
+        date: pedido.date,
+        user_id,
+        status,
+        addressee,
+        observacao,
+        troco,
+        ship_postal_code,
+        ship_street,
+        ship_street_n,
+        ship_neighborhood,
+        ship_city,
+        ship_state,
+        ship_complement,
+        ship_reference,
+        delivery_fee,
+        discount,
+        subtotal: orderSubTotal,
+        total: orderTotal,
+        payment_method,
+        payment_condition,
+        cc_brand,
+        cc_last_4_digits,
+        order_details,
+      };
 
+      await transaction.commit();
+      sendMessage(pedido.estabelecimento_id, 'new-order', orders);
       return {
         id: pedido.id,
         date: pedido.date,

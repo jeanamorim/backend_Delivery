@@ -1,18 +1,24 @@
 const socketio = require('socket.io');
 
 let io;
-const connections = [];
+const connections = {};
 
 exports.setupWebSocket = server => {
   io = socketio(server);
 
   io.on('connection', socket => {
-    connections.push({
-      id: socket.id,
-    });
+    const { profile_id } = socket.handshake.query;
+    connections[profile_id] = socket.id;
   });
 };
 
-exports.sendMessage = (message, data) => {
-  io.to(connections.id).emit(message, data);
+exports.connectionsId = () => {
+  return connections;
+};
+
+exports.sendMessage = (profile, message, data) => {
+  const ownerSocket = connections[profile];
+  if (ownerSocket) {
+    io.to(ownerSocket).emit(message, data);
+  }
 };
