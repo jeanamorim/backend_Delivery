@@ -29,6 +29,8 @@ var _File = _interopRequireDefault(require("../models/File"));
 
 var _User = _interopRequireDefault(require("../models/User"));
 
+var _websocket = require("../../websocket");
+
 var _CreateOrderService = _interopRequireDefault(require("../../services/CreateOrderService"));
 
 var _CancelOrderService = _interopRequireDefault(require("../../services/CancelOrderService"));
@@ -172,7 +174,7 @@ var OrderController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
-        var order, _yield$order$update, id, date, estabelecimento_id, status, addressee, observacao, troco, name, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, ship_complement, ship_reference, delivery_fee, discount, subtotal, total, payment_method, payment_condition, cc_brand, cc_last_4_digits;
+        var order, _yield$order$update, id, date, user_id, estabelecimento_id, status, addressee, observacao, troco, ship_postal_code, ship_street, ship_street_n, ship_neighborhood, ship_city, ship_state, ship_complement, ship_reference, delivery_fee, discount, subtotal, total, payment_method, payment_condition, cc_brand, cc_last_4_digits, result, result1;
 
         return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
@@ -196,12 +198,12 @@ var OrderController = /*#__PURE__*/function () {
                 _yield$order$update = _context4.sent;
                 id = _yield$order$update.id;
                 date = _yield$order$update.date;
+                user_id = _yield$order$update.user_id;
                 estabelecimento_id = _yield$order$update.estabelecimento_id;
                 status = _yield$order$update.status;
                 addressee = _yield$order$update.addressee;
                 observacao = _yield$order$update.observacao;
                 troco = _yield$order$update.troco;
-                name = _yield$order$update.name;
                 ship_postal_code = _yield$order$update.ship_postal_code;
                 ship_street = _yield$order$update.ship_street;
                 ship_street_n = _yield$order$update.ship_street_n;
@@ -220,7 +222,7 @@ var OrderController = /*#__PURE__*/function () {
                 cc_last_4_digits = _yield$order$update.cc_last_4_digits;
 
                 if (!req.body.products) {
-                  _context4.next = 39;
+                  _context4.next = 41;
                   break;
                 }
 
@@ -260,15 +262,43 @@ var OrderController = /*#__PURE__*/function () {
                 return transaction.commit();
 
               case 38:
-                return _context4.abrupt("return", res.json({
+                result = {
                   id: id,
                   date: date,
+                  user_id: user_id,
                   estabelecimento_id: estabelecimento_id,
                   status: status,
                   addressee: addressee,
                   observacao: observacao,
                   troco: troco,
-                  name: name,
+                  ship_postal_code: ship_postal_code,
+                  ship_street: ship_street,
+                  ship_street_n: ship_street_n,
+                  ship_neighborhood: ship_neighborhood,
+                  ship_city: ship_city,
+                  ship_state: ship_state,
+                  ship_complement: ship_complement,
+                  ship_reference: ship_reference,
+                  subtotal: subtotal,
+                  delivery_fee: delivery_fee,
+                  discount: discount,
+                  total: total,
+                  payment_method: payment_method,
+                  payment_condition: payment_condition,
+                  cc_brand: cc_brand,
+                  cc_last_4_digits: cc_last_4_digits,
+                  products: req.body.products
+                };
+                (0, _websocket.sendMessage)(user_id, 'Update-order', result);
+                return _context4.abrupt("return", res.json({
+                  id: id,
+                  date: date,
+                  user_id: user_id,
+                  estabelecimento_id: estabelecimento_id,
+                  status: status,
+                  addressee: addressee,
+                  observacao: observacao,
+                  troco: troco,
                   ship_postal_code: ship_postal_code,
                   ship_street: ship_street,
                   ship_street_n: ship_street_n,
@@ -288,20 +318,47 @@ var OrderController = /*#__PURE__*/function () {
                   products: req.body.products
                 }));
 
-              case 39:
-                _context4.next = 41;
+              case 41:
+                _context4.next = 43;
                 return transaction.commit();
 
-              case 41:
-                return _context4.abrupt("return", res.json({
+              case 43:
+                result1 = {
                   id: id,
                   date: date,
+                  user_id: user_id,
                   estabelecimento_id: estabelecimento_id,
                   status: status,
                   addressee: addressee,
                   observacao: observacao,
                   troco: troco,
-                  name: name,
+                  ship_postal_code: ship_postal_code,
+                  ship_street: ship_street,
+                  ship_street_n: ship_street_n,
+                  ship_neighborhood: ship_neighborhood,
+                  ship_city: ship_city,
+                  ship_state: ship_state,
+                  ship_complement: ship_complement,
+                  ship_reference: ship_reference,
+                  subtotal: subtotal,
+                  delivery_fee: delivery_fee,
+                  discount: discount,
+                  total: total,
+                  payment_method: payment_method,
+                  payment_condition: payment_condition,
+                  cc_brand: cc_brand,
+                  cc_last_4_digits: cc_last_4_digits
+                };
+                (0, _websocket.sendMessage)(user_id, 'Update-order', result1);
+                return _context4.abrupt("return", res.json({
+                  id: id,
+                  date: date,
+                  user_id: user_id,
+                  estabelecimento_id: estabelecimento_id,
+                  status: status,
+                  addressee: addressee,
+                  observacao: observacao,
+                  troco: troco,
                   ship_postal_code: ship_postal_code,
                   ship_street: ship_street,
                   ship_street_n: ship_street_n,
@@ -320,29 +377,29 @@ var OrderController = /*#__PURE__*/function () {
                   cc_last_4_digits: cc_last_4_digits
                 }));
 
-              case 44:
-                _context4.prev = 44;
+              case 48:
+                _context4.prev = 48;
                 _context4.t0 = _context4["catch"](0);
 
                 if (!transaction) {
-                  _context4.next = 49;
+                  _context4.next = 53;
                   break;
                 }
 
-                _context4.next = 49;
+                _context4.next = 53;
                 return transaction.rollback();
 
-              case 49:
+              case 53:
                 return _context4.abrupt("return", res.status(400).json({
                   error: _context4.t0
                 }));
 
-              case 50:
+              case 54:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 44]]);
+        }, _callee4, null, [[0, 48]]);
       }));
 
       function update(_x5, _x6) {
