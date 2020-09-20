@@ -291,31 +291,7 @@ var OrderController = /*#__PURE__*/function () {
                 };
                 (0, _websocket.sendMessage)(user_id, 'Update-order', result);
                 return _context4.abrupt("return", res.json({
-                  id: id,
-                  date: date,
-                  user_id: user_id,
-                  estabelecimento_id: estabelecimento_id,
-                  status: status,
-                  addressee: addressee,
-                  observacao: observacao,
-                  troco: troco,
-                  ship_postal_code: ship_postal_code,
-                  ship_street: ship_street,
-                  ship_street_n: ship_street_n,
-                  ship_neighborhood: ship_neighborhood,
-                  ship_city: ship_city,
-                  ship_state: ship_state,
-                  ship_complement: ship_complement,
-                  ship_reference: ship_reference,
-                  subtotal: subtotal,
-                  delivery_fee: delivery_fee,
-                  discount: discount,
-                  total: total,
-                  payment_method: payment_method,
-                  payment_condition: payment_condition,
-                  cc_brand: cc_brand,
-                  cc_last_4_digits: cc_last_4_digits,
-                  products: req.body.products
+                  result: result
                 }));
 
               case 41:
@@ -351,30 +327,7 @@ var OrderController = /*#__PURE__*/function () {
                 };
                 (0, _websocket.sendMessage)(user_id, 'Update-order', result1);
                 return _context4.abrupt("return", res.json({
-                  id: id,
-                  date: date,
-                  user_id: user_id,
-                  estabelecimento_id: estabelecimento_id,
-                  status: status,
-                  addressee: addressee,
-                  observacao: observacao,
-                  troco: troco,
-                  ship_postal_code: ship_postal_code,
-                  ship_street: ship_street,
-                  ship_street_n: ship_street_n,
-                  ship_neighborhood: ship_neighborhood,
-                  ship_city: ship_city,
-                  ship_state: ship_state,
-                  ship_complement: ship_complement,
-                  ship_reference: ship_reference,
-                  subtotal: subtotal,
-                  delivery_fee: delivery_fee,
-                  discount: discount,
-                  total: total,
-                  payment_method: payment_method,
-                  payment_condition: payment_condition,
-                  cc_brand: cc_brand,
-                  cc_last_4_digits: cc_last_4_digits
+                  result1: result1
                 }));
 
               case 48:

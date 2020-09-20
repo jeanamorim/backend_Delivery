@@ -21,6 +21,8 @@ var _File = _interopRequireDefault(require("../models/File"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
+var _websocket = require("../../websocket");
+
 // import Cache from '../../lib/Cache';
 // import AdminCheckService from '../../services/AdminCheckService';
 var CategoryController = /*#__PURE__*/function () {
@@ -49,9 +51,11 @@ var CategoryController = /*#__PURE__*/function () {
 
               case 3:
                 categories = _context.sent;
+                // await Cache.invalidate('categories');
+                (0, _websocket.sendMessage)(categories.estabelecimento_id, 'NEW_CATEGORIAS', categories);
                 return _context.abrupt("return", res.json(categories));
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
