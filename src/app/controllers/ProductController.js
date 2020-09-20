@@ -6,7 +6,7 @@ import Category from '../models/Category';
 import Estabelecimento from '../models/Estabelecimento';
 import Variacao from '../models/Variacao';
 import Opcao from '../models/Opcao';
-
+import { sendMessage } from '../../websocket';
 // import AdminCheckService from '../../services/AdminCheckService';
 import FormatProductService from '../../services/FormatProductService';
 
@@ -39,7 +39,48 @@ class ProductController {
     if (variacao && variacao.length > 0) {
       products.setVariacao(variacao);
     }
+    // / fazendo a chamada do produto cadastrado para enviar para o socket
 
+    const NewProduct = await Product.findAll({
+      where: {
+        id: products.id,
+      },
+      attributes: ['id', 'name', 'description', 'price', 'unit', 'quantity'],
+      include: [
+        {
+          model: File,
+          as: 'image',
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+          include: [
+            {
+              model: File,
+              as: 'image',
+              attributes: ['id', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: Variacao,
+          as: 'variacao',
+          attributes: ['id', 'name', 'minimo', 'maximo'],
+          through: { attributes: [] },
+          include: [
+            {
+              model: Opcao,
+              as: 'opcao',
+              attributes: ['id', 'name', 'price', 'status'],
+              through: { attributes: [] },
+            },
+          ],
+        },
+      ],
+    });
+    sendMessage(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
     return res.json(products);
   }
 

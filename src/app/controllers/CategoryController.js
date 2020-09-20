@@ -36,6 +36,7 @@ class CategoryController {
     });
 
     // await Cache.invalidate('categories');
+    // /enviar para o socket a categoria cadastrada
     sendMessage(categories.estabelecimento_id, 'NEW_CATEGORIAS', Newcategories);
 
     return res.json(categories);

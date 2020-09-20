@@ -71,6 +71,7 @@ var CategoryController = /*#__PURE__*/function () {
               case 6:
                 Newcategories = _context.sent;
                 // await Cache.invalidate('categories');
+                // /enviar para o socket a categoria cadastrada
                 (0, _websocket.sendMessage)(categories.estabelecimento_id, 'NEW_CATEGORIAS', Newcategories);
                 return _context.abrupt("return", res.json(categories));
 
