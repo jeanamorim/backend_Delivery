@@ -54,7 +54,7 @@ var CategoryController = /*#__PURE__*/function () {
                 _context.next = 6;
                 return _Category["default"].findAll({
                   where: {
-                    id: categories.id
+                    estabelecimento_id: req.estabelecimentoId
                   },
                   attributes: ['id', 'name'],
                   include: [{

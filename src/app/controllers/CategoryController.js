@@ -15,9 +15,10 @@ class CategoryController {
       name,
       image_id,
     });
+    // buscando a categoria cadastrada para enviar para o socket
     const Newcategories = await Category.findAll({
       where: {
-        id: categories.id,
+        estabelecimento_id: req.estabelecimentoId,
       },
       attributes: ['id', 'name'],
       include: [
