@@ -34,7 +34,7 @@ var CategoryController = /*#__PURE__*/function () {
     key: "store",
     value: function () {
       var _store = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var _req$body, name, image_id, categories;
+        var _req$body, name, image_id, categories, Newcategories;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
@@ -51,11 +51,30 @@ var CategoryController = /*#__PURE__*/function () {
 
               case 3:
                 categories = _context.sent;
-                // await Cache.invalidate('categories');
-                (0, _websocket.sendMessage)(categories.estabelecimento_id, 'NEW_CATEGORIAS', categories);
-                return _context.abrupt("return", res.json(categories));
+                _context.next = 6;
+                return _Category["default"].findAll({
+                  where: {
+                    id: categories.id
+                  },
+                  attributes: ['id', 'name'],
+                  include: [{
+                    model: _File["default"],
+                    as: 'image',
+                    attributes: ['id', 'path', 'url']
+                  }, {
+                    model: _Estabelecimento["default"],
+                    as: 'estabelecimento',
+                    attributes: ['id', 'name_loja']
+                  }]
+                });
 
               case 6:
+                Newcategories = _context.sent;
+                // await Cache.invalidate('categories');
+                (0, _websocket.sendMessage)(categories.estabelecimento_id, 'NEW_CATEGORIAS', Newcategories);
+                return _context.abrupt("return", res.json(categories));
+
+              case 9:
               case "end":
                 return _context.stop();
             }

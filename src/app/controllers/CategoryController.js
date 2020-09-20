@@ -15,9 +15,27 @@ class CategoryController {
       name,
       image_id,
     });
+    const Newcategories = await Category.findAll({
+      where: {
+        id: categories.id,
+      },
+      attributes: ['id', 'name'],
+      include: [
+        {
+          model: File,
+          as: 'image',
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: Estabelecimento,
+          as: 'estabelecimento',
+          attributes: ['id', 'name_loja'],
+        },
+      ],
+    });
 
     // await Cache.invalidate('categories');
-    sendMessage(categories.estabelecimento_id, 'NEW_CATEGORIAS', categories);
+    sendMessage(categories.estabelecimento_id, 'NEW_CATEGORIAS', Newcategories);
 
     return res.json(categories);
   }
