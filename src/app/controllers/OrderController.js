@@ -229,31 +229,7 @@ class OrderController {
         };
         sendMessage(user_id, 'Update-order', result);
         return res.json({
-          id,
-          date,
-          user_id,
-          estabelecimento_id,
-          status,
-          addressee,
-          observacao,
-          troco,
-          ship_postal_code,
-          ship_street,
-          ship_street_n,
-          ship_neighborhood,
-          ship_city,
-          ship_state,
-          ship_complement,
-          ship_reference,
-          subtotal,
-          delivery_fee,
-          discount,
-          total,
-          payment_method,
-          payment_condition,
-          cc_brand,
-          cc_last_4_digits,
-          products: req.body.products,
+          result,
         });
       }
 
@@ -287,30 +263,7 @@ class OrderController {
       };
       sendMessage(user_id, 'Update-order', result1);
       return res.json({
-        id,
-        date,
-        user_id,
-        estabelecimento_id,
-        status,
-        addressee,
-        observacao,
-        troco,
-        ship_postal_code,
-        ship_street,
-        ship_street_n,
-        ship_neighborhood,
-        ship_city,
-        ship_state,
-        ship_complement,
-        ship_reference,
-        subtotal,
-        delivery_fee,
-        discount,
-        total,
-        payment_method,
-        payment_condition,
-        cc_brand,
-        cc_last_4_digits,
+        result1,
       });
     } catch (err) {
       if (transaction) await transaction.rollback();

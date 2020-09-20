@@ -2,7 +2,7 @@ import Category from '../models/Category';
 import File from '../models/File';
 import Estabelecimento from '../models/Estabelecimento';
 // import Cache from '../../lib/Cache';
-
+import { sendMessage } from '../../websocket';
 // import AdminCheckService from '../../services/AdminCheckService';
 
 class CategoryController {
@@ -17,6 +17,7 @@ class CategoryController {
     });
 
     // await Cache.invalidate('categories');
+    sendMessage(categories.estabelecimento_id, 'NEW_CATEGORIAS', categories);
 
     return res.json(categories);
   }
