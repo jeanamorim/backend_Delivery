@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+/* eslint-disable no-unreachable */
 import Frete from '../models/Frete';
 import Estabelecimento from '../models/Estabelecimento';
 
@@ -5,17 +7,27 @@ import Estabelecimento from '../models/Estabelecimento';
 
 class OpcaoVariacaoController {
   async store(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-    const { name, price, status } = req.body;
+    const { frete } = req.body;
 
-    const frete = await Frete.create({
-      estabelecimento_id: req.estabelecimentoId,
-      name,
-      price,
-      status,
+    const classFrete = frete.map(item => {
+      return {
+        estabelecimento_id: req.estabelecimentoId,
+        name: item.name,
+        price: item.price,
+        status: item.status,
+      };
     });
 
-    return res.json(frete);
+    Frete.bulkCreate(classFrete)
+      .then(function() {
+        return Frete.findAll();
+      })
+      .then(function(response) {
+        res.json(response);
+      })
+      .catch(function(error) {
+        res.json(error);
+      });
   }
 
   async index(req, res) {

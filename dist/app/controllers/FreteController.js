@@ -19,6 +19,9 @@ var _Frete = _interopRequireDefault(require("../models/Frete"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
+/* eslint-disable func-names */
+
+/* eslint-disable no-unreachable */
 // import AdminCheckService from '../../services/AdminCheckService';
 var OpcaoVariacaoController = /*#__PURE__*/function () {
   function OpcaoVariacaoController() {
@@ -29,27 +32,30 @@ var OpcaoVariacaoController = /*#__PURE__*/function () {
     key: "store",
     value: function () {
       var _store = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var _req$body, name, price, status, frete;
-
+        var frete, classFrete;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // await AdminCheckService.run({ user_id: req.userId });
-                _req$body = req.body, name = _req$body.name, price = _req$body.price, status = _req$body.status;
-                _context.next = 3;
-                return _Frete["default"].create({
-                  estabelecimento_id: req.estabelecimentoId,
-                  name: name,
-                  price: price,
-                  status: status
+                frete = req.body.frete;
+                classFrete = frete.map(function (item) {
+                  return {
+                    estabelecimento_id: req.estabelecimentoId,
+                    name: item.name,
+                    price: item.price,
+                    status: item.status
+                  };
+                });
+
+                _Frete["default"].bulkCreate(classFrete).then(function () {
+                  return _Frete["default"].findAll();
+                }).then(function (response) {
+                  res.json(response);
+                })["catch"](function (error) {
+                  res.json(error);
                 });
 
               case 3:
-                frete = _context.sent;
-                return _context.abrupt("return", res.json(frete));
-
-              case 5:
               case "end":
                 return _context.stop();
             }
@@ -107,14 +113,14 @@ var OpcaoVariacaoController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var _req$body2, name, price, status;
+        var _req$body, name, price, status;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 // await AdminCheckService.run({ user_id: req.userId });
-                _req$body2 = req.body, name = _req$body2.name, price = _req$body2.price, status = _req$body2.status;
+                _req$body = req.body, name = _req$body.name, price = _req$body.price, status = _req$body.status;
 
                 _Frete["default"].bulkCreate(name, price, status, {
                   updateOnDuplicate: ['name', 'price', 'status']
