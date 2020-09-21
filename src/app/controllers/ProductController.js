@@ -41,46 +41,46 @@ class ProductController {
     }
     // / fazendo a chamada do produto cadastrado para enviar para o socket
 
-    const NewProduct = await Product.findAll({
-      where: {
-        id: products.id,
-      },
-      attributes: ['id', 'name', 'description', 'price', 'unit', 'quantity'],
-      include: [
-        {
-          model: File,
-          as: 'image',
-          attributes: ['id', 'path', 'url'],
-        },
-        {
-          model: Category,
-          as: 'category',
-          attributes: ['id', 'name'],
-          include: [
-            {
-              model: File,
-              as: 'image',
-              attributes: ['id', 'path', 'url'],
-            },
-          ],
-        },
-        {
-          model: Variacao,
-          as: 'variacao',
-          attributes: ['id', 'name', 'minimo', 'maximo'],
-          through: { attributes: [] },
-          include: [
-            {
-              model: Opcao,
-              as: 'opcao',
-              attributes: ['id', 'name', 'price', 'status'],
-              through: { attributes: [] },
-            },
-          ],
-        },
-      ],
-    });
-    sendMessage(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
+    // const NewProduct = await Product.findAll({
+    //   where: {
+    //     id: products.id,
+    //   },
+    //   attributes: ['id', 'name', 'description', 'price', 'unit', 'quantity'],
+    //   include: [
+    //     {
+    //       model: File,
+    //       as: 'image',
+    //       attributes: ['id', 'path', 'url'],
+    //     },
+    //     {
+    //       model: Category,
+    //       as: 'category',
+    //       attributes: ['id', 'name'],
+    //       include: [
+    //         {
+    //           model: File,
+    //           as: 'image',
+    //           attributes: ['id', 'path', 'url'],
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       model: Variacao,
+    //       as: 'variacao',
+    //       attributes: ['id', 'name', 'minimo', 'maximo'],
+    //       through: { attributes: [] },
+    //       include: [
+    //         {
+    //           model: Opcao,
+    //           as: 'opcao',
+    //           attributes: ['id', 'name', 'price', 'status'],
+    //           through: { attributes: [] },
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // });
+    // sendMessage(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
     return res.json(products);
   }
 

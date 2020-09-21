@@ -47,7 +47,7 @@ var ProductController = /*#__PURE__*/function () {
     key: "store",
     value: function () {
       var _store = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var _req$body, name, description, quantity, unit, image_id, category_id, price, variacao, products, NewProduct;
+        var _req$body, name, description, quantity, unit, image_id, category_id, price, variacao, products;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
@@ -74,51 +74,51 @@ var ProductController = /*#__PURE__*/function () {
                 if (variacao && variacao.length > 0) {
                   products.setVariacao(variacao);
                 } // / fazendo a chamada do produto cadastrado para enviar para o socket
+                // const NewProduct = await Product.findAll({
+                //   where: {
+                //     id: products.id,
+                //   },
+                //   attributes: ['id', 'name', 'description', 'price', 'unit', 'quantity'],
+                //   include: [
+                //     {
+                //       model: File,
+                //       as: 'image',
+                //       attributes: ['id', 'path', 'url'],
+                //     },
+                //     {
+                //       model: Category,
+                //       as: 'category',
+                //       attributes: ['id', 'name'],
+                //       include: [
+                //         {
+                //           model: File,
+                //           as: 'image',
+                //           attributes: ['id', 'path', 'url'],
+                //         },
+                //       ],
+                //     },
+                //     {
+                //       model: Variacao,
+                //       as: 'variacao',
+                //       attributes: ['id', 'name', 'minimo', 'maximo'],
+                //       through: { attributes: [] },
+                //       include: [
+                //         {
+                //           model: Opcao,
+                //           as: 'opcao',
+                //           attributes: ['id', 'name', 'price', 'status'],
+                //           through: { attributes: [] },
+                //         },
+                //       ],
+                //     },
+                //   ],
+                // });
+                // sendMessage(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
 
 
-                _context.next = 7;
-                return _Product["default"].findAll({
-                  where: {
-                    id: products.id
-                  },
-                  attributes: ['id', 'name', 'description', 'price', 'unit', 'quantity'],
-                  include: [{
-                    model: _File["default"],
-                    as: 'image',
-                    attributes: ['id', 'path', 'url']
-                  }, {
-                    model: _Category["default"],
-                    as: 'category',
-                    attributes: ['id', 'name'],
-                    include: [{
-                      model: _File["default"],
-                      as: 'image',
-                      attributes: ['id', 'path', 'url']
-                    }]
-                  }, {
-                    model: _Variacao["default"],
-                    as: 'variacao',
-                    attributes: ['id', 'name', 'minimo', 'maximo'],
-                    through: {
-                      attributes: []
-                    },
-                    include: [{
-                      model: _Opcao["default"],
-                      as: 'opcao',
-                      attributes: ['id', 'name', 'price', 'status'],
-                      through: {
-                        attributes: []
-                      }
-                    }]
-                  }]
-                });
-
-              case 7:
-                NewProduct = _context.sent;
-                (0, _websocket.sendMessage)(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
                 return _context.abrupt("return", res.json(products));
 
-              case 10:
+              case 6:
               case "end":
                 return _context.stop();
             }
