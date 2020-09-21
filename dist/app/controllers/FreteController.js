@@ -107,34 +107,26 @@ var OpcaoVariacaoController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var frete, _yield$frete$update, id, name, price, status;
+        var _req$body2, name, price, status;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return _Frete["default"].findByPk(req.params.id);
+                // await AdminCheckService.run({ user_id: req.userId });
+                _req$body2 = req.body, name = _req$body2.name, price = _req$body2.price, status = _req$body2.status;
 
-              case 2:
-                frete = _context3.sent;
-                _context3.next = 5;
-                return frete.update(req.body);
+                _Frete["default"].bulkCreate(name, price, status, {
+                  updateOnDuplicate: ['name', 'price', 'status']
+                });
 
-              case 5:
-                _yield$frete$update = _context3.sent;
-                id = _yield$frete$update.id;
-                name = _yield$frete$update.name;
-                price = _yield$frete$update.price;
-                status = _yield$frete$update.status;
                 return _context3.abrupt("return", res.json({
-                  id: id,
                   name: name,
                   price: price,
                   status: status
                 }));
 
-              case 11:
+              case 3:
               case "end":
                 return _context3.stop();
             }
