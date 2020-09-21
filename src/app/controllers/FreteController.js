@@ -41,11 +41,13 @@ class OpcaoVariacaoController {
   async update(req, res) {
     // await AdminCheckService.run({ user_id: req.userId });
 
-    const frete = await Frete.findByPk(req.params.id);
+    const { name, price, status } = req.body;
 
-    const { id, name, price, status } = await frete.update(req.body);
+    Frete.bulkCreate(name, price, status, {
+      updateOnDuplicate: ['name', 'price', 'status'],
+    });
 
-    return res.json({ id, name, price, status });
+    return res.json({ name, price, status });
   }
 
   async delete(req, res) {
