@@ -19,14 +19,10 @@ var _Frete = _interopRequireDefault(require("../models/Frete"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
-var _database = _interopRequireDefault(require("../../database"));
-
 /* eslint-disable func-names */
 
 /* eslint-disable no-unreachable */
 // import AdminCheckService from '../../services/AdminCheckService';
-var sequelize = _database["default"].connection;
-
 var Fretes = /*#__PURE__*/function () {
   function Fretes() {
     (0, _classCallCheck2["default"])(this, Fretes);
@@ -44,25 +40,22 @@ var Fretes = /*#__PURE__*/function () {
                 frete = req.body.frete;
                 classFrete = frete.map(function (item) {
                   return {
-                    estabelecimento_id: item.estabelecimento_id,
+                    estabelecimento_id: req.estabelecimentoId,
                     name: item.name,
                     price: item.price,
                     status: item.status
                   };
                 });
-                return _context.abrupt("return", sequelize.transaction(function (t) {
-                  return sequelize.Promise.each(classFrete, function (itemToUpdate) {
-                    _Frete["default"].update(itemToUpdate, {
-                      transaction: t
-                    });
-                  }).then(function (updateResult) {
-                    return _Frete["default"].bulkCreate(classFrete, {
-                      transaction: t
-                    });
-                  }, function (err) {
-                    res.json(err);
-                  });
-                }));
+
+                _Frete["default"].bulkCreate(classFrete, {
+                  updateOnDuplicate: ['id']
+                }).then(function () {
+                  return _Frete["default"].findAll();
+                }).then(function (response) {
+                  res.json(response);
+                })["catch"](function (error) {
+                  res.json(error);
+                });
 
               case 3:
               case "end":
@@ -166,7 +159,7 @@ var Fretes = /*#__PURE__*/function () {
                 _context4.next = 2;
                 return _Frete["default"].destroy({
                   where: {
-                    estabelecimento_id: req.estabelecimentoId
+                    id: req.params.id
                   }
                 });
 

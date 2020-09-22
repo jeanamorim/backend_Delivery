@@ -2,34 +2,32 @@
 /* eslint-disable no-unreachable */
 import Frete from '../models/Frete';
 import Estabelecimento from '../models/Estabelecimento';
-import db from '../../database';
+
 // import AdminCheckService from '../../services/AdminCheckService';
-const sequelize = db.connection;
+
 class Fretes {
   async store(req, res) {
     const { frete } = req.body;
 
     const classFrete = frete.map(item => {
       return {
-        estabelecimento_id: item.estabelecimento_id,
+        estabelecimento_id: req.estabelecimentoId,
         name: item.name,
         price: item.price,
         status: item.status,
       };
     });
 
-    return sequelize.transaction(function(t) {
-      return sequelize.Promise.each(classFrete, function(itemToUpdate) {
-        Frete.update(itemToUpdate, { transaction: t });
-      }).then(
-        updateResult => {
-          return Frete.bulkCreate(classFrete, { transaction: t });
-        },
-        err => {
-          res.json(err);
-        },
-      );
-    });
+    Frete.bulkCreate(classFrete, { updateOnDuplicate: ['id'] })
+      .then(function() {
+        return Frete.findAll();
+      })
+      .then(function(response) {
+        res.json(response);
+      })
+      .catch(function(error) {
+        res.json(error);
+      });
   }
 
   async index(req, res) {
@@ -69,7 +67,7 @@ class Fretes {
 
     await Frete.destroy({
       where: {
-        estabelecimento_id: req.estabelecimentoId,
+        id: req.params.id,
       },
     });
 
