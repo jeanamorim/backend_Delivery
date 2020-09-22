@@ -2,9 +2,9 @@
 /* eslint-disable no-unreachable */
 import Frete from '../models/Frete';
 import Estabelecimento from '../models/Estabelecimento';
-
+import db from '../../database';
 // import AdminCheckService from '../../services/AdminCheckService';
-
+const sequelize = db.connection;
 class Fretes {
   async store(req, res) {
     const { frete } = req.body;
@@ -18,19 +18,18 @@ class Fretes {
       };
     });
 
-    Frete.bulkCreate(classFrete, {
-      fields: ['id', 'estabelecimento_id', 'name', 'price', 'status'],
-      updateOnDuplicate: ['id'],
-    })
-      .then(function() {
-        return Frete.findAll();
-      })
-      .then(function(response) {
-        res.json(response);
-      })
-      .catch(function(error) {
-        res.json(error);
-      });
+    return sequelize.transaction(function(t) {
+      return sequelize.Promise.each(classFrete, function(itemToUpdate) {
+        Frete.update(itemToUpdate, { transaction: t });
+      }).then(
+        updateResult => {
+          return Frete.bulkCreate(classFrete, { transaction: t });
+        },
+        err => {
+          res.json(err);
+        },
+      );
+    });
   }
 
   async index(req, res) {

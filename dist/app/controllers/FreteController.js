@@ -19,10 +19,14 @@ var _Frete = _interopRequireDefault(require("../models/Frete"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
+var _database = _interopRequireDefault(require("../../database"));
+
 /* eslint-disable func-names */
 
 /* eslint-disable no-unreachable */
 // import AdminCheckService from '../../services/AdminCheckService';
+var sequelize = _database["default"].connection;
+
 var Fretes = /*#__PURE__*/function () {
   function Fretes() {
     (0, _classCallCheck2["default"])(this, Fretes);
@@ -46,17 +50,19 @@ var Fretes = /*#__PURE__*/function () {
                     status: item.status
                   };
                 });
-
-                _Frete["default"].bulkCreate(classFrete, {
-                  fields: ['id', 'estabelecimento_id', 'name', 'price', 'status'],
-                  updateOnDuplicate: ['id']
-                }).then(function () {
-                  return _Frete["default"].findAll();
-                }).then(function (response) {
-                  res.json(response);
-                })["catch"](function (error) {
-                  res.json(error);
-                });
+                return _context.abrupt("return", sequelize.transaction(function (t) {
+                  return sequelize.Promise.each(classFrete, function (itemToUpdate) {
+                    _Frete["default"].update(itemToUpdate, {
+                      transaction: t
+                    });
+                  }).then(function (updateResult) {
+                    return _Frete["default"].bulkCreate(classFrete, {
+                      transaction: t
+                    });
+                  }, function (err) {
+                    res.json(err);
+                  });
+                }));
 
               case 3:
               case "end":
