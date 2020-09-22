@@ -9,8 +9,6 @@ exports["default"] = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
@@ -20,10 +18,6 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 var _Frete = _interopRequireDefault(require("../models/Frete"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
-
-/* eslint-disable no-console */
-
-/* eslint-disable no-unused-vars */
 
 /* eslint-disable func-names */
 
@@ -53,18 +47,15 @@ var Fretes = /*#__PURE__*/function () {
                   };
                 });
 
-                _Frete["default"].bulkCreate(classFrete).then(function () {
-                  return _Frete["default"].update(classFrete);
-                }).then(function (_ref) {
-                  var _ref2 = (0, _slicedToArray2["default"])(_ref, 2),
-                      affectedCount = _ref2[0],
-                      affectedRows = _ref2[1];
-
-                  // Notice that affectedRows will only be defined in dialects which support returning: true
-                  // affectedCount will be 2
+                _Frete["default"].bulkCreate(classFrete, {
+                  fields: ['id', ' estabelecimento_id', 'name', 'price', 'status'],
+                  updateOnDuplicate: ['id']
+                }).then(function () {
                   return _Frete["default"].findAll();
-                }).then(function (tasks) {
-                  console.log(tasks); // the 'programming' tasks will both have a status of 'inactive'
+                }).then(function (response) {
+                  res.json(response);
+                })["catch"](function (error) {
+                  res.json(error);
                 });
 
               case 3:
@@ -169,7 +160,7 @@ var Fretes = /*#__PURE__*/function () {
                 _context4.next = 2;
                 return _Frete["default"].destroy({
                   where: {
-                    estabelecimento_id: req.estabelecimentoId
+                    id: req.params.id
                   }
                 });
 

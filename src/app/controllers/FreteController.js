@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 /* eslint-disable func-names */
 /* eslint-disable no-unreachable */
 import Frete from '../models/Frete';
@@ -20,18 +18,18 @@ class Fretes {
       };
     });
 
-    Frete.bulkCreate(classFrete)
-      .then(() => {
-        return Frete.update(classFrete);
-      })
-      .then(([affectedCount, affectedRows]) => {
-        // Notice that affectedRows will only be defined in dialects which support returning: true
-
-        // affectedCount will be 2
+    Frete.bulkCreate(classFrete, {
+      fields: ['id', ' estabelecimento_id', 'name', 'price', 'status'],
+      updateOnDuplicate: ['id'],
+    })
+      .then(function() {
         return Frete.findAll();
       })
-      .then(tasks => {
-        console.log(tasks); // the 'programming' tasks will both have a status of 'inactive'
+      .then(function(response) {
+        res.json(response);
+      })
+      .catch(function(error) {
+        res.json(error);
       });
   }
 
@@ -72,7 +70,7 @@ class Fretes {
 
     await Frete.destroy({
       where: {
-        estabelecimento_id: req.estabelecimentoId,
+        id: req.params.id,
       },
     });
 
