@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 /* eslint-disable func-names */
 /* eslint-disable no-unreachable */
 import Frete from '../models/Frete';
@@ -22,14 +24,14 @@ class Fretes {
       .then(() => {
         return Frete.update(classFrete);
       })
-      .then(function() {
+      .then(([affectedCount, affectedRows]) => {
+        // Notice that affectedRows will only be defined in dialects which support returning: true
+
+        // affectedCount will be 2
         return Frete.findAll();
       })
-      .then(function(response) {
-        res.json(response);
-      })
-      .catch(function(error) {
-        res.json(error);
+      .then(tasks => {
+        console.log(tasks); // the 'programming' tasks will both have a status of 'inactive'
       });
   }
 
