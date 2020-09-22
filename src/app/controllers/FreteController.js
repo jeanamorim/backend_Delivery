@@ -70,7 +70,7 @@ class Fretes {
 
     await Frete.destroy({
       where: {
-        id: req.params.id,
+        estabelecimento_id: req.estabelecimentoId,
       },
     });
 
