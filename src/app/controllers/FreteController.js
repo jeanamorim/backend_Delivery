@@ -11,7 +11,7 @@ class Fretes {
 
     const classFrete = frete.map(item => {
       return {
-        estabelecimento_id: req.estabelecimentoId,
+        estabelecimento_id: item.estabelecimento_id,
         name: item.name,
         price: item.price,
         status: item.status,
@@ -19,7 +19,7 @@ class Fretes {
     });
 
     Frete.bulkCreate(classFrete, {
-      fields: ['id', 'name', 'price', 'status'],
+      fields: ['id', 'estabelecimento_id', 'name', 'price', 'status'],
       updateOnDuplicate: ['id'],
     })
       .then(function() {

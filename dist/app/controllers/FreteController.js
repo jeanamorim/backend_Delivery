@@ -40,7 +40,7 @@ var Fretes = /*#__PURE__*/function () {
                 frete = req.body.frete;
                 classFrete = frete.map(function (item) {
                   return {
-                    estabelecimento_id: req.estabelecimentoId,
+                    estabelecimento_id: item.estabelecimento_id,
                     name: item.name,
                     price: item.price,
                     status: item.status
@@ -48,7 +48,7 @@ var Fretes = /*#__PURE__*/function () {
                 });
 
                 _Frete["default"].bulkCreate(classFrete, {
-                  fields: ['id', 'name', 'price', 'status'],
+                  fields: ['id', 'estabelecimento_id', 'name', 'price', 'status'],
                   updateOnDuplicate: ['id']
                 }).then(function () {
                   return _Frete["default"].findAll();
