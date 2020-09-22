@@ -5,7 +5,7 @@ import Estabelecimento from '../models/Estabelecimento';
 
 // import AdminCheckService from '../../services/AdminCheckService';
 
-class OpcaoVariacaoController {
+class Fretes {
   async store(req, res) {
     const { frete } = req.body;
 
@@ -19,6 +19,9 @@ class OpcaoVariacaoController {
     });
 
     Frete.bulkCreate(classFrete)
+      .then(() => {
+        return Frete.update(classFrete);
+      })
       .then(function() {
         return Frete.findAll();
       })
@@ -75,4 +78,4 @@ class OpcaoVariacaoController {
   }
 }
 
-export default new OpcaoVariacaoController();
+export default new Fretes();

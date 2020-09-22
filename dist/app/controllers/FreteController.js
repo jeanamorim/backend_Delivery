@@ -23,12 +23,12 @@ var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento
 
 /* eslint-disable no-unreachable */
 // import AdminCheckService from '../../services/AdminCheckService';
-var OpcaoVariacaoController = /*#__PURE__*/function () {
-  function OpcaoVariacaoController() {
-    (0, _classCallCheck2["default"])(this, OpcaoVariacaoController);
+var Fretes = /*#__PURE__*/function () {
+  function Fretes() {
+    (0, _classCallCheck2["default"])(this, Fretes);
   }
 
-  (0, _createClass2["default"])(OpcaoVariacaoController, [{
+  (0, _createClass2["default"])(Fretes, [{
     key: "store",
     value: function () {
       var _store = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
@@ -48,6 +48,8 @@ var OpcaoVariacaoController = /*#__PURE__*/function () {
                 });
 
                 _Frete["default"].bulkCreate(classFrete).then(function () {
+                  return _Frete["default"].update(classFrete);
+                }).then(function () {
                   return _Frete["default"].findAll();
                 }).then(function (response) {
                   res.json(response);
@@ -179,9 +181,9 @@ var OpcaoVariacaoController = /*#__PURE__*/function () {
       return _delete;
     }()
   }]);
-  return OpcaoVariacaoController;
+  return Fretes;
 }();
 
-var _default = new OpcaoVariacaoController();
+var _default = new Fretes();
 
 exports["default"] = _default;
