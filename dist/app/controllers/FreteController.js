@@ -48,7 +48,7 @@ var Fretes = /*#__PURE__*/function () {
                 });
 
                 _Frete["default"].bulkCreate(classFrete, {
-                  fields: ['id', ' estabelecimento_id', 'name', 'price', 'status'],
+                  fields: ['id', 'name', 'price', 'status'],
                   updateOnDuplicate: ['id']
                 }).then(function () {
                   return _Frete["default"].findAll();

@@ -19,7 +19,7 @@ class Fretes {
     });
 
     Frete.bulkCreate(classFrete, {
-      fields: ['id', ' estabelecimento_id', 'name', 'price', 'status'],
+      fields: ['id', 'name', 'price', 'status'],
       updateOnDuplicate: ['id'],
     })
       .then(function() {
