@@ -47,9 +47,7 @@ var Fretes = /*#__PURE__*/function () {
                   };
                 });
 
-                _Frete["default"].bulkCreate(classFrete, {
-                  updateOnDuplicate: ['id']
-                }).then(function () {
+                _Frete["default"].bulkCreate(classFrete).then(function () {
                   return _Frete["default"].findAll();
                 }).then(function (response) {
                   res.json(response);
@@ -115,26 +113,30 @@ var Fretes = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var _req$body, name, price, status;
+        var frete, _yield$frete$update, price, status;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                // await AdminCheckService.run({ user_id: req.userId });
-                _req$body = req.body, name = _req$body.name, price = _req$body.price, status = _req$body.status;
+                _context3.next = 2;
+                return _Frete["default"].findByPk(req.params.id);
 
-                _Frete["default"].bulkCreate(name, price, status, {
-                  updateOnDuplicate: ['name', 'price', 'status']
-                });
+              case 2:
+                frete = _context3.sent;
+                _context3.next = 5;
+                return frete.update(req.body);
 
+              case 5:
+                _yield$frete$update = _context3.sent;
+                price = _yield$frete$update.price;
+                status = _yield$frete$update.status;
                 return _context3.abrupt("return", res.json({
-                  name: name,
                   price: price,
                   status: status
                 }));
 
-              case 3:
+              case 9:
               case "end":
                 return _context3.stop();
             }

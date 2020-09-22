@@ -18,7 +18,7 @@ class Fretes {
       };
     });
 
-    Frete.bulkCreate(classFrete, { updateOnDuplicate: ['id'] })
+    Frete.bulkCreate(classFrete)
       .then(function() {
         return Frete.findAll();
       })
@@ -53,13 +53,13 @@ class Fretes {
   async update(req, res) {
     // await AdminCheckService.run({ user_id: req.userId });
 
-    const { name, price, status } = req.body;
+    const frete = await Frete.findByPk(req.params.id);
 
-    Frete.bulkCreate(name, price, status, {
-      updateOnDuplicate: ['name', 'price', 'status'],
-    });
+    const { price, status } = await frete.update(req.body);
 
-    return res.json({ name, price, status });
+    // await Cache.invalidate('categories');
+
+    return res.json({ price, status });
   }
 
   async delete(req, res) {
