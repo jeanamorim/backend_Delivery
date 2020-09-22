@@ -162,7 +162,7 @@ var Fretes = /*#__PURE__*/function () {
                 _context4.next = 2;
                 return _Frete["default"].destroy({
                   where: {
-                    id: req.params.id
+                    estabelecimento_id: req.estabelecimentoId
                   }
                 });
 

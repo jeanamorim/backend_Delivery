@@ -284,7 +284,7 @@ routes.put('/settings', authMiddleware, SettingController.update);
 routes.post('/frete', authMiddleware, FreteController.store);
 routes.get('/frete', authMiddleware, FreteController.index);
 routes.put('/frete/:id', authMiddleware, FreteController.update);
-routes.delete('/frete/:id', authMiddleware, FreteController.delete);
+routes.delete('/frete', authMiddleware, FreteController.delete);
 // variacao dos produtos tipo/sabores/adicionais
 routes.post('/variacao', authMiddleware, VariacaoControllers.store);
 routes.get('/variacao', authMiddleware, VariacaoControllers.index);

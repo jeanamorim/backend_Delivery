@@ -281,7 +281,7 @@ routes.put('/settings', _authEstabelecimento["default"], _SettingController["def
 routes.post('/frete', _authEstabelecimento["default"], _FreteController["default"].store);
 routes.get('/frete', _authEstabelecimento["default"], _FreteController["default"].index);
 routes.put('/frete/:id', _authEstabelecimento["default"], _FreteController["default"].update);
-routes["delete"]('/frete/:id', _authEstabelecimento["default"], _FreteController["default"]["delete"]); // variacao dos produtos tipo/sabores/adicionais
+routes["delete"]('/frete', _authEstabelecimento["default"], _FreteController["default"]["delete"]); // variacao dos produtos tipo/sabores/adicionais
 
 routes.post('/variacao', _authEstabelecimento["default"], _VariacaoController["default"].store);
 routes.get('/variacao', _authEstabelecimento["default"], _VariacaoController["default"].index);
