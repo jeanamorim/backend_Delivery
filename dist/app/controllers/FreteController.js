@@ -83,6 +83,7 @@ var Fretes = /*#__PURE__*/function () {
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'price', 'status'],
                   include: [{
                     model: _Estabelecimento["default"],

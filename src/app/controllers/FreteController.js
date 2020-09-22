@@ -35,6 +35,7 @@ class Fretes {
       where: {
         estabelecimento_id: req.estabelecimentoId,
       },
+      order: [['id', 'DESC']],
       attributes: ['id', 'name', 'price', 'status'],
       include: [
         {
