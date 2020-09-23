@@ -51,12 +51,12 @@ var OrderUsersControllers = /*#__PURE__*/function () {
                 _context.next = 6;
                 return _Order["default"].findAll({
                   order: [['date', 'DESC']],
-                  limit: 10,
-                  offset: (page - 1) * 10,
+                  limit: 15,
+                  offset: (page - 1) * 15,
                   where: {
                     user_id: req.params.id
                   },
-                  attributes: ['id', 'date', 'status', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
+                  attributes: ['id', 'date', 'status', 'addressee', 'observacao', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
                   include: [{
                     model: _OrderDetail["default"],
                     as: 'order_details',

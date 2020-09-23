@@ -13,8 +13,8 @@ class OrderUsersControllers {
 
     const orders = await Order.findAll({
       order: [['date', 'DESC']],
-      limit: 10,
-      offset: (page - 1) * 10,
+      limit: 15,
+      offset: (page - 1) * 15,
 
       where: {
         user_id: req.params.id,
@@ -23,6 +23,9 @@ class OrderUsersControllers {
         'id',
         'date',
         'status',
+        'addressee',
+        'observacao',
+        'troco',
         'payment_method',
         'ship_postal_code',
         'ship_street',
