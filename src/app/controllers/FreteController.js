@@ -33,7 +33,7 @@ class Fretes {
   async index(req, res) {
     const frete = await Frete.findAll({
       where: {
-        estabelecimento_id: req.estabelecimentoId,
+        estabelecimento_id: req.params.id,
       },
       order: [['id', 'DESC']],
       attributes: ['id', 'name', 'price', 'status'],
