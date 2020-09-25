@@ -89,59 +89,14 @@ class EstabelecimentoController {
   }
 
   async update(req, res) {
-    const { email, oldPassword } = req.body;
+    const cart = await Estabelecimento.findByPk(req.params.id);
 
-    const estabelecimento = await Estabelecimento.findByPk(
-      req.body.estabelecimento_id
-        ? req.body.estabelecimento_id
-        : req.estabelecimentoId,
-    );
-
-    if (email !== estabelecimento.email) {
-      const userExists = await Estabelecimento.findOne({
-        where: {
-          email,
-        },
-      });
-
-      if (userExists) {
-        return res.status(400).json({ error: 'User already exists' });
-      }
-    }
-
-    if (oldPassword && !(await estabelecimento.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Password does not match' });
-    }
-
-    const {
-      id,
-      name,
-      name_loja,
-      status,
-      avaliacao,
-      categoria,
-      tempo_entrega,
-      phone,
-      birthday,
-      gender,
-      cpf,
-    } = await estabelecimento.update(req.body);
+    const { status } = await cart.update(req.body);
 
     return res.json({
-      id,
-      name,
-      name_loja,
       status,
-      avaliacao,
-      categoria,
-      tempo_entrega,
-      email,
-      phone,
-      birthday,
-      gender,
-      cpf,
     });
   }
 }
-
+// ok adicionando
 export default new EstabelecimentoController();

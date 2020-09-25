@@ -172,7 +172,7 @@ var upload = (0, _multer["default"])(_multer2["default"]); // const redisClient 
 routes.get('/OrderAdmin', _OrderController2["default"].index);
 routes.post('/users', _UserStore["default"], _UserController["default"].store);
 routes.post('/estabelecimento', _EstabelecimentoController["default"].store);
-routes.put('/estabelecimento', _EstabelecimentoController["default"].update);
+routes.put('/estabelecimento/:id', _EstabelecimentoController["default"].update);
 routes.get('/estabelecimento', _EstabelecimentoController["default"].index);
 routes.post('/sessions', // bruteForce.prevent,
 _SessionStore["default"], _SessionController["default"].store);

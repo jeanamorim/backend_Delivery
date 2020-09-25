@@ -156,100 +156,28 @@ var EstabelecimentoController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var _req$body, email, oldPassword, estabelecimento, userExists, _yield$estabeleciment, id, name, name_loja, status, avaliacao, categoria, tempo_entrega, phone, birthday, gender, cpf;
+        var cart, _yield$cart$update, status;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _req$body = req.body, email = _req$body.email, oldPassword = _req$body.oldPassword;
-                _context3.next = 3;
-                return _Estabelecimento["default"].findByPk(req.body.estabelecimento_id ? req.body.estabelecimento_id : req.estabelecimentoId);
+                _context3.next = 2;
+                return _Estabelecimento["default"].findByPk(req.params.id);
 
-              case 3:
-                estabelecimento = _context3.sent;
+              case 2:
+                cart = _context3.sent;
+                _context3.next = 5;
+                return cart.update(req.body);
 
-                if (!(email !== estabelecimento.email)) {
-                  _context3.next = 10;
-                  break;
-                }
-
-                _context3.next = 7;
-                return _Estabelecimento["default"].findOne({
-                  where: {
-                    email: email
-                  }
-                });
-
-              case 7:
-                userExists = _context3.sent;
-
-                if (!userExists) {
-                  _context3.next = 10;
-                  break;
-                }
-
-                return _context3.abrupt("return", res.status(400).json({
-                  error: 'User already exists'
-                }));
-
-              case 10:
-                _context3.t0 = oldPassword;
-
-                if (!_context3.t0) {
-                  _context3.next = 15;
-                  break;
-                }
-
-                _context3.next = 14;
-                return estabelecimento.checkPassword(oldPassword);
-
-              case 14:
-                _context3.t0 = !_context3.sent;
-
-              case 15:
-                if (!_context3.t0) {
-                  _context3.next = 17;
-                  break;
-                }
-
-                return _context3.abrupt("return", res.status(401).json({
-                  error: 'Password does not match'
-                }));
-
-              case 17:
-                _context3.next = 19;
-                return estabelecimento.update(req.body);
-
-              case 19:
-                _yield$estabeleciment = _context3.sent;
-                id = _yield$estabeleciment.id;
-                name = _yield$estabeleciment.name;
-                name_loja = _yield$estabeleciment.name_loja;
-                status = _yield$estabeleciment.status;
-                avaliacao = _yield$estabeleciment.avaliacao;
-                categoria = _yield$estabeleciment.categoria;
-                tempo_entrega = _yield$estabeleciment.tempo_entrega;
-                phone = _yield$estabeleciment.phone;
-                birthday = _yield$estabeleciment.birthday;
-                gender = _yield$estabeleciment.gender;
-                cpf = _yield$estabeleciment.cpf;
+              case 5:
+                _yield$cart$update = _context3.sent;
+                status = _yield$cart$update.status;
                 return _context3.abrupt("return", res.json({
-                  id: id,
-                  name: name,
-                  name_loja: name_loja,
-                  status: status,
-                  avaliacao: avaliacao,
-                  categoria: categoria,
-                  tempo_entrega: tempo_entrega,
-                  email: email,
-                  phone: phone,
-                  birthday: birthday,
-                  gender: gender,
-                  cpf: cpf
+                  status: status
                 }));
 
-              case 32:
+              case 8:
               case "end":
                 return _context3.stop();
             }
@@ -265,7 +193,8 @@ var EstabelecimentoController = /*#__PURE__*/function () {
     }()
   }]);
   return EstabelecimentoController;
-}();
+}(); // ok adicionando
+
 
 var _default = new EstabelecimentoController();
 
