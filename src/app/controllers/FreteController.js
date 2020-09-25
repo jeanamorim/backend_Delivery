@@ -46,8 +46,6 @@ class Fretes {
       ],
     });
 
-    // await Cache.set('categories', categories);
-
     return res.json(frete);
   }
 
