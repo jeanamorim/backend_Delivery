@@ -294,6 +294,7 @@ routes.put('/opcaovariacao/:id', _authEstabelecimento["default"], _OpcaoControll
 routes["delete"]('/opcaovariacao/:id', _authEstabelecimento["default"], _OpcaoController["default"]["delete"]);
 routes.post('/schedule', _authEstabelecimento["default"], _ScheduleControllers["default"].store);
 routes.get('/schedule', _authEstabelecimento["default"], _ScheduleControllers["default"].index);
+routes.put('/schedule/:id', _authEstabelecimento["default"], _ScheduleControllers["default"].update);
 routes["delete"]('/schedule/:id', _authEstabelecimento["default"], _ScheduleControllers["default"]["delete"]);
 routes.get('/invalidate/all', _authEstabelecimento["default"], /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {

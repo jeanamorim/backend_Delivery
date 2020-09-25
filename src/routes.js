@@ -298,6 +298,7 @@ routes.delete('/opcaovariacao/:id', authMiddleware, OpcaoControllers.delete);
 
 routes.post('/schedule', authMiddleware, Schedule.store);
 routes.get('/schedule', authMiddleware, Schedule.index);
+routes.put('/schedule/:id', authMiddleware, Schedule.update);
 routes.delete('/schedule/:id', authMiddleware, Schedule.delete);
 
 routes.get('/invalidate/all', authMiddleware, async (req, res) => {

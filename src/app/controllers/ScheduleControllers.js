@@ -39,6 +39,14 @@ class ScheduleControllers {
     return res.json(schedule);
   }
 
+  async update(req, res) {
+    const hours = await Schedule.findByPk(req.params.id);
+
+    const { from, to } = await hours.update(req.body);
+
+    return res.json({ from, to });
+  }
+
   async delete(req, res) {
     await Schedule.destroy({
       where: {

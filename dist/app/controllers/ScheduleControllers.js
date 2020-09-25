@@ -102,24 +102,33 @@ var ScheduleControllers = /*#__PURE__*/function () {
       return index;
     }()
   }, {
-    key: "delete",
+    key: "update",
     value: function () {
-      var _delete2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
+      var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
+        var hours, _yield$hours$update, from, to;
+
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return _Schedule["default"].destroy({
-                  where: {
-                    id: req.params.id
-                  }
-                });
+                return _Schedule["default"].findByPk(req.params.id);
 
               case 2:
-                return _context3.abrupt("return", res.json());
+                hours = _context3.sent;
+                _context3.next = 5;
+                return hours.update(req.body);
 
-              case 3:
+              case 5:
+                _yield$hours$update = _context3.sent;
+                from = _yield$hours$update.from;
+                to = _yield$hours$update.to;
+                return _context3.abrupt("return", res.json({
+                  from: from,
+                  to: to
+                }));
+
+              case 9:
               case "end":
                 return _context3.stop();
             }
@@ -127,7 +136,39 @@ var ScheduleControllers = /*#__PURE__*/function () {
         }, _callee3);
       }));
 
-      function _delete(_x5, _x6) {
+      function update(_x5, _x6) {
+        return _update.apply(this, arguments);
+      }
+
+      return update;
+    }()
+  }, {
+    key: "delete",
+    value: function () {
+      var _delete2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
+        return _regenerator["default"].wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _Schedule["default"].destroy({
+                  where: {
+                    id: req.params.id
+                  }
+                });
+
+              case 2:
+                return _context4.abrupt("return", res.json());
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function _delete(_x7, _x8) {
         return _delete2.apply(this, arguments);
       }
 
