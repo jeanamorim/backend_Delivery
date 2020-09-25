@@ -193,8 +193,7 @@ var EstabelecimentoController = /*#__PURE__*/function () {
     }()
   }]);
   return EstabelecimentoController;
-}(); // ok adicionando
-
+}();
 
 var _default = new EstabelecimentoController();
 

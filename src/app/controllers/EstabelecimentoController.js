@@ -90,13 +90,9 @@ class EstabelecimentoController {
 
   async update(req, res) {
     const cart = await Estabelecimento.findByPk(req.params.id);
-
     const { status } = await cart.update(req.body);
-
-    return res.json({
-      status,
-    });
+    return res.json({ status });
   }
 }
-// ok adicionando
+
 export default new EstabelecimentoController();
