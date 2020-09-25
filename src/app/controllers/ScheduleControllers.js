@@ -33,6 +33,7 @@ class ScheduleControllers {
       where: {
         estabelecimento_id: req.estabelecimentoId,
       },
+      order: [['id', 'DESC']],
       attributes: ['id', 'week_day', 'from', 'to'],
     });
 
@@ -42,9 +43,9 @@ class ScheduleControllers {
   async update(req, res) {
     const hours = await Schedule.findByPk(req.params.id);
 
-    const { from, to } = await hours.update(req.body);
+    const { from, to, week_day } = await hours.update(req.body);
 
-    return res.json({ from, to });
+    return res.json({ from, to, week_day });
   }
 
   async delete(req, res) {

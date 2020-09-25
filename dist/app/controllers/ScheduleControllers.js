@@ -80,6 +80,7 @@ var ScheduleControllers = /*#__PURE__*/function () {
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'week_day', 'from', 'to']
                 });
 
@@ -105,7 +106,7 @@ var ScheduleControllers = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var hours, _yield$hours$update, from, to;
+        var hours, _yield$hours$update, from, to, week_day;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
@@ -123,12 +124,14 @@ var ScheduleControllers = /*#__PURE__*/function () {
                 _yield$hours$update = _context3.sent;
                 from = _yield$hours$update.from;
                 to = _yield$hours$update.to;
+                week_day = _yield$hours$update.week_day;
                 return _context3.abrupt("return", res.json({
                   from: from,
-                  to: to
+                  to: to,
+                  week_day: week_day
                 }));
 
-              case 9:
+              case 10:
               case "end":
                 return _context3.stop();
             }
