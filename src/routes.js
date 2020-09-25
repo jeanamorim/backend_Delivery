@@ -282,7 +282,7 @@ routes.get('/settings', authMiddleware, SettingController.index);
 routes.put('/settings', authMiddleware, SettingController.update);
 // frete de cada estabelecimentos/valores/entregas
 routes.post('/frete', authMiddleware, FreteController.store);
-routes.get('/frete', FreteController.index);
+routes.get('/frete', authMiddleware, FreteController.index);
 routes.put('/frete/:id', authMiddleware, FreteController.update);
 routes.delete('/frete', authMiddleware, FreteController.delete);
 // variacao dos produtos tipo/sabores/adicionais
