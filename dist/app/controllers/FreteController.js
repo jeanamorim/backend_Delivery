@@ -81,7 +81,7 @@ var Fretes = /*#__PURE__*/function () {
                 _context2.next = 2;
                 return _Frete["default"].findAll({
                   where: {
-                    estabelecimento_id: req.params.id
+                    estabelecimento_id: req.estabelecimentoId
                   },
                   order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'price', 'status'],
