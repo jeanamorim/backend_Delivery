@@ -92,6 +92,7 @@ var OfferController = /*#__PURE__*/function () {
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'product_id', 'quantity', 'unit', 'from', 'to', 'expiration_date'],
                   include: [{
                     model: _Product["default"],

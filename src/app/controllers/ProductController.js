@@ -87,6 +87,7 @@ class ProductController {
   async index(req, res) {
     if (req.params.id) {
       const product = await Product.findByPk(req.params.id, {
+        order: [['id', 'DESC']],
         attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
         include: [
           {
@@ -132,6 +133,7 @@ class ProductController {
           where: {
             category_id: req.query.category,
           },
+          order: [['id', 'DESC']],
           attributes: [
             'id',
             'name',
@@ -184,6 +186,7 @@ class ProductController {
               [Op.iLike]: `%${req.query.search}%`,
             },
           },
+          order: [['id', 'DESC']],
           attributes: [
             'id',
             'name',

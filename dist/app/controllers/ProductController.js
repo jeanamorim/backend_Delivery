@@ -152,6 +152,7 @@ var ProductController = /*#__PURE__*/function () {
 
                 _context2.next = 3;
                 return _Product["default"].findByPk(req.params.id, {
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
                   include: [{
                     model: _File["default"],
@@ -208,6 +209,7 @@ var ProductController = /*#__PURE__*/function () {
                   where: {
                     category_id: req.query.category
                   },
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
                   include: [{
                     model: _File["default"],
@@ -259,6 +261,7 @@ var ProductController = /*#__PURE__*/function () {
                   where: {
                     name: (0, _defineProperty2["default"])({}, _sequelize.Op.iLike, "%".concat(req.query.search, "%"))
                   },
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
                   include: [{
                     model: _File["default"],

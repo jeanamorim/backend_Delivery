@@ -99,6 +99,7 @@ var CategoryController = /*#__PURE__*/function () {
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'name'],
                   include: [{
                     model: _File["default"],

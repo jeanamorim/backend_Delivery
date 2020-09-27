@@ -31,6 +31,7 @@ class OfferController {
       where: {
         estabelecimento_id: req.estabelecimentoId,
       },
+      order: [['id', 'DESC']],
       attributes: [
         'id',
         'product_id',
