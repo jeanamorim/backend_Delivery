@@ -248,7 +248,12 @@ class ProductController {
     if (variacao && variacao.length > 0) {
       post.setVariacao(variacao);
     }
-    sendMessage(req.estabelecimentoId, 'UPDATE_PRODUCT', post);
+
+    const result = {
+      variacao,
+      ...data,
+    };
+    sendMessage(req.estabelecimentoId, 'UPDATE_PRODUCT', result);
     return res.json(post);
   }
 

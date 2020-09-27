@@ -37,7 +37,10 @@ var _websocket = require("../../websocket");
 
 var _FormatProductService = _interopRequireDefault(require("../../services/FormatProductService"));
 
-// import AdminCheckService from '../../services/AdminCheckService';
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 var ProductController = /*#__PURE__*/function () {
   function ProductController() {
     (0, _classCallCheck2["default"])(this, ProductController);
@@ -317,7 +320,7 @@ var ProductController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var id, post, _req$body2, variacao, data;
+        var id, post, _req$body2, variacao, data, result;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
@@ -337,10 +340,13 @@ var ProductController = /*#__PURE__*/function () {
                   post.setVariacao(variacao);
                 }
 
-                (0, _websocket.sendMessage)(req.estabelecimentoId, 'UPDATE_PRODUCT', post);
+                result = _objectSpread({
+                  variacao: variacao
+                }, data);
+                (0, _websocket.sendMessage)(req.estabelecimentoId, 'UPDATE_PRODUCT', result);
                 return _context3.abrupt("return", res.json(post));
 
-              case 9:
+              case 10:
               case "end":
                 return _context3.stop();
             }
