@@ -337,9 +337,10 @@ var ProductController = /*#__PURE__*/function () {
                   post.setVariacao(variacao);
                 }
 
+                (0, _websocket.sendMessage)(req.estabelecimentoId, 'UPDATE_PRODUCT', post);
                 return _context3.abrupt("return", res.json(post));
 
-              case 8:
+              case 9:
               case "end":
                 return _context3.stop();
             }
