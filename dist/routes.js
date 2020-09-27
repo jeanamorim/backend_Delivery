@@ -53,8 +53,6 @@ var _ScheduleControllers = _interopRequireDefault(require("./app/controllers/Sch
 
 var _MetodoPagamentoController = _interopRequireDefault(require("./app/controllers/MetodoPagamentoController"));
 
-var _StatusPedidoControllers = _interopRequireDefault(require("./app/controllers/StatusPedidoControllers"));
-
 var _ProductListController = _interopRequireDefault(require("./app/controllers/ProductListController"));
 
 var _RelatorioPedidosDataControlers = _interopRequireDefault(require("./app/controllers/RelatorioPedidosDataControlers"));
@@ -248,8 +246,6 @@ routes["delete"]('/cart/:id', _CartControllers["default"]["delete"]);
 routes["delete"]('/cartRemove/:id', _RemoveCartTotal["default"]["delete"]); // todos as orders dos usuarios post/delete/put
 
 routes.get('/orders/:id', _UserOrderController["default"].index); // lista orders por id
-
-routes.get('/status/:id', _authEstabelecimento["default"], _StatusPedidoControllers["default"].index); // lista por status
 
 routes.post('/orders', _auth["default"], _OrderStore["default"], _OrderController["default"].store);
 routes.get('/orders', _authEstabelecimento["default"], _OrderController["default"].index);

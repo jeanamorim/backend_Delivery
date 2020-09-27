@@ -27,7 +27,6 @@ import ProductDetails from './app/controllers/ProductDetailsController';
 import Schedule from './app/controllers/ScheduleControllers';
 import MetodoPagamento from './app/controllers/MetodoPagamentoController';
 
-import StatusPedidoControllers from './app/controllers/StatusPedidoControllers';
 import ProductListControllers from './app/controllers/ProductListController';
 import RelatorioPedidosData from './app/controllers/RelatorioPedidosDataControlers';
 import FreteController from './app/controllers/FreteController';
@@ -215,7 +214,7 @@ routes.delete('/cartRemove/:id', RemoveCartUser.delete);
 
 // todos as orders dos usuarios post/delete/put
 routes.get('/orders/:id', UserOrderController.index); // lista orders por id
-routes.get('/status/:id', authMiddleware, StatusPedidoControllers.index); // lista por status
+
 routes.post(
   '/orders',
   authMiddlewareUsers,
