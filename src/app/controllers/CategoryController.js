@@ -1,7 +1,6 @@
 import Category from '../models/Category';
 import File from '../models/File';
 import Estabelecimento from '../models/Estabelecimento';
-
 import { sendMessage } from '../../websocket';
 
 class CategoryController {
@@ -67,7 +66,15 @@ class CategoryController {
 
     const { id, name, image_id } = await category.update(req.body);
 
-    return res.json({ id, name, image_id });
+    const result = {
+      id,
+      name,
+      image_id,
+    };
+
+    sendMessage(req.estabelecimentoId, 'UPDATE_CATEGORIAS', result);
+
+    return res.json(result);
   }
 
   async delete(req, res) {

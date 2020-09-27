@@ -133,7 +133,7 @@ var CategoryController = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var category, _yield$category$updat, id, name, image_id;
+        var category, _yield$category$updat, id, name, image_id, result;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
@@ -152,13 +152,15 @@ var CategoryController = /*#__PURE__*/function () {
                 id = _yield$category$updat.id;
                 name = _yield$category$updat.name;
                 image_id = _yield$category$updat.image_id;
-                return _context3.abrupt("return", res.json({
+                result = {
                   id: id,
                   name: name,
                   image_id: image_id
-                }));
+                };
+                (0, _websocket.sendMessage)(req.estabelecimentoId, 'UPDATE_CATEGORIAS', result);
+                return _context3.abrupt("return", res.json(result));
 
-              case 10:
+              case 12:
               case "end":
                 return _context3.stop();
             }
