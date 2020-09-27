@@ -25,6 +25,7 @@ import OfferController from './app/controllers/OfferController';
 import SettingController from './app/controllers/SettingController';
 import ProductDetails from './app/controllers/ProductDetailsController';
 import Schedule from './app/controllers/ScheduleControllers';
+import MetodoPagamento from './app/controllers/MetodoPagamentoController';
 
 import StatusPedidoControllers from './app/controllers/StatusPedidoControllers';
 import ProductListControllers from './app/controllers/ProductListController';
@@ -300,6 +301,11 @@ routes.post('/schedule', authMiddleware, Schedule.store);
 routes.get('/schedule', authMiddleware, Schedule.index);
 routes.put('/schedule/:id', authMiddleware, Schedule.update);
 routes.delete('/schedule/:id', authMiddleware, Schedule.delete);
+
+routes.post('/pagamento', authMiddleware, MetodoPagamento.store);
+routes.get('/pagamento', authMiddleware, MetodoPagamento.index);
+routes.put('/pagamento/:id', authMiddleware, MetodoPagamento.update);
+routes.delete('/pagamento/:id', authMiddleware, MetodoPagamento.delete);
 
 routes.get('/invalidate/all', authMiddleware, async (req, res) => {
   await Cache.invalidateAll();

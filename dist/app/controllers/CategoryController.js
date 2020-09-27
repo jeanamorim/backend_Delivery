@@ -23,8 +23,6 @@ var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento
 
 var _websocket = require("../../websocket");
 
-// import Cache from '../../lib/Cache';
-// import AdminCheckService from '../../services/AdminCheckService';
 var CategoryController = /*#__PURE__*/function () {
   function CategoryController() {
     (0, _classCallCheck2["default"])(this, CategoryController);
@@ -40,7 +38,6 @@ var CategoryController = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // await AdminCheckService.run({ user_id: req.userId });
                 _req$body = req.body, name = _req$body.name, image_id = _req$body.image_id;
                 _context.next = 3;
                 return _Category["default"].create({
@@ -70,7 +67,6 @@ var CategoryController = /*#__PURE__*/function () {
 
               case 6:
                 Newcategories = _context.sent;
-                // await Cache.invalidate('categories');
                 // /enviar para o socket a categoria cadastrada
                 (0, _websocket.sendMessage)(categories.estabelecimento_id, 'NEW_CATEGORIAS', Newcategories);
                 return _context.abrupt("return", res.json(categories));

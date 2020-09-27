@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -14,6 +16,10 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _dateFns = require("date-fns");
+
+var _sequelize = require("sequelize");
 
 var _database = _interopRequireDefault(require("../../database"));
 
@@ -78,17 +84,20 @@ var OrderController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var order, orders;
+        var date, parsedDate, order, orders;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                date = req.query.date;
+                parsedDate = (0, _dateFns.parseISO)(date);
+
                 if (!(req.query.id && req.query.id > 0)) {
-                  _context2.next = 5;
+                  _context2.next = 7;
                   break;
                 }
 
-                _context2.next = 3;
+                _context2.next = 5;
                 return _Order["default"].findByPk(req.query.id, {
                   attributes: ['id', 'date', 'status', 'addressee', 'observacao', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
                   include: [{
@@ -116,15 +125,16 @@ var OrderController = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 3:
+              case 5:
                 order = _context2.sent;
                 return _context2.abrupt("return", res.json(order));
 
-              case 5:
-                _context2.next = 7;
+              case 7:
+                _context2.next = 9;
                 return _Order["default"].findAll({
                   where: {
-                    estabelecimento_id: req.estabelecimentoId
+                    estabelecimento_id: req.estabelecimentoId,
+                    date: (0, _defineProperty2["default"])({}, _sequelize.Op.between, [(0, _dateFns.startOfDay)(parsedDate), (0, _dateFns.endOfDay)(parsedDate)])
                   },
                   attributes: ['id', 'date', 'status', 'addressee', 'observacao', 'troco', 'payment_method', 'ship_postal_code', 'ship_street', 'ship_street_n', 'ship_neighborhood', 'ship_city', 'ship_state', 'ship_complement', 'ship_reference', 'delivery_fee', 'discount', 'subtotal', 'total'],
                   include: [{
@@ -149,14 +159,15 @@ var OrderController = /*#__PURE__*/function () {
                     model: _User["default"],
                     as: 'user',
                     attributes: ['id', 'name', 'phone']
-                  }]
+                  }],
+                  order: ['date']
                 });
 
-              case 7:
+              case 9:
                 orders = _context2.sent;
                 return _context2.abrupt("return", res.json(orders));
 
-              case 9:
+              case 11:
               case "end":
                 return _context2.stop();
             }

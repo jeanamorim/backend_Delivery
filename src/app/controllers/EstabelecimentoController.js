@@ -49,11 +49,6 @@ class EstabelecimentoController {
   }
 
   async index(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
-    // const cached = await Cache.get('estabelecimento');
-
-    // if (cached) return res.json(cached);
     const count = await Estabelecimento.findAndCountAll();
     const { page = 1 } = req.query;
     const estabelecimento = await Estabelecimento.findAll({

@@ -27,7 +27,6 @@ var _Category = _interopRequireDefault(require("../models/Category"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
-// mport AdminCheckService from '../../services/AdminCheckService';
 var OfferController = /*#__PURE__*/function () {
   function OfferController() {
     (0, _classCallCheck2["default"])(this, OfferController);
@@ -43,7 +42,6 @@ var OfferController = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // await AdminCheckService.run({ user_id: req.userId });
                 _req$body = req.body, product_id = _req$body.product_id, quantity = _req$body.quantity, unit = _req$body.unit, from = _req$body.from, to = _req$body.to;
                 expiration_date = (0, _dateFns.addDays)(new Date(), req.body.expires_in);
                 _context.next = 4;

@@ -17,6 +17,7 @@ import Frete from '../app/models/Frete';
 import Opcao from '../app/models/Opcao';
 import Cart from '../app/models/Cart';
 import Schedule from '../app/models/Schedule';
+import MetodoPagamento from '../app/models/MetodoPagamento';
 
 import databaseConfig from '../config/database';
 
@@ -38,6 +39,7 @@ const models = [
   Opcao,
   Cart,
   Schedule,
+  MetodoPagamento,
 ];
 
 class Database {

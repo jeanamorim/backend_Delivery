@@ -51,6 +51,8 @@ var _ProductDetailsController = _interopRequireDefault(require("./app/controller
 
 var _ScheduleControllers = _interopRequireDefault(require("./app/controllers/ScheduleControllers"));
 
+var _MetodoPagamentoController = _interopRequireDefault(require("./app/controllers/MetodoPagamentoController"));
+
 var _StatusPedidoControllers = _interopRequireDefault(require("./app/controllers/StatusPedidoControllers"));
 
 var _ProductListController = _interopRequireDefault(require("./app/controllers/ProductListController"));
@@ -296,6 +298,10 @@ routes.post('/schedule', _authEstabelecimento["default"], _ScheduleControllers["
 routes.get('/schedule', _authEstabelecimento["default"], _ScheduleControllers["default"].index);
 routes.put('/schedule/:id', _authEstabelecimento["default"], _ScheduleControllers["default"].update);
 routes["delete"]('/schedule/:id', _authEstabelecimento["default"], _ScheduleControllers["default"]["delete"]);
+routes.post('/pagamento', _authEstabelecimento["default"], _MetodoPagamentoController["default"].store);
+routes.get('/pagamento', _authEstabelecimento["default"], _MetodoPagamentoController["default"].index);
+routes.put('/pagamento/:id', _authEstabelecimento["default"], _MetodoPagamentoController["default"].update);
+routes["delete"]('/pagamento/:id', _authEstabelecimento["default"], _MetodoPagamentoController["default"]["delete"]);
 routes.get('/invalidate/all', _authEstabelecimento["default"], /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     return _regenerator["default"].wrap(function _callee$(_context) {

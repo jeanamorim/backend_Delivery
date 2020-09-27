@@ -1,5 +1,6 @@
+import { startOfDay, endOfDay, parseISO } from 'date-fns';
+import { Op } from 'sequelize';
 import db from '../../database';
-
 import Order from '../models/Order';
 import OrderDetail from '../models/OrderDetail';
 import Estabelecimento from '../models/Estabelecimento';
@@ -23,9 +24,8 @@ class OrderController {
   }
 
   async index(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
-    // if want get only one order
+    const { date } = req.query;
+    const parsedDate = parseISO(date);
     if (req.query.id && req.query.id > 0) {
       const order = await Order.findByPk(req.query.id, {
         attributes: [
@@ -94,6 +94,9 @@ class OrderController {
     const orders = await Order.findAll({
       where: {
         estabelecimento_id: req.estabelecimentoId,
+        date: {
+          [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
+        },
       },
       attributes: [
         'id',
@@ -147,6 +150,7 @@ class OrderController {
           attributes: ['id', 'name', 'phone'],
         },
       ],
+      order: ['date'],
     });
 
     return res.json(orders);

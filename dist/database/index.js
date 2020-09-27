@@ -47,9 +47,11 @@ var _Cart = _interopRequireDefault(require("../app/models/Cart"));
 
 var _Schedule = _interopRequireDefault(require("../app/models/Schedule"));
 
+var _MetodoPagamento = _interopRequireDefault(require("../app/models/MetodoPagamento"));
+
 var _database = _interopRequireDefault(require("../config/database"));
 
-var models = [_User["default"], _Admin["default"], _Address["default"], _File["default"], _Banner["default"], _Category["default"], _Product["default"], _Order["default"], _OrderDetail["default"], _Offer["default"], _Setting["default"], _Estabelecimento["default"], _Variacao["default"], _Frete["default"], _Opcao["default"], _Cart["default"], _Schedule["default"]];
+var models = [_User["default"], _Admin["default"], _Address["default"], _File["default"], _Banner["default"], _Category["default"], _Product["default"], _Order["default"], _OrderDetail["default"], _Offer["default"], _Setting["default"], _Estabelecimento["default"], _Variacao["default"], _Frete["default"], _Opcao["default"], _Cart["default"], _Schedule["default"], _MetodoPagamento["default"]];
 
 var Database = /*#__PURE__*/function () {
   function Database() {

@@ -1,5 +1,4 @@
 /* eslint-disable func-names */
-import Variacao from '../models/Variacao';
 
 import Schedule from '../models/Schedule';
 

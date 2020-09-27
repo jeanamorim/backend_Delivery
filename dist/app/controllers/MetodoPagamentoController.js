@@ -15,35 +15,37 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _Schedule = _interopRequireDefault(require("../models/Schedule"));
+var _MetodoPagamento = _interopRequireDefault(require("../models/MetodoPagamento"));
+
+var _File = _interopRequireDefault(require("../models/File"));
 
 /* eslint-disable func-names */
-var ScheduleControllers = /*#__PURE__*/function () {
-  function ScheduleControllers() {
-    (0, _classCallCheck2["default"])(this, ScheduleControllers);
+var MetodoPagamentoController = /*#__PURE__*/function () {
+  function MetodoPagamentoController() {
+    (0, _classCallCheck2["default"])(this, MetodoPagamentoController);
   }
 
-  (0, _createClass2["default"])(ScheduleControllers, [{
+  (0, _createClass2["default"])(MetodoPagamentoController, [{
     key: "store",
     value: function () {
       var _store = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var schedule, classSchedule;
+        var metodo, pagamento;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                schedule = req.body.schedule;
-                classSchedule = schedule.map(function (item) {
+                metodo = req.body.metodo;
+                pagamento = metodo.map(function (item) {
                   return {
                     estabelecimento_id: req.estabelecimentoId,
-                    week_day: item.week_day,
-                    from: item.from,
-                    to: item.to
+                    image_id: item.image_id,
+                    name: item.name,
+                    status: item.status
                   };
                 });
 
-                _Schedule["default"].bulkCreate(classSchedule).then(function () {
-                  return _Schedule["default"].findAll();
+                _MetodoPagamento["default"].bulkCreate(pagamento).then(function () {
+                  return _MetodoPagamento["default"].findAll();
                 }).then(function (response) {
                   res.json(response);
                 })["catch"](function (error) {
@@ -68,23 +70,28 @@ var ScheduleControllers = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var schedule;
+        var pagamento;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Schedule["default"].findAll({
+                return _MetodoPagamento["default"].findAll({
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
                   order: [['id', 'DESC']],
-                  attributes: ['id', 'week_day', 'from', 'to']
+                  attributes: ['id', 'name', 'status'],
+                  include: [{
+                    model: _File["default"],
+                    as: 'image',
+                    attributes: ['id', 'path', 'url']
+                  }]
                 });
 
               case 2:
-                schedule = _context2.sent;
-                return _context2.abrupt("return", res.json(schedule));
+                pagamento = _context2.sent;
+                return _context2.abrupt("return", res.json(pagamento));
 
               case 4:
               case "end":
@@ -104,32 +111,30 @@ var ScheduleControllers = /*#__PURE__*/function () {
     key: "update",
     value: function () {
       var _update = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
-        var hours, _yield$hours$update, from, to, week_day;
+        var pagamento, _yield$pagamento$upda, name, status;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return _Schedule["default"].findByPk(req.params.id);
+                return _MetodoPagamento["default"].findByPk(req.params.id);
 
               case 2:
-                hours = _context3.sent;
+                pagamento = _context3.sent;
                 _context3.next = 5;
-                return hours.update(req.body);
+                return pagamento.update(req.body);
 
               case 5:
-                _yield$hours$update = _context3.sent;
-                from = _yield$hours$update.from;
-                to = _yield$hours$update.to;
-                week_day = _yield$hours$update.week_day;
+                _yield$pagamento$upda = _context3.sent;
+                name = _yield$pagamento$upda.name;
+                status = _yield$pagamento$upda.status;
                 return _context3.abrupt("return", res.json({
-                  from: from,
-                  to: to,
-                  week_day: week_day
+                  name: name,
+                  status: status
                 }));
 
-              case 10:
+              case 9:
               case "end":
                 return _context3.stop();
             }
@@ -152,7 +157,7 @@ var ScheduleControllers = /*#__PURE__*/function () {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _Schedule["default"].destroy({
+                return _MetodoPagamento["default"].destroy({
                   where: {
                     id: req.params.id
                   }
@@ -176,9 +181,9 @@ var ScheduleControllers = /*#__PURE__*/function () {
       return _delete;
     }()
   }]);
-  return ScheduleControllers;
+  return MetodoPagamentoController;
 }();
 
-var _default = new ScheduleControllers();
+var _default = new MetodoPagamentoController();
 
 exports["default"] = _default;

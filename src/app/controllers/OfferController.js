@@ -6,12 +6,8 @@ import File from '../models/File';
 import Category from '../models/Category';
 import Estabelecimento from '../models/Estabelecimento';
 
-// mport AdminCheckService from '../../services/AdminCheckService';
-
 class OfferController {
   async store(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
     const { product_id, quantity, unit, from, to } = req.body;
 
     const expiration_date = addDays(new Date(), req.body.expires_in);
