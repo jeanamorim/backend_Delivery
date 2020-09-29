@@ -20,7 +20,6 @@ class OpcaoController {
     const opcao = await Opcoes.findAll({
       order: [['id', 'DESC']],
       attributes: ['id', 'name', 'price', 'status'],
-
     });
 
     return res.json(opcao);
