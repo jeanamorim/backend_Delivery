@@ -81,6 +81,7 @@ var VariacaoController = /*#__PURE__*/function () {
               case 0:
                 _context2.next = 2;
                 return _Variacao["default"].findAll({
+                  order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'minimo', 'maximo'],
                   include: [{
                     model: _Opcao["default"],

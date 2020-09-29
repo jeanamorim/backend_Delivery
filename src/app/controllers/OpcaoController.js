@@ -18,10 +18,10 @@ class OpcaoController {
 
   async index(req, res) {
     const opcao = await Opcoes.findAll({
+      order: [['id', 'DESC']],
       attributes: ['id', 'name', 'price', 'status'],
-    });
 
-    // await Cache.set('categories', categories);
+    });
 
     return res.json(opcao);
   }

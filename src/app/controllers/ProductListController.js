@@ -12,6 +12,7 @@ class ProductListController {
       where: {
         estabelecimento_id: req.estabelecimentoId,
       },
+      order: [['id', 'DESC']],
       attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
       include: [
         {

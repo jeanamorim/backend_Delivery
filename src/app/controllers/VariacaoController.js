@@ -23,7 +23,9 @@ class VariacaoController {
 
   async index(req, res) {
     const variacao = await Variacao.findAll({
+      order: [['id', 'DESC']],
       attributes: ['id', 'name', 'minimo', 'maximo'],
+
       include: [
         {
           model: Opcao,
