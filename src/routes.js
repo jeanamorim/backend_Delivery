@@ -111,7 +111,7 @@ routes.post('/users', validateUserStore, UserController.store);
 routes.post('/estabelecimento', EstabelecimentoControllers.store);
 routes.put('/estabelecimento/:id', EstabelecimentoControllers.update);
 routes.get('/estabelecimento', EstabelecimentoControllers.index);
-routes.get('/estabelecimento/:id', EstabelecimentoList.index);
+routes.get('/estabelecimento', EstabelecimentoList.index);
 
 routes.post(
   '/sessions',

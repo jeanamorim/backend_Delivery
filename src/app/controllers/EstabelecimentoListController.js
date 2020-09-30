@@ -5,7 +5,7 @@ class EstabelecimentoList {
   async index(req, res) {
     const estabelecimento = await Estabelecimento.findAll({
       where: {
-        id: req.params.id,
+        id: req.estabelecimentoId,
       },
       attributes: [
         'id',

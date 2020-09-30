@@ -36,7 +36,7 @@ var EstabelecimentoList = /*#__PURE__*/function () {
                 _context.next = 2;
                 return _Estabelecimento["default"].findAll({
                   where: {
-                    id: req.params.id
+                    id: req.estabelecimentoId
                   },
                   attributes: ['id', 'name', 'name_loja', 'status', 'avaliacao', 'categoria', 'tempo_entrega', 'email', 'phone', 'birthday', 'gender', 'cpf'],
                   include: [{
