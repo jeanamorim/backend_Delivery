@@ -83,9 +83,58 @@ class EstabelecimentoController {
   }
 
   async update(req, res) {
-    const cart = await Estabelecimento.findByPk(req.params.id);
-    const { status } = await cart.update(req.body);
-    return res.json({ status });
+    const { email, oldPassword } = req.body;
+
+    const user = await Estabelecimento.findByPk(
+      req.body.estabelecimento_id
+        ? req.body.estabelecimento_id
+        : req.estabelecimentoId,
+    );
+
+    if (email !== user.email) {
+      const userExists = await Estabelecimento.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (userExists) {
+        return res.status(400).json({ error: 'User already exists' });
+      }
+    }
+
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
+      return res.status(401).json({ error: 'Password does not match' });
+    }
+
+    const {
+      name,
+      name_loja,
+      status,
+      avaliacao,
+      categoria,
+      tempo_entrega,
+      phone,
+      birthday,
+      gender,
+      cpf,
+      image_id,
+    } = await user.update(req.body);
+
+    return res.json({
+      name,
+      name_loja,
+      status,
+      avaliacao,
+      categoria,
+      tempo_entrega,
+      email,
+      phone,
+      birthday,
+      gender,
+      cpf,
+      image_id,
+    });
   }
 }
 

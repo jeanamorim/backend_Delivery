@@ -108,7 +108,11 @@ routes.get('/OrderAdmin', OrderControllerAdmins.index);
 
 routes.post('/users', validateUserStore, UserController.store);
 routes.post('/estabelecimento', EstabelecimentoControllers.store);
-routes.put('/estabelecimento/:id', EstabelecimentoControllers.update);
+routes.put(
+  '/estabelecimento',
+  authMiddleware,
+  EstabelecimentoControllers.update,
+);
 routes.get('/estabelecimento', EstabelecimentoControllers.index);
 
 routes.post(
