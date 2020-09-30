@@ -27,7 +27,6 @@ import ProductDetails from './app/controllers/ProductDetailsController';
 import Schedule from './app/controllers/ScheduleControllers';
 import MetodoPagamento from './app/controllers/MetodoPagamentoController';
 
-import EstabelecimentoList from './app/controllers/EstabelecimentoListController';
 import ProductListControllers from './app/controllers/ProductListController';
 import RelatorioPedidosData from './app/controllers/RelatorioPedidosDataControlers';
 import FreteController from './app/controllers/FreteController';
@@ -111,7 +110,6 @@ routes.post('/users', validateUserStore, UserController.store);
 routes.post('/estabelecimento', EstabelecimentoControllers.store);
 routes.put('/estabelecimento/:id', EstabelecimentoControllers.update);
 routes.get('/estabelecimento', EstabelecimentoControllers.index);
-routes.get('/estabelecimentoList', authMiddleware, EstabelecimentoList.index);
 
 routes.post(
   '/sessions',
