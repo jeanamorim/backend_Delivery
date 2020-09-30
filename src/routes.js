@@ -77,6 +77,7 @@ import validateAddressStore from './app/validators/AddressStore';
 import validateAddressUpdate from './app/validators/AddressUpdate';
 import validateUserStore from './app/validators/UserStore';
 import validateUserUpdate from './app/validators/UserUpdate';
+import validateEstabelecimentoUpdate from './app/validators/EstabelecimentoUpdate';
 // import validateVariacaoStore from './app/validators/VariacaoStore';
 
 // middlewares
@@ -111,6 +112,7 @@ routes.post('/estabelecimento', EstabelecimentoControllers.store);
 routes.put(
   '/estabelecimento',
   authMiddleware,
+  validateEstabelecimentoUpdate,
   EstabelecimentoControllers.update,
 );
 routes.get('/estabelecimento', EstabelecimentoControllers.index);

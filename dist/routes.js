@@ -141,6 +141,8 @@ var _UserStore = _interopRequireDefault(require("./app/validators/UserStore"));
 
 var _UserUpdate = _interopRequireDefault(require("./app/validators/UserUpdate"));
 
+var _EstabelecimentoUpdate = _interopRequireDefault(require("./app/validators/EstabelecimentoUpdate"));
+
 var _auth = _interopRequireDefault(require("./app/middlewares/auth"));
 
 var _authEstabelecimento = _interopRequireDefault(require("./app/middlewares/authEstabelecimento"));
@@ -172,7 +174,7 @@ var upload = (0, _multer["default"])(_multer2["default"]); // const redisClient 
 routes.get('/OrderAdmin', _OrderController2["default"].index);
 routes.post('/users', _UserStore["default"], _UserController["default"].store);
 routes.post('/estabelecimento', _EstabelecimentoController["default"].store);
-routes.put('/estabelecimento', _authEstabelecimento["default"], _EstabelecimentoController["default"].update);
+routes.put('/estabelecimento', _authEstabelecimento["default"], _EstabelecimentoUpdate["default"], _EstabelecimentoController["default"].update);
 routes.get('/estabelecimento', _EstabelecimentoController["default"].index);
 routes.post('/sessions', // bruteForce.prevent,
 _SessionStore["default"], _SessionController["default"].store);
