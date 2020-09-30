@@ -78,7 +78,6 @@ class EstabelecimentoController {
       ],
     });
 
-    // await Cache.set('estabelecimento', estabelecimento);
     res.header('X-Total-Count', count.count);
     return res.json(estabelecimento);
   }

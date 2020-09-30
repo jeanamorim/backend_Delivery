@@ -53,6 +53,8 @@ var _ScheduleControllers = _interopRequireDefault(require("./app/controllers/Sch
 
 var _MetodoPagamentoController = _interopRequireDefault(require("./app/controllers/MetodoPagamentoController"));
 
+var _EstabelecimentoListController = _interopRequireDefault(require("./app/controllers/EstabelecimentoListController"));
+
 var _ProductListController = _interopRequireDefault(require("./app/controllers/ProductListController"));
 
 var _RelatorioPedidosDataControlers = _interopRequireDefault(require("./app/controllers/RelatorioPedidosDataControlers"));
@@ -174,6 +176,7 @@ routes.post('/users', _UserStore["default"], _UserController["default"].store);
 routes.post('/estabelecimento', _EstabelecimentoController["default"].store);
 routes.put('/estabelecimento/:id', _EstabelecimentoController["default"].update);
 routes.get('/estabelecimento', _EstabelecimentoController["default"].index);
+routes.get('/estabelecimento/:id', _EstabelecimentoListController["default"].index);
 routes.post('/sessions', // bruteForce.prevent,
 _SessionStore["default"], _SessionController["default"].store);
 routes.post('/sessionsEstabelecimento', // bruteForce.prevent,

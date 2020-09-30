@@ -134,7 +134,6 @@ var EstabelecimentoController = /*#__PURE__*/function () {
 
               case 6:
                 estabelecimento = _context2.sent;
-                // await Cache.set('estabelecimento', estabelecimento);
                 res.header('X-Total-Count', count.count);
                 return _context2.abrupt("return", res.json(estabelecimento));
 
