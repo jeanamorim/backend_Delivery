@@ -176,7 +176,7 @@ routes.post('/users', _UserStore["default"], _UserController["default"].store);
 routes.post('/estabelecimento', _EstabelecimentoController["default"].store);
 routes.put('/estabelecimento/:id', _EstabelecimentoController["default"].update);
 routes.get('/estabelecimento', _EstabelecimentoController["default"].index);
-routes.get('/estabelecimento', _EstabelecimentoListController["default"].index);
+routes.get('/estabelecimentoList', _EstabelecimentoListController["default"].index);
 routes.post('/sessions', // bruteForce.prevent,
 _SessionStore["default"], _SessionController["default"].store);
 routes.post('/sessionsEstabelecimento', // bruteForce.prevent,
