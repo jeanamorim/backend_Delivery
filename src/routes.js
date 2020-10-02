@@ -46,6 +46,7 @@ import ListAdressesPorId from './app/controllers/ControllersMobile/ListAdressesP
 import OrderUserControllers from './app/controllers/ControllersMobile/OrderUsersControllers';
 import BuscarPorCategoria from './app/controllers/ControllersMobile/BuscarEstabelecimentoCategoriaControllers';
 import RemoveCartUser from './app/controllers/ControllersMobile/RemoveCartTotal';
+import BuscarProducts from './app/controllers/ControllersMobile/BuscarProdutos';
 
 import TotalCancelados from './app/controllers/ControllerRelatorios/TotalCancelado';
 import TotalCartao from './app/controllers/ControllerRelatorios/TotalCartao';
@@ -245,6 +246,7 @@ routes.post(
   ProductController.store,
 );
 routes.get('/products', authMiddleware, ProductController.index);
+routes.get('/productsearch', BuscarProducts.index);
 routes.get('/productsList', authMiddleware, ProductListControllers.index);
 routes.get('/products/:id', authMiddleware, ProductDetails.index);
 routes.delete('/products/:id', authMiddleware, ProductController.delete);

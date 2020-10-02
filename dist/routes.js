@@ -91,6 +91,8 @@ var _BuscarEstabelecimentoCategoriaControllers = _interopRequireDefault(require(
 
 var _RemoveCartTotal = _interopRequireDefault(require("./app/controllers/ControllersMobile/RemoveCartTotal"));
 
+var _BuscarProdutos = _interopRequireDefault(require("./app/controllers/ControllersMobile/BuscarProdutos"));
+
 var _TotalCancelado = _interopRequireDefault(require("./app/controllers/ControllerRelatorios/TotalCancelado"));
 
 var _TotalCartao = _interopRequireDefault(require("./app/controllers/ControllerRelatorios/TotalCartao"));
@@ -257,6 +259,7 @@ routes.get('/faturamentoTotal', _authEstabelecimento["default"], _FaturamentoTot
 
 routes.post('/products', _authEstabelecimento["default"], _ProductStore["default"], _ProductController["default"].store);
 routes.get('/products', _authEstabelecimento["default"], _ProductController["default"].index);
+routes.get('/productsearch', _BuscarProdutos["default"].index);
 routes.get('/productsList', _authEstabelecimento["default"], _ProductListController["default"].index);
 routes.get('/products/:id', _authEstabelecimento["default"], _ProductDetailsController["default"].index);
 routes["delete"]('/products/:id', _authEstabelecimento["default"], _ProductController["default"]["delete"]);
