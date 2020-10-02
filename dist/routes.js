@@ -53,6 +53,8 @@ var _ScheduleControllers = _interopRequireDefault(require("./app/controllers/Sch
 
 var _MetodoPagamentoController = _interopRequireDefault(require("./app/controllers/MetodoPagamentoController"));
 
+var _FavoritosController = _interopRequireDefault(require("./app/controllers/FavoritosController"));
+
 var _ProductListController = _interopRequireDefault(require("./app/controllers/ProductListController"));
 
 var _RelatorioPedidosDataControlers = _interopRequireDefault(require("./app/controllers/RelatorioPedidosDataControlers"));
@@ -303,6 +305,9 @@ routes.post('/pagamento', _authEstabelecimento["default"], _MetodoPagamentoContr
 routes.get('/pagamento', _authEstabelecimento["default"], _MetodoPagamentoController["default"].index);
 routes.put('/pagamento/:id', _authEstabelecimento["default"], _MetodoPagamentoController["default"].update);
 routes["delete"]('/pagamento/:id', _authEstabelecimento["default"], _MetodoPagamentoController["default"]["delete"]);
+routes.post('/favoritos', _FavoritosController["default"].store);
+routes.get('/favoritos/:id', _FavoritosController["default"].index);
+routes["delete"]('/favoritos/:id', _FavoritosController["default"]["delete"]);
 routes.get('/invalidate/all', _authEstabelecimento["default"], /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     return _regenerator["default"].wrap(function _callee$(_context) {
