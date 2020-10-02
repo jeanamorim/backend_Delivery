@@ -1,6 +1,7 @@
 import User from '../models/User';
 import Favoritos from '../models/Favoritos';
 import Estabelecimento from '../models/Estabelecimento';
+import File from '../models/File';
 
 class FavoritosController {
   async store(req, res) {
@@ -43,6 +44,13 @@ class FavoritosController {
             'birthday',
             'gender',
             'cpf',
+          ],
+          include: [
+            {
+              model: File,
+              as: 'image',
+              attributes: ['name', 'path', 'url'],
+            },
           ],
         },
       ],

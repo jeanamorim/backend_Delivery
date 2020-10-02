@@ -21,6 +21,8 @@ var _Favoritos = _interopRequireDefault(require("../models/Favoritos"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
+var _File = _interopRequireDefault(require("../models/File"));
+
 var FavoritosController = /*#__PURE__*/function () {
   function FavoritosController() {
     (0, _classCallCheck2["default"])(this, FavoritosController);
@@ -83,7 +85,12 @@ var FavoritosController = /*#__PURE__*/function () {
                   }, {
                     model: _Estabelecimento["default"],
                     as: 'estabelecimento',
-                    attributes: ['id', 'name', 'name_loja', 'status', 'avaliacao', 'categoria', 'tempo_entrega', 'email', 'phone', 'birthday', 'gender', 'cpf']
+                    attributes: ['id', 'name', 'name_loja', 'status', 'avaliacao', 'categoria', 'tempo_entrega', 'email', 'phone', 'birthday', 'gender', 'cpf'],
+                    include: [{
+                      model: _File["default"],
+                      as: 'image',
+                      attributes: ['name', 'path', 'url']
+                    }]
                   }]
                 });
 
