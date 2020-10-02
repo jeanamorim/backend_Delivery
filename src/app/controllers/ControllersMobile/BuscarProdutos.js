@@ -11,9 +11,9 @@ class BuscarProducts {
   async index(req, res) {
     const searchedProducts = await Product.findAll({
       where: {
+        estabelecimento_id: req.params.id,
         name: {
           [Op.iLike]: `%${req.query.search}%`,
-          estabelecimento_id: req.params.id,
         },
       },
       order: [['id', 'DESC']],
