@@ -42,28 +42,17 @@ var BuscarProducts = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var _name, searchedProducts, productsFormatted;
+        var _name;
 
+        var searchedProducts, productsFormatted;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!req.query) {
-                  _context.next = 9;
-                  break;
-                }
-
-                if (!req.query.search) {
-                  _context.next = 9;
-                  break;
-                }
-
-                _context.next = 4;
+                _context.next = 2;
                 return _Product["default"].findAll({
                   where: {
-                    name: (_name = {}, (0, _defineProperty2["default"])(_name, _sequelize.Op.substring, {
-                      name: req.query.search
-                    }), (0, _defineProperty2["default"])(_name, "estabelecimento_id", req.params.id), _name)
+                    name: (_name = {}, (0, _defineProperty2["default"])(_name, _sequelize.Op.iLike, "%".concat(req.query.search, "%")), (0, _defineProperty2["default"])(_name, "estabelecimento_id", req.params.id), _name)
                   },
                   order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
@@ -97,19 +86,16 @@ var BuscarProducts = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 4:
+              case 2:
                 searchedProducts = _context.sent;
-                _context.next = 7;
+                _context.next = 5;
                 return _FormatProductService["default"].run(searchedProducts);
 
-              case 7:
+              case 5:
                 productsFormatted = _context.sent;
                 return _context.abrupt("return", res.json(productsFormatted));
 
-              case 9:
-                return _context.abrupt("return", res.json());
-
-              case 10:
+              case 7:
               case "end":
                 return _context.stop();
             }

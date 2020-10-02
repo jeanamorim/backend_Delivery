@@ -9,66 +9,52 @@ import FormatProductService from '../../../services/FormatProductService';
 
 class BuscarProducts {
   async index(req, res) {
-    if (req.query) {
-      if (req.query.search) {
-        const searchedProducts = await Product.findAll({
-          where: {
-            name: {
-              [Op.substring]: { name: req.query.search },
-              estabelecimento_id: req.params.id,
-            },
-          },
-          order: [['id', 'DESC']],
-          attributes: [
-            'id',
-            'name',
-            'description',
-            'quantity',
-            'unit',
-            'price',
-          ],
+    const searchedProducts = await Product.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${req.query.search}%`,
+          estabelecimento_id: req.params.id,
+        },
+      },
+      order: [['id', 'DESC']],
+      attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
+      include: [
+        {
+          model: File,
+          as: 'image',
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        },
+        {
+          model: Estabelecimento,
+          as: 'estabelecimento',
+          attributes: ['id', 'name_loja'],
+        },
+        {
+          model: Variacao,
+          as: 'variacao',
+          attributes: ['id', 'name', 'minimo', 'maximo'],
+          through: { attributes: [] },
           include: [
             {
-              model: File,
-              as: 'image',
-              attributes: ['id', 'path', 'url'],
-            },
-            {
-              model: Category,
-              as: 'category',
-              attributes: ['id', 'name'],
-            },
-            {
-              model: Estabelecimento,
-              as: 'estabelecimento',
-              attributes: ['id', 'name_loja'],
-            },
-            {
-              model: Variacao,
-              as: 'variacao',
-              attributes: ['id', 'name', 'minimo', 'maximo'],
+              model: Opcao,
+              as: 'opcao',
+              attributes: ['id', 'name', 'price', 'status'],
               through: { attributes: [] },
-              include: [
-                {
-                  model: Opcao,
-                  as: 'opcao',
-                  attributes: ['id', 'name', 'price', 'status'],
-                  through: { attributes: [] },
-                },
-              ],
             },
           ],
-        });
+        },
+      ],
+    });
 
-        const productsFormatted = await FormatProductService.run(
-          searchedProducts,
-        );
+    const productsFormatted = await FormatProductService.run(searchedProducts);
 
-        return res.json(productsFormatted);
-      }
-    }
-
-    return res.json();
+    return res.json(productsFormatted);
   }
 }
+
 export default new BuscarProducts();
