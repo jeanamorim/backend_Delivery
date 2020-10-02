@@ -60,7 +60,9 @@ var BuscarProducts = /*#__PURE__*/function () {
                 _context.next = 4;
                 return _Product["default"].findAll({
                   where: {
-                    name: (0, _defineProperty2["default"])({}, _sequelize.Op.iLike, "%".concat(req.query.search, "%"))
+                    name: (0, _defineProperty2["default"])({
+                      estabelecimento_id: req.params.id
+                    }, _sequelize.Op.iLike, "%".concat(req.query.search, "%"))
                   },
                   order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],
