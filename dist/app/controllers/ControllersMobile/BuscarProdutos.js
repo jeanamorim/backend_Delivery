@@ -42,7 +42,8 @@ var BuscarProducts = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var searchedProducts, productsFormatted;
+        var _name, searchedProducts, productsFormatted;
+
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -60,9 +61,9 @@ var BuscarProducts = /*#__PURE__*/function () {
                 _context.next = 4;
                 return _Product["default"].findAll({
                   where: {
-                    name: (0, _defineProperty2["default"])({
-                      estabelecimento_id: req.params.id
-                    }, _sequelize.Op.iLike, "%".concat(req.query.search, "%"))
+                    name: (_name = {}, (0, _defineProperty2["default"])(_name, _sequelize.Op.substring, {
+                      name: req.query.search
+                    }), (0, _defineProperty2["default"])(_name, "estabelecimento_id", req.params.id), _name)
                   },
                   order: [['id', 'DESC']],
                   attributes: ['id', 'name', 'description', 'quantity', 'unit', 'price'],

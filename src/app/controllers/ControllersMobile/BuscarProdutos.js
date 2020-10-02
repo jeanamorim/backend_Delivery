@@ -14,8 +14,8 @@ class BuscarProducts {
         const searchedProducts = await Product.findAll({
           where: {
             name: {
+              [Op.substring]: { name: req.query.search },
               estabelecimento_id: req.params.id,
-              [Op.iLike]: `%${req.query.search}%`,
             },
           },
           order: [['id', 'DESC']],
