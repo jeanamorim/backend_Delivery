@@ -117,7 +117,12 @@ var OrderController = /*#__PURE__*/function () {
                   }, {
                     model: _Estabelecimento["default"],
                     as: 'estabelecimento',
-                    attributes: ['id', 'name_loja', 'phone']
+                    attributes: ['id', 'name_loja', 'phone'],
+                    include: [{
+                      model: _File["default"],
+                      as: 'image',
+                      attributes: ['path', 'url']
+                    }]
                   }, {
                     model: _User["default"],
                     as: 'user',

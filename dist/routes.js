@@ -257,7 +257,7 @@ routes.get('/orders/:id', _UserOrderController["default"].index); // lista order
 
 routes.post('/orders', _auth["default"], _OrderStore["default"], _OrderController["default"].store);
 routes.get('/orders', _authEstabelecimento["default"], _OrderController["default"].index);
-routes.get('/orders/:id', _OrdersById["default"].index);
+routes.get('/order/:id', _OrdersById["default"].index);
 routes.put('/orders/:id', _auth["default"], _OrderUpdate["default"], _OrderController["default"].update);
 routes["delete"]('/orders/:id', _auth["default"], _OrderController["default"]["delete"]);
 routes.get('/faturamentoTotal', _authEstabelecimento["default"], _FaturamentoTotal["default"].index); // produtos de todos os estabelecimentos

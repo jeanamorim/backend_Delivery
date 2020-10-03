@@ -232,7 +232,7 @@ routes.post(
   OrderController.store,
 );
 routes.get('/orders', authMiddleware, OrderController.index);
-routes.get('/orders/:id', OrderById.index);
+routes.get('/order/:id', OrderById.index);
 routes.put(
   '/orders/:id',
   authMiddlewareUsers,
