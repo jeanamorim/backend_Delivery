@@ -32,7 +32,27 @@ class BuscarProducts {
         {
           model: Estabelecimento,
           as: 'estabelecimento',
-          attributes: ['id', 'name_loja'],
+          attributes: [
+            'id',
+            'name',
+            'name_loja',
+            'status',
+            'avaliacao',
+            'categoria',
+            'tempo_entrega',
+            'email',
+            'phone',
+            'birthday',
+            'gender',
+            'cpf',
+          ],
+          include: [
+            {
+              model: File,
+              as: 'image',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
         },
         {
           model: Variacao,

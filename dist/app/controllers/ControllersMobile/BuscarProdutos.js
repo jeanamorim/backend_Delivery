@@ -66,7 +66,12 @@ var BuscarProducts = /*#__PURE__*/function () {
                   }, {
                     model: _Estabelecimento["default"],
                     as: 'estabelecimento',
-                    attributes: ['id', 'name_loja']
+                    attributes: ['id', 'name', 'name_loja', 'status', 'avaliacao', 'categoria', 'tempo_entrega', 'email', 'phone', 'birthday', 'gender', 'cpf'],
+                    include: [{
+                      model: _File["default"],
+                      as: 'image',
+                      attributes: ['name', 'path', 'url']
+                    }]
                   }, {
                     model: _Variacao["default"],
                     as: 'variacao',
