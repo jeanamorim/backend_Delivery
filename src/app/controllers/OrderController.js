@@ -143,6 +143,13 @@ class OrderController {
           model: Estabelecimento,
           as: 'estabelecimento',
           attributes: ['id', 'name_loja', 'phone'],
+          include: [
+            {
+              model: File,
+              as: 'image',
+              attributes: ['path', 'url'],
+            },
+          ],
         },
         {
           model: User,
