@@ -188,7 +188,7 @@ routes.post('/sessionsEstabelecimento', // bruteForce.prevent,
 _SessionStore["default"], _SessionEstabelecimentoController["default"].store);
 routes.post('/admin/sessions', // bruteForce.prevent,
 _SessionStore["default"], _AdminSessionController["default"].store);
-routes.get('/users', _auth["default"], _UserController["default"].index);
+routes.get('/users', _UserController["default"].index);
 routes.put('/users', _auth["default"], _UserUpdate["default"], _UserController["default"].update);
 routes.post('/address', _auth["default"], _AddressStore["default"], _AddressController["default"].store);
 routes.get('/address', _auth["default"], _AddressController["default"].index); // buscar um unico endereco por id

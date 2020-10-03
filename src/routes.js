@@ -141,7 +141,7 @@ routes.post(
   AdminSessionController.store,
 );
 
-routes.get('/users', authMiddlewareUsers, UserController.index);
+routes.get('/users', UserController.index);
 routes.put(
   '/users',
   authMiddlewareUsers,
