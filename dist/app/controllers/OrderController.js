@@ -386,21 +386,21 @@ var OrderController = /*#__PURE__*/function () {
     key: "delete",
     value: function () {
       var _delete2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
-        var CancelOrder;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _CancelOrderService["default"].run({
-                  order_id: req.params.id
+                return _Order["default"].destroy({
+                  where: {
+                    estabelecimento_id: req.params.id
+                  }
                 });
 
               case 2:
-                CancelOrder = _context5.sent;
-                return _context5.abrupt("return", res.json(CancelOrder));
+                return _context5.abrupt("return", res.json());
 
-              case 4:
+              case 3:
               case "end":
                 return _context5.stop();
             }
