@@ -243,7 +243,7 @@ class OrderController {
           payment_condition,
           cc_brand,
           cc_last_4_digits,
-          products: req.body.products,
+          order_details: req.body.products,
         };
         sendMessage(user_id, 'Update-order', result);
         return res.json({
@@ -278,7 +278,7 @@ class OrderController {
         payment_condition,
         cc_brand,
         cc_last_4_digits,
-        products: req.body.products,
+        order_details: req.body.products,
       };
       sendMessage(user_id, 'Update-order', result1);
       return res.json({
