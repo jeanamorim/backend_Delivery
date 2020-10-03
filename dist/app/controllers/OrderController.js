@@ -344,7 +344,8 @@ var OrderController = /*#__PURE__*/function () {
                   payment_method: payment_method,
                   payment_condition: payment_condition,
                   cc_brand: cc_brand,
-                  cc_last_4_digits: cc_last_4_digits
+                  cc_last_4_digits: cc_last_4_digits,
+                  products: req.body.products
                 };
                 (0, _websocket.sendMessage)(user_id, 'Update-order', result1);
                 return _context4.abrupt("return", res.json({
