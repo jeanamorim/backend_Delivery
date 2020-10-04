@@ -44,7 +44,7 @@ import AddressesUserEstab from './app/controllers/ControllersMobile/AdressesUser
 import OfertasGeral from './app/controllers/ControllersMobile/ListaOfertasGeralControllers';
 import VariacaoProduto from './app/controllers/ControllersMobile/VariacaoProdutoControllers';
 import OpcaoVariacaoEstabControllers from './app/controllers/ControllersMobile/OpcaoVariacaoEstabControllers';
-import ListAdressesPorId from './app/controllers/ControllersMobile/ListAdressesPorIdController';
+
 import OrderUserControllers from './app/controllers/ControllersMobile/OrderUsersControllers';
 import BuscarPorCategoria from './app/controllers/ControllersMobile/BuscarEstabelecimentoCategoriaControllers';
 import RemoveCartUser from './app/controllers/ControllersMobile/RemoveCartTotal';
@@ -156,8 +156,7 @@ routes.post(
 );
 
 routes.get('/address', authMiddlewareUsers, AddressController.index);
-// buscar um unico endereco por id
-routes.get('/addressUser/:id', ListAdressesPorId.index);
+
 // buscar todos enderecos do usuario logado por id
 routes.get('/address_estab/:id', AddressesUserEstab.index);
 // excluir um endereco do usuario logado no app

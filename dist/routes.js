@@ -85,8 +85,6 @@ var _VariacaoProdutoControllers = _interopRequireDefault(require("./app/controll
 
 var _OpcaoVariacaoEstabControllers = _interopRequireDefault(require("./app/controllers/ControllersMobile/OpcaoVariacaoEstabControllers"));
 
-var _ListAdressesPorIdController = _interopRequireDefault(require("./app/controllers/ControllersMobile/ListAdressesPorIdController"));
-
 var _OrderUsersControllers = _interopRequireDefault(require("./app/controllers/ControllersMobile/OrderUsersControllers"));
 
 var _BuscarEstabelecimentoCategoriaControllers = _interopRequireDefault(require("./app/controllers/ControllersMobile/BuscarEstabelecimentoCategoriaControllers"));
@@ -191,9 +189,7 @@ _SessionStore["default"], _AdminSessionController["default"].store);
 routes.get('/users', _UserController["default"].index);
 routes.put('/users', _auth["default"], _UserUpdate["default"], _UserController["default"].update);
 routes.post('/address', _auth["default"], _AddressStore["default"], _AddressController["default"].store);
-routes.get('/address', _auth["default"], _AddressController["default"].index); // buscar um unico endereco por id
-
-routes.get('/addressUser/:id', _ListAdressesPorIdController["default"].index); // buscar todos enderecos do usuario logado por id
+routes.get('/address', _auth["default"], _AddressController["default"].index); // buscar todos enderecos do usuario logado por id
 
 routes.get('/address_estab/:id', _AdressesUserLogadoController["default"].index); // excluir um endereco do usuario logado no app
 
