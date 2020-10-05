@@ -15,6 +15,10 @@ var _express = require("express");
 
 var _multer = _interopRequireDefault(require("multer"));
 
+var _redis = _interopRequireDefault(require("redis"));
+
+var _ExpressBruteFlexible = _interopRequireDefault(require("rate-limiter-flexible/lib/ExpressBruteFlexible"));
+
 var _Cache = _interopRequireDefault(require("./lib/Cache"));
 
 var _multer2 = _interopRequireDefault(require("./config/multer"));
@@ -151,8 +155,7 @@ var _auth = _interopRequireDefault(require("./app/middlewares/auth"));
 
 var _authEstabelecimento = _interopRequireDefault(require("./app/middlewares/authEstabelecimento"));
 
-// import redis from 'redis';
-// import ExpressBruteFlexible from 'rate-limiter-flexible/lib/ExpressBruteFlexible';
+/* eslint-disable import/no-extraneous-dependencies */
 // controllers
 // listar produtos e categorias por id para o painel web
 // coontrollers do adminstrador
@@ -161,18 +164,18 @@ var _authEstabelecimento = _interopRequireDefault(require("./app/middlewares/aut
 // middlewares
 // configs
 var routes = new _express.Router();
-var upload = (0, _multer["default"])(_multer2["default"]); // const redisClient = redis.createClient({
-//   host: process.env.REDIS_HOST,
-//   port: process.env.REDIS_PORT,
-// });
-// const bruteForce = new ExpressBruteFlexible(
-//   ExpressBruteFlexible.LIMITER_TYPES.REDIS,
-//   {
-//     freeRetries: 100,
-//     storeClient: redisClient,
-//   },
-// );
-// routes
+var upload = (0, _multer["default"])(_multer2["default"]);
+
+var redisClient = _redis["default"].createClient({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PASSWORD
+});
+
+var bruteForce = new _ExpressBruteFlexible["default"](_ExpressBruteFlexible["default"].LIMITER_TYPES.REDIS, {
+  freeRetries: 100,
+  storeClient: redisClient
+}); // routes
 // routes do administrador
 
 routes.get('/OrderAdmin', _OrderController2["default"].index);
@@ -180,12 +183,9 @@ routes.post('/users', _UserStore["default"], _UserController["default"].store);
 routes.post('/estabelecimento', _EstabelecimentoController["default"].store);
 routes.put('/estabelecimento', _authEstabelecimento["default"], _EstabelecimentoUpdate["default"], _EstabelecimentoController["default"].update);
 routes.get('/estabelecimento', _EstabelecimentoController["default"].index);
-routes.post('/sessions', // bruteForce.prevent,
-_SessionStore["default"], _SessionController["default"].store);
-routes.post('/sessionsEstabelecimento', // bruteForce.prevent,
-_SessionStore["default"], _SessionEstabelecimentoController["default"].store);
-routes.post('/admin/sessions', // bruteForce.prevent,
-_SessionStore["default"], _AdminSessionController["default"].store);
+routes.post('/sessions', bruteForce.prevent, _SessionStore["default"], _SessionController["default"].store);
+routes.post('/sessionsEstabelecimento', bruteForce.prevent, _SessionStore["default"], _SessionEstabelecimentoController["default"].store);
+routes.post('/admin/sessions', bruteForce.prevent, _SessionStore["default"], _AdminSessionController["default"].store);
 routes.get('/users', _UserController["default"].index);
 routes.put('/users', _auth["default"], _UserUpdate["default"], _UserController["default"].update);
 routes.post('/address', _auth["default"], _AddressStore["default"], _AddressController["default"].store);
@@ -307,7 +307,7 @@ routes["delete"]('/pagamento/:id', _authEstabelecimento["default"], _MetodoPagam
 routes.post('/favoritos', _FavoritosController["default"].store);
 routes.get('/favoritos/:id', _FavoritosController["default"].index);
 routes["delete"]('/favoritos/:id', _FavoritosController["default"]["delete"]);
-routes.get('/invalidate/all', _authEstabelecimento["default"], /*#__PURE__*/function () {
+routes.get('/invalidate/all', _auth["default"], /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {

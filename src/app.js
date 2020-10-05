@@ -11,7 +11,7 @@ import * as Sentry from '@sentry/node';
 import 'express-async-errors';
 
 import { setupWebSocket } from './websocket';
-// import rateLimiter from './app/middlewares/rateLimiter';
+import rateLimiter from './app/middlewares/rateLimiter';
 
 import routes from './routes';
 
@@ -40,9 +40,9 @@ class App {
       '/files',
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')),
     );
-    // if (process.env.NODE_ENV !== 'development') {
-    //   this.server.use(rateLimiter);
-    // }
+    if (process.env.NODE_ENV !== 'development') {
+      this.server.use(rateLimiter);
+    }
   }
 
   routes() {

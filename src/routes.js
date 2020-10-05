@@ -1,7 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Router } from 'express';
 import multer from 'multer';
-// import redis from 'redis';
-// import ExpressBruteFlexible from 'rate-limiter-flexible/lib/ExpressBruteFlexible';
+import redis from 'redis';
+import ExpressBruteFlexible from 'rate-limiter-flexible/lib/ExpressBruteFlexible';
 
 import Cache from './lib/Cache';
 
@@ -94,18 +95,19 @@ import authMiddleware from './app/middlewares/authEstabelecimento';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-// const redisClient = redis.createClient({
-//   host: process.env.REDIS_HOST,
-//   port: process.env.REDIS_PORT,
-// });
+const redisClient = redis.createClient({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PASSWORD,
+});
 
-// const bruteForce = new ExpressBruteFlexible(
-//   ExpressBruteFlexible.LIMITER_TYPES.REDIS,
-//   {
-//     freeRetries: 100,
-//     storeClient: redisClient,
-//   },
-// );
+const bruteForce = new ExpressBruteFlexible(
+  ExpressBruteFlexible.LIMITER_TYPES.REDIS,
+  {
+    freeRetries: 100,
+    storeClient: redisClient,
+  },
+);
 
 // routes
 // routes do administrador
@@ -123,20 +125,20 @@ routes.get('/estabelecimento', EstabelecimentoControllers.index);
 
 routes.post(
   '/sessions',
-  // bruteForce.prevent,
+  bruteForce.prevent,
   validateSessionStore,
   SessionController.store,
 );
 routes.post(
   '/sessionsEstabelecimento',
-  // bruteForce.prevent,
+  bruteForce.prevent,
   validateSessionStore,
   SessionEstabelecimentoController.store,
 );
 
 routes.post(
   '/admin/sessions',
-  // bruteForce.prevent,
+  bruteForce.prevent,
   validateSessionStore,
   AdminSessionController.store,
 );
@@ -321,7 +323,7 @@ routes.post('/favoritos', FavoritosControler.store);
 routes.get('/favoritos/:id', FavoritosControler.index);
 routes.delete('/favoritos/:id', FavoritosControler.delete);
 
-routes.get('/invalidate/all', authMiddleware, async (req, res) => {
+routes.get('/invalidate/all', authMiddlewareUsers, async (req, res) => {
   await Cache.invalidateAll();
   return res.json('Cache limpo!');
 });
