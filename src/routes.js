@@ -323,7 +323,7 @@ routes.post('/favoritos', FavoritosControler.store);
 routes.get('/favoritos/:id', FavoritosControler.index);
 routes.delete('/favoritos/:id', FavoritosControler.delete);
 
-routes.get('/invalidate/all', authMiddlewareUsers, async (req, res) => {
+routes.get('/invalidate/all', authMiddleware, async (req, res) => {
   await Cache.invalidateAll();
   return res.json('Cache limpo!');
 });

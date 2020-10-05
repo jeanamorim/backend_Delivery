@@ -307,7 +307,7 @@ routes["delete"]('/pagamento/:id', _authEstabelecimento["default"], _MetodoPagam
 routes.post('/favoritos', _FavoritosController["default"].store);
 routes.get('/favoritos/:id', _FavoritosController["default"].index);
 routes["delete"]('/favoritos/:id', _FavoritosController["default"]["delete"]);
-routes.get('/invalidate/all', _auth["default"], /*#__PURE__*/function () {
+routes.get('/invalidate/all', _authEstabelecimento["default"], /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
