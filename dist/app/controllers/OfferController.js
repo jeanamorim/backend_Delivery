@@ -27,6 +27,10 @@ var _Category = _interopRequireDefault(require("../models/Category"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
+var _Variacao = _interopRequireDefault(require("../models/Variacao"));
+
+var _Opcao = _interopRequireDefault(require("../models/Opcao"));
+
 var _Cache = _interopRequireDefault(require("../../lib/Cache"));
 
 var OfferController = /*#__PURE__*/function () {
@@ -87,7 +91,7 @@ var OfferController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var cached, _expiredCheck, count, offers, expiredCheck;
+        var cached, _expiredCheck, offers, expiredCheck;
 
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
@@ -111,16 +115,10 @@ var OfferController = /*#__PURE__*/function () {
 
               case 6:
                 _context2.next = 8;
-                return _Offer["default"].findAndCountAll();
-
-              case 8:
-                count = _context2.sent;
-                _context2.next = 11;
                 return _Offer["default"].findAll({
                   where: {
                     estabelecimento_id: req.estabelecimentoId
                   },
-                  order: [['id', 'DESC']],
                   attributes: ['id', 'product_id', 'quantity', 'unit', 'from', 'to', 'expiration_date'],
                   include: [{
                     model: _Product["default"],
@@ -134,27 +132,46 @@ var OfferController = /*#__PURE__*/function () {
                       model: _Category["default"],
                       as: 'category',
                       attributes: ['name']
+                    }, {
+                      model: _Variacao["default"],
+                      as: 'variacao',
+                      attributes: ['name', 'minimo', 'maximo'],
+                      through: {
+                        attributes: []
+                      },
+                      include: [{
+                        model: _Opcao["default"],
+                        as: 'opcao',
+                        attributes: ['id', 'name', 'price', 'status'],
+                        through: {
+                          attributes: []
+                        }
+                      }]
                     }]
                   }, {
                     model: _Estabelecimento["default"],
                     as: 'estabelecimento',
-                    attributes: ['id', 'name_loja']
+                    attributes: ['id', 'name', 'name_loja', 'status', 'avaliacao', 'categoria', 'tempo_entrega', 'email', 'phone', 'birthday', 'gender', 'cpf'],
+                    include: [{
+                      model: _File["default"],
+                      as: 'image',
+                      attributes: ['name', 'path', 'url']
+                    }]
                   }]
                 });
 
-              case 11:
+              case 8:
                 offers = _context2.sent;
                 expiredCheck = JSON.parse(JSON.stringify(offers)).filter(function (offer) {
                   return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
                 });
-                _context2.next = 15;
+                _context2.next = 12;
                 return _Cache["default"].set("offers/".concat(req.estabelecimentoId), expiredCheck);
 
-              case 15:
-                res.header('X-Total-Count', count.count);
+              case 12:
                 return _context2.abrupt("return", res.json(expiredCheck));
 
-              case 17:
+              case 13:
               case "end":
                 return _context2.stop();
             }

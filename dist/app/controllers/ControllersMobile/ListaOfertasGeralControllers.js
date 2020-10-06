@@ -33,12 +33,12 @@ var _Opcao = _interopRequireDefault(require("../../models/Opcao"));
 
 var _Cache = _interopRequireDefault(require("../../../lib/Cache"));
 
-var ProductEstabelecimentoController = /*#__PURE__*/function () {
-  function ProductEstabelecimentoController() {
-    (0, _classCallCheck2["default"])(this, ProductEstabelecimentoController);
+var OfertasGeral = /*#__PURE__*/function () {
+  function OfertasGeral() {
+    (0, _classCallCheck2["default"])(this, OfertasGeral);
   }
 
-  (0, _createClass2["default"])(ProductEstabelecimentoController, [{
+  (0, _createClass2["default"])(OfertasGeral, [{
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
@@ -134,9 +134,9 @@ var ProductEstabelecimentoController = /*#__PURE__*/function () {
       return index;
     }()
   }]);
-  return ProductEstabelecimentoController;
+  return OfertasGeral;
 }();
 
-var _default = new ProductEstabelecimentoController();
+var _default = new OfertasGeral();
 
 exports["default"] = _default;

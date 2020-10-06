@@ -8,7 +8,7 @@ import Variacao from '../../models/Variacao';
 import Opcao from '../../models/Opcao';
 import Cache from '../../../lib/Cache';
 
-class ProductEstabelecimentoController {
+class OfertasGeral {
   async index(req, res) {
     const cached = await Cache.get(`offers/${req.estabelecimentoId}`);
 
@@ -105,4 +105,4 @@ class ProductEstabelecimentoController {
   }
 }
 
-export default new ProductEstabelecimentoController();
+export default new OfertasGeral();

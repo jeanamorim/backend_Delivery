@@ -5,6 +5,8 @@ import Product from '../models/Product';
 import File from '../models/File';
 import Category from '../models/Category';
 import Estabelecimento from '../models/Estabelecimento';
+import Variacao from '../models/Variacao';
+import Opcao from '../models/Opcao';
 import Cache from '../../lib/Cache';
 
 class OfferController {
@@ -36,12 +38,10 @@ class OfferController {
       );
       return res.json(expiredCheck);
     }
-    const count = await Offer.findAndCountAll();
     const offers = await Offer.findAll({
       where: {
         estabelecimento_id: req.estabelecimentoId,
       },
-      order: [['id', 'DESC']],
       attributes: [
         'id',
         'product_id',
@@ -74,12 +74,47 @@ class OfferController {
               as: 'category',
               attributes: ['name'],
             },
+            {
+              model: Variacao,
+              as: 'variacao',
+              attributes: ['name', 'minimo', 'maximo'],
+              through: { attributes: [] },
+              include: [
+                {
+                  model: Opcao,
+                  as: 'opcao',
+                  attributes: ['id', 'name', 'price', 'status'],
+                  through: { attributes: [] },
+                },
+              ],
+            },
           ],
         },
+
         {
           model: Estabelecimento,
           as: 'estabelecimento',
-          attributes: ['id', 'name_loja'],
+          attributes: [
+            'id',
+            'name',
+            'name_loja',
+            'status',
+            'avaliacao',
+            'categoria',
+            'tempo_entrega',
+            'email',
+            'phone',
+            'birthday',
+            'gender',
+            'cpf',
+          ],
+          include: [
+            {
+              model: File,
+              as: 'image',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
         },
       ],
     });
@@ -88,7 +123,7 @@ class OfferController {
       offer => !isBefore(parseISO(offer.expiration_date), new Date()),
     );
     await Cache.set(`offers/${req.estabelecimentoId}`, expiredCheck);
-    res.header('X-Total-Count', count.count);
+
     return res.json(expiredCheck);
   }
 
