@@ -23,6 +23,8 @@ var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento
 
 var _websocket = require("../../websocket");
 
+var _Cache = _interopRequireDefault(require("../../lib/Cache"));
+
 var CategoryController = /*#__PURE__*/function () {
   function CategoryController() {
     (0, _classCallCheck2["default"])(this, CategoryController);
@@ -49,6 +51,10 @@ var CategoryController = /*#__PURE__*/function () {
               case 3:
                 categories = _context.sent;
                 _context.next = 6;
+                return _Cache["default"].invalidate("categories/".concat(req.estabelecimentoId));
+
+              case 6:
+                _context.next = 8;
                 return _Category["default"].findAll({
                   where: {
                     id: categories.id
@@ -65,13 +71,13 @@ var CategoryController = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 6:
+              case 8:
                 Newcategories = _context.sent;
                 // /enviar para o socket a categoria cadastrada
                 (0, _websocket.sendMessage)(categories.estabelecimento_id, 'NEW_CATEGORIAS', Newcategories);
                 return _context.abrupt("return", res.json(categories));
 
-              case 9:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -89,12 +95,26 @@ var CategoryController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var categories;
+        var cached, categories;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
+                return _Cache["default"].get("categories/".concat(req.estabelecimentoId));
+
+              case 2:
+                cached = _context2.sent;
+
+                if (!cached) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                return _context2.abrupt("return", res.json(cached));
+
+              case 5:
+                _context2.next = 7;
                 return _Category["default"].findAll({
                   where: {
                     estabelecimento_id: req.estabelecimentoId
@@ -112,11 +132,15 @@ var CategoryController = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 2:
+              case 7:
                 categories = _context2.sent;
+                _context2.next = 10;
+                return _Cache["default"].set("categories/".concat(req.estabelecimentoId), categories);
+
+              case 10:
                 return _context2.abrupt("return", res.json(categories));
 
-              case 4:
+              case 11:
               case "end":
                 return _context2.stop();
             }
@@ -158,10 +182,14 @@ var CategoryController = /*#__PURE__*/function () {
                   name: name,
                   image_id: image_id
                 };
+                _context3.next = 12;
+                return _Cache["default"].invalidate("categories/".concat(req.estabelecimentoId));
+
+              case 12:
                 (0, _websocket.sendMessage)(req.estabelecimentoId, 'UPDATE_CATEGORIAS', result);
                 return _context3.abrupt("return", res.json(result));
 
-              case 12:
+              case 14:
               case "end":
                 return _context3.stop();
             }
@@ -191,9 +219,13 @@ var CategoryController = /*#__PURE__*/function () {
                 });
 
               case 2:
+                _context4.next = 4;
+                return _Cache["default"].invalidate("categories/".concat(req.estabelecimentoId));
+
+              case 4:
                 return _context4.abrupt("return", res.json());
 
-              case 3:
+              case 5:
               case "end":
                 return _context4.stop();
             }

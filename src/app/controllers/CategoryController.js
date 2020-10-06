@@ -2,6 +2,7 @@ import Category from '../models/Category';
 import File from '../models/File';
 import Estabelecimento from '../models/Estabelecimento';
 import { sendMessage } from '../../websocket';
+import Cache from '../../lib/Cache';
 
 class CategoryController {
   async store(req, res) {
@@ -12,6 +13,7 @@ class CategoryController {
       name,
       image_id,
     });
+    await Cache.invalidate(`categories/${req.estabelecimentoId}`);
     // buscando a categoria cadastrada para enviar para o socket
     const Newcategories = await Category.findAll({
       where: {
@@ -39,6 +41,9 @@ class CategoryController {
   }
 
   async index(req, res) {
+    const cached = await Cache.get(`categories/${req.estabelecimentoId}`);
+
+    if (cached) return res.json(cached);
     const categories = await Category.findAll({
       where: {
         estabelecimento_id: req.estabelecimentoId,
@@ -58,7 +63,7 @@ class CategoryController {
         },
       ],
     });
-
+    await Cache.set(`categories/${req.estabelecimentoId}`, categories);
     return res.json(categories);
   }
 
@@ -72,7 +77,7 @@ class CategoryController {
       name,
       image_id,
     };
-
+    await Cache.invalidate(`categories/${req.estabelecimentoId}`);
     sendMessage(req.estabelecimentoId, 'UPDATE_CATEGORIAS', result);
 
     return res.json(result);
@@ -84,7 +89,7 @@ class CategoryController {
         id: req.params.id,
       },
     });
-
+    await Cache.invalidate(`categories/${req.estabelecimentoId}`);
     return res.json();
   }
 }

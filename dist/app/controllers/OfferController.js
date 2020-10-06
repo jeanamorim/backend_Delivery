@@ -27,6 +27,8 @@ var _Category = _interopRequireDefault(require("../models/Category"));
 
 var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento"));
 
+var _Cache = _interopRequireDefault(require("../../lib/Cache"));
+
 var OfferController = /*#__PURE__*/function () {
   function OfferController() {
     (0, _classCallCheck2["default"])(this, OfferController);
@@ -57,9 +59,17 @@ var OfferController = /*#__PURE__*/function () {
 
               case 4:
                 id = _context.sent;
+                _context.next = 7;
+                return _Cache["default"].invalidate("offers/".concat(req.estabelecimentoId));
+
+              case 7:
+                _context.next = 9;
+                return _Cache["default"].invalidate("products/".concat(req.estabelecimentoId));
+
+              case 9:
                 return _context.abrupt("return", res.json(id));
 
-              case 6:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -77,17 +87,35 @@ var OfferController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var count, offers, expiredCheck;
+        var cached, _expiredCheck, count, offers, expiredCheck;
+
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Offer["default"].findAndCountAll();
+                return _Cache["default"].get("offers/".concat(req.estabelecimentoId));
 
               case 2:
+                cached = _context2.sent;
+
+                if (!cached) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _expiredCheck = cached.filter(function (offer) {
+                  return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
+                });
+                return _context2.abrupt("return", res.json(_expiredCheck));
+
+              case 6:
+                _context2.next = 8;
+                return _Offer["default"].findAndCountAll();
+
+              case 8:
                 count = _context2.sent;
-                _context2.next = 5;
+                _context2.next = 11;
                 return _Offer["default"].findAll({
                   where: {
                     estabelecimento_id: req.estabelecimentoId
@@ -114,15 +142,19 @@ var OfferController = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 5:
+              case 11:
                 offers = _context2.sent;
                 expiredCheck = JSON.parse(JSON.stringify(offers)).filter(function (offer) {
                   return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
                 });
+                _context2.next = 15;
+                return _Cache["default"].set("offers/".concat(req.estabelecimentoId), expiredCheck);
+
+              case 15:
                 res.header('X-Total-Count', count.count);
                 return _context2.abrupt("return", res.json(expiredCheck));
 
-              case 9:
+              case 17:
               case "end":
                 return _context2.stop();
             }
@@ -162,6 +194,14 @@ var OfferController = /*#__PURE__*/function () {
                 unit = _yield$offer$update.unit;
                 from = _yield$offer$update.from;
                 to = _yield$offer$update.to;
+                _context3.next = 14;
+                return _Cache["default"].invalidate("offers/".concat(req.estabelecimentoId));
+
+              case 14:
+                _context3.next = 16;
+                return _Cache["default"].invalidate("products/".concat(req.estabelecimentoId));
+
+              case 16:
                 return _context3.abrupt("return", res.json({
                   id: id,
                   quantity: quantity,
@@ -171,7 +211,7 @@ var OfferController = /*#__PURE__*/function () {
                   expiration_date: expiration_date
                 }));
 
-              case 13:
+              case 17:
               case "end":
                 return _context3.stop();
             }
@@ -201,9 +241,13 @@ var OfferController = /*#__PURE__*/function () {
                 });
 
               case 2:
+                _context4.next = 4;
+                return _Cache["default"].invalidate("offers/".concat(req.estabelecimentoId));
+
+              case 4:
                 return _context4.abrupt("return", res.json());
 
-              case 3:
+              case 5:
               case "end":
                 return _context4.stop();
             }

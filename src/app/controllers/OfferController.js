@@ -5,6 +5,7 @@ import Product from '../models/Product';
 import File from '../models/File';
 import Category from '../models/Category';
 import Estabelecimento from '../models/Estabelecimento';
+import Cache from '../../lib/Cache';
 
 class OfferController {
   async store(req, res) {
@@ -21,11 +22,20 @@ class OfferController {
       to,
       expiration_date,
     });
-
+    await Cache.invalidate(`offers/${req.estabelecimentoId}`);
+    await Cache.invalidate(`products/${req.estabelecimentoId}`);
     return res.json(id);
   }
 
   async index(req, res) {
+    const cached = await Cache.get(`offers/${req.estabelecimentoId}`);
+
+    if (cached) {
+      const expiredCheck = cached.filter(
+        offer => !isBefore(parseISO(offer.expiration_date), new Date()),
+      );
+      return res.json(expiredCheck);
+    }
     const count = await Offer.findAndCountAll();
     const offers = await Offer.findAll({
       where: {
@@ -77,6 +87,7 @@ class OfferController {
     const expiredCheck = JSON.parse(JSON.stringify(offers)).filter(
       offer => !isBefore(parseISO(offer.expiration_date), new Date()),
     );
+    await Cache.set(`offers/${req.estabelecimentoId}`, expiredCheck);
     res.header('X-Total-Count', count.count);
     return res.json(expiredCheck);
   }
@@ -94,6 +105,9 @@ class OfferController {
       from,
       to,
     } = await offer.update(req.body);
+
+    await Cache.invalidate(`offers/${req.estabelecimentoId}`);
+    await Cache.invalidate(`products/${req.estabelecimentoId}`);
 
     return res.json({
       id,
@@ -113,7 +127,7 @@ class OfferController {
         id: req.params.id,
       },
     });
-
+    await Cache.invalidate(`offers/${req.estabelecimentoId}`);
     return res.json();
   }
 }

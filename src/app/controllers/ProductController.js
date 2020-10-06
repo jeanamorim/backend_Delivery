@@ -7,13 +7,11 @@ import Estabelecimento from '../models/Estabelecimento';
 import Variacao from '../models/Variacao';
 import Opcao from '../models/Opcao';
 import { sendMessage } from '../../websocket';
-// import AdminCheckService from '../../services/AdminCheckService';
+import Cache from '../../lib/Cache';
 import FormatProductService from '../../services/FormatProductService';
 
 class ProductController {
   async store(req, res) {
-    //  await AdminCheckService.run({ user_id: req.userId });
-
     const {
       name,
       description,
@@ -39,6 +37,7 @@ class ProductController {
     if (variacao && variacao.length > 0) {
       products.setVariacao(variacao);
     }
+
     // / fazendo a chamada do produto cadastrado para enviar para o socket
 
     const NewProduct = await Product.findAll({
@@ -81,6 +80,7 @@ class ProductController {
       ],
     });
     sendMessage(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
+    await Cache.invalidate(`products/${req.estabelecimentoId}`);
     return res.json(products);
   }
 
@@ -235,15 +235,26 @@ class ProductController {
         return res.json(productsFormatted);
       }
     }
+    const cached = await Cache.get(`products/${req.estabelecimentoId}`);
 
-    return res.json();
+    if (cached) {
+      const productsFormatted = await FormatProductService.run(cached);
+
+      return res.json(productsFormatted);
+    }
+
+    const productsFormatted = await FormatProductService.run();
+
+    await Cache.set(`products/${req.estabelecimentoId}`, productsFormatted);
+
+    return res.json(productsFormatted);
   }
 
   async update(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
     const { id } = req.params;
     const post = await Product.findByPk(id);
+
+    await Cache.invalidate(`products/${req.estabelecimentoId}`);
 
     const { variacao, ...data } = req.body;
     post.update(data);
@@ -268,7 +279,7 @@ class ProductController {
         id: req.params.id,
       },
     });
-
+    await Cache.invalidate(`products/${req.estabelecimentoId}`);
     return res.json();
   }
 }
