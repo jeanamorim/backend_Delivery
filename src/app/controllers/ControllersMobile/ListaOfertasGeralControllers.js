@@ -8,7 +8,6 @@ import Opcao from '../../models/Opcao';
 
 class ProductEstabelecimentoController {
   async index(req, res) {
-    const count = await Offer.findAndCountAll();
     const offers = await Offer.findAll({
       attributes: [
         'id',
@@ -87,7 +86,6 @@ class ProductEstabelecimentoController {
       ],
     });
 
-    res.header('X-Total-Count', count.count);
     return res.json(offers);
   }
 }

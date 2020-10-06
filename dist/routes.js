@@ -208,9 +208,7 @@ routes.put('/address', _auth["default"], _AddressUpdate["default"], _AddressCont
 
 routes.get('/buscarestabelecimento', _BuscarEstabelecimentoCategoriaControllers["default"].index); // buscar pedido por cliente logado no app
 
-routes.get('/orders_user/:id', _OrderUsersControllers["default"].index); // lista todas ofertas de todos estabelecimento
-
-routes.get('/offersGeral', _ListaOfertasGeralControllers["default"].index); // lista todas variacoes por produto passando o id do produto
+routes.get('/orders_user/:id', _OrderUsersControllers["default"].index); // lista todas variacoes por produto passando o id do produto
 
 routes.get('/variacao_produto/:id', _VariacaoProdutoControllers["default"].index); // lista todas as opcoes das variacoes passando o id da variacao
 
@@ -276,6 +274,7 @@ routes.put('/categories/:id', _authEstabelecimento["default"], _CategoryControll
 routes.post('/offers', _authEstabelecimento["default"], _OfferStore["default"], _OfferController["default"].store);
 routes.get('/offers', _authEstabelecimento["default"], _OfferController["default"].index);
 routes.put('/offers/:id', _authEstabelecimento["default"], _OfferUpdate["default"], _OfferController["default"].update);
+routes.get('/offers/geral', _ListaOfertasGeralControllers["default"].index);
 routes["delete"]('/offers/:id', _authEstabelecimento["default"], _OfferController["default"]["delete"]); // configuracoes dos fretes
 
 routes.post('/settings', _authEstabelecimento["default"], _SettingController["default"].store);

@@ -183,8 +183,7 @@ routes.put(
 routes.get('/buscarestabelecimento', BuscarPorCategoria.index);
 // buscar pedido por cliente logado no app
 routes.get('/orders_user/:id', OrderUserControllers.index);
-// lista todas ofertas de todos estabelecimento
-routes.get('/offersGeral', OfertasGeral.index);
+
 // lista todas variacoes por produto passando o id do produto
 routes.get('/variacao_produto/:id', VariacaoProduto.index);
 // lista todas as opcoes das variacoes passando o id da variacao
@@ -288,6 +287,8 @@ routes.put(
   validateOfferUpdate,
   OfferController.update,
 );
+
+routes.get('/offers/geral', OfertasGeral.index);
 routes.delete('/offers/:id', authMiddleware, OfferController.delete);
 // configuracoes dos fretes
 routes.post('/settings', authMiddleware, SettingController.store);

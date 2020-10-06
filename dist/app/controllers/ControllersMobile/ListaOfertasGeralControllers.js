@@ -38,17 +38,12 @@ var ProductEstabelecimentoController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var count, offers;
+        var offers;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _Offer["default"].findAndCountAll();
-
-              case 2:
-                count = _context.sent;
-                _context.next = 5;
                 return _Offer["default"].findAll({
                   attributes: ['id', 'product_id', 'quantity', 'unit', 'from', 'to', 'expiration_date'],
                   include: [{
@@ -91,12 +86,11 @@ var ProductEstabelecimentoController = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 5:
+              case 2:
                 offers = _context.sent;
-                res.header('X-Total-Count', count.count);
                 return _context.abrupt("return", res.json(offers));
 
-              case 8:
+              case 4:
               case "end":
                 return _context.stop();
             }
