@@ -168,7 +168,7 @@ routes.put('/address_estab/:id', AddressesUserEstab.update);
 // cadastra um endereco do usuario logado no app
 routes.post('/address_estab', AddressesUserEstab.store);
 // buscar ofertas por estabelecimento no mobile
-routes.get('/offer_estab/:id', OfertasEstabelecimento.index);
+routes.get('/offer/loja/:id', OfertasEstabelecimento.index);
 // buscar categorias por estabelecimento no mobile
 routes.get('/categories_estab/:id', CategoriasEstabelecimento.index);
 // buscar valores de frete por estabelecimento no mobile
@@ -182,7 +182,6 @@ routes.put(
 // buscar estabelecimento por categoria e pesquisar por nome
 routes.get('/buscarestabelecimento', BuscarPorCategoria.index);
 // buscar pedido por cliente logado no app
-routes.get('/orders_user/:id', OrderUserControllers.index);
 
 // lista todas variacoes por produto passando o id do produto
 routes.get('/variacao_produto/:id', VariacaoProduto.index);
@@ -239,6 +238,7 @@ routes.put(
   validateOrderUpdate,
   OrderController.update,
 );
+routes.get('/orders/user/:id', OrderUserControllers.index);
 routes.delete('/orders/:id', authMiddlewareUsers, OrderController.delete);
 
 routes.get('/faturamentoTotal', authMiddleware, FaturamentoTotal.index);
@@ -280,6 +280,7 @@ routes.post(
   validateOfferStore,
   OfferController.store,
 );
+routes.get('/offer/loja/:id', OfertasEstabelecimento.index);
 routes.get('/offers', authMiddleware, OfferController.index);
 routes.put(
   '/offers/:id',

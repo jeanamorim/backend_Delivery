@@ -1,3 +1,4 @@
+import { isBefore, parseISO } from 'date-fns';
 import File from '../../models/File';
 import Product from '../../models/Product';
 import Category from '../../models/Category';
@@ -5,12 +6,21 @@ import Estabelecimento from '../../models/Estabelecimento';
 import Ofertas from '../../models/Offer';
 import Variacao from '../../models/Variacao';
 import Opcao from '../../models/Opcao';
+import Cache from '../../../lib/Cache';
 
 class OfertasestabelecimentoControllers {
   async index(req, res) {
+    const cached = await Cache.get(`offers/${req.estabelecimentoId}`);
+
+    if (cached) {
+      const expiredCheck = cached.filter(
+        offer => !isBefore(parseISO(offer.expiration_date), new Date()),
+      );
+      return res.json(expiredCheck);
+    }
     const { page = 1 } = req.query;
-    const count = await Ofertas.findAndCountAll();
-    const category = await Ofertas.findAll({
+
+    const offers = await Ofertas.findAll({
       where: {
         estabelecimento_id: req.params.id,
       },
@@ -71,8 +81,12 @@ class OfertasestabelecimentoControllers {
         },
       ],
     });
-    res.header('X-Total-Count', count.count);
-    return res.json(category);
+    const expiredCheck = JSON.parse(JSON.stringify(offers)).filter(
+      offer => !isBefore(parseISO(offer.expiration_date), new Date()),
+    );
+    await Cache.set(`offers/${req.estabelecimentoId}`, expiredCheck);
+
+    return res.json(expiredCheck);
   }
 }
 

@@ -199,7 +199,7 @@ routes.put('/address_estab/:id', _AdressesUserLogadoController["default"].update
 
 routes.post('/address_estab', _AdressesUserLogadoController["default"].store); // buscar ofertas por estabelecimento no mobile
 
-routes.get('/offer_estab/:id', _OfertasestabelecimentoControllers["default"].index); // buscar categorias por estabelecimento no mobile
+routes.get('/offer/loja/:id', _OfertasestabelecimentoControllers["default"].index); // buscar categorias por estabelecimento no mobile
 
 routes.get('/categories_estab/:id', _CategoriaestabelecimentoControllers["default"].index); // buscar valores de frete por estabelecimento no mobile
 
@@ -207,8 +207,7 @@ routes.get('/settings', _SettingController["default"].index);
 routes.put('/address', _auth["default"], _AddressUpdate["default"], _AddressController["default"].update); // buscar estabelecimento por categoria e pesquisar por nome
 
 routes.get('/buscarestabelecimento', _BuscarEstabelecimentoCategoriaControllers["default"].index); // buscar pedido por cliente logado no app
-
-routes.get('/orders_user/:id', _OrderUsersControllers["default"].index); // lista todas variacoes por produto passando o id do produto
+// lista todas variacoes por produto passando o id do produto
 
 routes.get('/variacao_produto/:id', _VariacaoProdutoControllers["default"].index); // lista todas as opcoes das variacoes passando o id da variacao
 
@@ -253,6 +252,7 @@ routes.post('/orders', _auth["default"], _OrderStore["default"], _OrderControlle
 routes.get('/orders', _authEstabelecimento["default"], _OrderController["default"].index);
 routes.get('/order/:id', _OrdersById["default"].index);
 routes.put('/orders/:id', _auth["default"], _OrderUpdate["default"], _OrderController["default"].update);
+routes.get('/orders/user/:id', _OrderUsersControllers["default"].index);
 routes["delete"]('/orders/:id', _auth["default"], _OrderController["default"]["delete"]);
 routes.get('/faturamentoTotal', _authEstabelecimento["default"], _FaturamentoTotal["default"].index); // produtos de todos os estabelecimentos
 
@@ -272,6 +272,7 @@ routes["delete"]('/categories/:id', _authEstabelecimento["default"], _CategoryCo
 routes.put('/categories/:id', _authEstabelecimento["default"], _CategoryController["default"].update); // ofertas de cada estabelecimento
 
 routes.post('/offers', _authEstabelecimento["default"], _OfferStore["default"], _OfferController["default"].store);
+routes.get('/offer/loja/:id', _OfertasestabelecimentoControllers["default"].index);
 routes.get('/offers', _authEstabelecimento["default"], _OfferController["default"].index);
 routes.put('/offers/:id', _authEstabelecimento["default"], _OfferUpdate["default"], _OfferController["default"].update);
 routes.get('/offers/geral', _ListaOfertasGeralControllers["default"].index);

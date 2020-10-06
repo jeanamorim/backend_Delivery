@@ -1,3 +1,4 @@
+import { isBefore, parseISO } from 'date-fns';
 import Offer from '../../models/Offer';
 import Product from '../../models/Product';
 import File from '../../models/File';
@@ -5,9 +6,18 @@ import Category from '../../models/Category';
 import Estabelecimento from '../../models/Estabelecimento';
 import Variacao from '../../models/Variacao';
 import Opcao from '../../models/Opcao';
+import Cache from '../../../lib/Cache';
 
 class ProductEstabelecimentoController {
   async index(req, res) {
+    const cached = await Cache.get(`offers/${req.estabelecimentoId}`);
+
+    if (cached) {
+      const expiredCheck = cached.filter(
+        offer => !isBefore(parseISO(offer.expiration_date), new Date()),
+      );
+      return res.json(expiredCheck);
+    }
     const offers = await Offer.findAll({
       attributes: [
         'id',
@@ -86,7 +96,12 @@ class ProductEstabelecimentoController {
       ],
     });
 
-    return res.json(offers);
+    const expiredCheck = JSON.parse(JSON.stringify(offers)).filter(
+      offer => !isBefore(parseISO(offer.expiration_date), new Date()),
+    );
+    await Cache.set(`offers/${req.estabelecimentoId}`, expiredCheck);
+
+    return res.json(expiredCheck);
   }
 }
 

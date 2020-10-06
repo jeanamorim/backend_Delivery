@@ -15,6 +15,8 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
+var _dateFns = require("date-fns");
+
 var _File = _interopRequireDefault(require("../../models/File"));
 
 var _Product = _interopRequireDefault(require("../../models/Product"));
@@ -29,6 +31,8 @@ var _Variacao = _interopRequireDefault(require("../../models/Variacao"));
 
 var _Opcao = _interopRequireDefault(require("../../models/Opcao"));
 
+var _Cache = _interopRequireDefault(require("../../../lib/Cache"));
+
 var OfertasestabelecimentoControllers = /*#__PURE__*/function () {
   function OfertasestabelecimentoControllers() {
     (0, _classCallCheck2["default"])(this, OfertasestabelecimentoControllers);
@@ -38,19 +42,31 @@ var OfertasestabelecimentoControllers = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var _req$query$page, page, count, category;
+        var cached, _expiredCheck, _req$query$page, page, offers, expiredCheck;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _req$query$page = req.query.page, page = _req$query$page === void 0 ? 1 : _req$query$page;
-                _context.next = 3;
-                return _Offer["default"].findAndCountAll();
+                _context.next = 2;
+                return _Cache["default"].get("offers/".concat(req.estabelecimentoId));
 
-              case 3:
-                count = _context.sent;
-                _context.next = 6;
+              case 2:
+                cached = _context.sent;
+
+                if (!cached) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _expiredCheck = cached.filter(function (offer) {
+                  return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
+                });
+                return _context.abrupt("return", res.json(_expiredCheck));
+
+              case 6:
+                _req$query$page = req.query.page, page = _req$query$page === void 0 ? 1 : _req$query$page;
+                _context.next = 9;
                 return _Offer["default"].findAll({
                   where: {
                     estabelecimento_id: req.params.id
@@ -93,12 +109,18 @@ var OfertasestabelecimentoControllers = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 6:
-                category = _context.sent;
-                res.header('X-Total-Count', count.count);
-                return _context.abrupt("return", res.json(category));
-
               case 9:
+                offers = _context.sent;
+                expiredCheck = JSON.parse(JSON.stringify(offers)).filter(function (offer) {
+                  return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
+                });
+                _context.next = 13;
+                return _Cache["default"].set("offers/".concat(req.estabelecimentoId), expiredCheck);
+
+              case 13:
+                return _context.abrupt("return", res.json(expiredCheck));
+
+              case 14:
               case "end":
                 return _context.stop();
             }
