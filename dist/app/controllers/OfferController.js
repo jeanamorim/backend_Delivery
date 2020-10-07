@@ -64,11 +64,11 @@ var OfferController = /*#__PURE__*/function () {
               case 4:
                 id = _context.sent;
                 _context.next = 7;
-                return _Cache["default"].invalidate("offers/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("offers");
 
               case 7:
                 _context.next = 9;
-                return _Cache["default"].invalidate("products/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("products");
 
               case 9:
                 return _context.abrupt("return", res.json(id));
@@ -98,7 +98,7 @@ var OfferController = /*#__PURE__*/function () {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Cache["default"].get("offers/".concat(req.estabelecimentoId));
+                return _Cache["default"].get("offers");
 
               case 2:
                 cached = _context2.sent;
@@ -166,7 +166,7 @@ var OfferController = /*#__PURE__*/function () {
                   return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
                 });
                 _context2.next = 12;
-                return _Cache["default"].set("offers/".concat(req.estabelecimentoId), expiredCheck);
+                return _Cache["default"].set("offers", expiredCheck);
 
               case 12:
                 return _context2.abrupt("return", res.json(expiredCheck));
@@ -212,11 +212,11 @@ var OfferController = /*#__PURE__*/function () {
                 from = _yield$offer$update.from;
                 to = _yield$offer$update.to;
                 _context3.next = 14;
-                return _Cache["default"].invalidate("offers/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("offers");
 
               case 14:
                 _context3.next = 16;
-                return _Cache["default"].invalidate("products/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("products");
 
               case 16:
                 return _context3.abrupt("return", res.json({
@@ -259,7 +259,7 @@ var OfferController = /*#__PURE__*/function () {
 
               case 2:
                 _context4.next = 4;
-                return _Cache["default"].invalidate("offers/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("offers");
 
               case 4:
                 return _context4.abrupt("return", res.json());

@@ -80,7 +80,7 @@ class ProductController {
       ],
     });
     sendMessage(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
-    await Cache.invalidate(`products/${req.estabelecimentoId}`);
+    await Cache.invalidate(`products`);
     return res.json(products);
   }
 
@@ -235,7 +235,7 @@ class ProductController {
         return res.json(productsFormatted);
       }
     }
-    const cached = await Cache.get(`products/${req.estabelecimentoId}`);
+    const cached = await Cache.get(`products`);
 
     if (cached) {
       const productsFormatted = await FormatProductService.run(cached);
@@ -245,7 +245,7 @@ class ProductController {
 
     const productsFormatted = await FormatProductService.run();
 
-    await Cache.set(`products/${req.estabelecimentoId}`, productsFormatted);
+    await Cache.set(`products`, productsFormatted);
 
     return res.json(productsFormatted);
   }
@@ -254,7 +254,7 @@ class ProductController {
     const { id } = req.params;
     const post = await Product.findByPk(id);
 
-    await Cache.invalidate(`products/${req.estabelecimentoId}`);
+    await Cache.invalidate(`products`);
 
     const { variacao, ...data } = req.body;
     post.update(data);
@@ -279,7 +279,7 @@ class ProductController {
         id: req.params.id,
       },
     });
-    await Cache.invalidate(`products/${req.estabelecimentoId}`);
+    await Cache.invalidate(`products`);
     return res.json();
   }
 }

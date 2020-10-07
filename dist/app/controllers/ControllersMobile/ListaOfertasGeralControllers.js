@@ -49,7 +49,7 @@ var OfertasGeral = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _Cache["default"].get("offers/".concat(req.estabelecimentoId));
+                return _Cache["default"].get("offers");
 
               case 2:
                 cached = _context.sent;
@@ -114,7 +114,7 @@ var OfertasGeral = /*#__PURE__*/function () {
                   return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
                 });
                 _context.next = 12;
-                return _Cache["default"].set("offers/".concat(req.estabelecimentoId), expiredCheck);
+                return _Cache["default"].set("offers", expiredCheck);
 
               case 12:
                 return _context.abrupt("return", res.json(expiredCheck));

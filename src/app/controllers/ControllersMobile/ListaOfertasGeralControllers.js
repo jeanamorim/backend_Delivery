@@ -10,7 +10,7 @@ import Cache from '../../../lib/Cache';
 
 class OfertasGeral {
   async index(req, res) {
-    const cached = await Cache.get(`offers/${req.estabelecimentoId}`);
+    const cached = await Cache.get(`offers`);
 
     if (cached) {
       const expiredCheck = cached.filter(
@@ -99,7 +99,7 @@ class OfertasGeral {
     const expiredCheck = JSON.parse(JSON.stringify(offers)).filter(
       offer => !isBefore(parseISO(offer.expiration_date), new Date()),
     );
-    await Cache.set(`offers/${req.estabelecimentoId}`, expiredCheck);
+    await Cache.set(`offers`, expiredCheck);
 
     return res.json(expiredCheck);
   }

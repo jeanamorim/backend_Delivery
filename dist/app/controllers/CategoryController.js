@@ -51,7 +51,7 @@ var CategoryController = /*#__PURE__*/function () {
               case 3:
                 categories = _context.sent;
                 _context.next = 6;
-                return _Cache["default"].invalidate("categories/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("categories");
 
               case 6:
                 _context.next = 8;
@@ -101,7 +101,7 @@ var CategoryController = /*#__PURE__*/function () {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Cache["default"].get("categories/".concat(req.estabelecimentoId));
+                return _Cache["default"].get("categories");
 
               case 2:
                 cached = _context2.sent;
@@ -135,7 +135,7 @@ var CategoryController = /*#__PURE__*/function () {
               case 7:
                 categories = _context2.sent;
                 _context2.next = 10;
-                return _Cache["default"].set("categories/".concat(req.estabelecimentoId), categories);
+                return _Cache["default"].set("categories", categories);
 
               case 10:
                 return _context2.abrupt("return", res.json(categories));
@@ -183,7 +183,7 @@ var CategoryController = /*#__PURE__*/function () {
                   image_id: image_id
                 };
                 _context3.next = 12;
-                return _Cache["default"].invalidate("categories/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("categories");
 
               case 12:
                 (0, _websocket.sendMessage)(req.estabelecimentoId, 'UPDATE_CATEGORIAS', result);
@@ -220,7 +220,7 @@ var CategoryController = /*#__PURE__*/function () {
 
               case 2:
                 _context4.next = 4;
-                return _Cache["default"].invalidate("categories/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("categories");
 
               case 4:
                 return _context4.abrupt("return", res.json());

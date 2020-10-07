@@ -13,7 +13,7 @@ class CategoryController {
       name,
       image_id,
     });
-    await Cache.invalidate(`categories/${req.estabelecimentoId}`);
+    await Cache.invalidate(`categories`);
     // buscando a categoria cadastrada para enviar para o socket
     const Newcategories = await Category.findAll({
       where: {
@@ -41,7 +41,7 @@ class CategoryController {
   }
 
   async index(req, res) {
-    const cached = await Cache.get(`categories/${req.estabelecimentoId}`);
+    const cached = await Cache.get(`categories`);
 
     if (cached) return res.json(cached);
     const categories = await Category.findAll({
@@ -63,7 +63,7 @@ class CategoryController {
         },
       ],
     });
-    await Cache.set(`categories/${req.estabelecimentoId}`, categories);
+    await Cache.set(`categories`, categories);
     return res.json(categories);
   }
 
@@ -77,7 +77,7 @@ class CategoryController {
       name,
       image_id,
     };
-    await Cache.invalidate(`categories/${req.estabelecimentoId}`);
+    await Cache.invalidate(`categories`);
     sendMessage(req.estabelecimentoId, 'UPDATE_CATEGORIAS', result);
 
     return res.json(result);
@@ -89,7 +89,7 @@ class CategoryController {
         id: req.params.id,
       },
     });
-    await Cache.invalidate(`categories/${req.estabelecimentoId}`);
+    await Cache.invalidate(`categories`);
     return res.json();
   }
 }

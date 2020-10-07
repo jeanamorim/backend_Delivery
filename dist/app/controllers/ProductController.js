@@ -121,7 +121,7 @@ var ProductController = /*#__PURE__*/function () {
                 NewProduct = _context.sent;
                 (0, _websocket.sendMessage)(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
                 _context.next = 11;
-                return _Cache["default"].invalidate("products/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("products");
 
               case 11:
                 return _context.abrupt("return", res.json(products));
@@ -309,7 +309,7 @@ var ProductController = /*#__PURE__*/function () {
 
               case 25:
                 _context2.next = 27;
-                return _Cache["default"].get("products/".concat(req.estabelecimentoId));
+                return _Cache["default"].get("products");
 
               case 27:
                 cached = _context2.sent;
@@ -333,7 +333,7 @@ var ProductController = /*#__PURE__*/function () {
               case 35:
                 productsFormatted = _context2.sent;
                 _context2.next = 38;
-                return _Cache["default"].set("products/".concat(req.estabelecimentoId), productsFormatted);
+                return _Cache["default"].set("products", productsFormatted);
 
               case 38:
                 return _context2.abrupt("return", res.json(productsFormatted));
@@ -369,7 +369,7 @@ var ProductController = /*#__PURE__*/function () {
               case 3:
                 post = _context3.sent;
                 _context3.next = 6;
-                return _Cache["default"].invalidate("products/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("products");
 
               case 6:
                 _req$body2 = req.body, variacao = _req$body2.variacao, data = (0, _objectWithoutProperties2["default"])(_req$body2, ["variacao"]);
@@ -416,7 +416,7 @@ var ProductController = /*#__PURE__*/function () {
 
               case 2:
                 _context4.next = 4;
-                return _Cache["default"].invalidate("products/".concat(req.estabelecimentoId));
+                return _Cache["default"].invalidate("products");
 
               case 4:
                 return _context4.abrupt("return", res.json());

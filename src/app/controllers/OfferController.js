@@ -24,13 +24,13 @@ class OfferController {
       to,
       expiration_date,
     });
-    await Cache.invalidate(`offers/${req.estabelecimentoId}`);
-    await Cache.invalidate(`products/${req.estabelecimentoId}`);
+    await Cache.invalidate(`offers`);
+    await Cache.invalidate(`products`);
     return res.json(id);
   }
 
   async index(req, res) {
-    const cached = await Cache.get(`offers/${req.estabelecimentoId}`);
+    const cached = await Cache.get(`offers`);
 
     if (cached) {
       const expiredCheck = cached.filter(
@@ -122,7 +122,7 @@ class OfferController {
     const expiredCheck = JSON.parse(JSON.stringify(offers)).filter(
       offer => !isBefore(parseISO(offer.expiration_date), new Date()),
     );
-    await Cache.set(`offers/${req.estabelecimentoId}`, expiredCheck);
+    await Cache.set(`offers`, expiredCheck);
 
     return res.json(expiredCheck);
   }
@@ -141,8 +141,8 @@ class OfferController {
       to,
     } = await offer.update(req.body);
 
-    await Cache.invalidate(`offers/${req.estabelecimentoId}`);
-    await Cache.invalidate(`products/${req.estabelecimentoId}`);
+    await Cache.invalidate(`offers`);
+    await Cache.invalidate(`products`);
 
     return res.json({
       id,
@@ -162,7 +162,7 @@ class OfferController {
         id: req.params.id,
       },
     });
-    await Cache.invalidate(`offers/${req.estabelecimentoId}`);
+    await Cache.invalidate(`offers`);
     return res.json();
   }
 }
