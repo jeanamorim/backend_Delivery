@@ -36,23 +36,14 @@ var OrderUsersControllers = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var _req$query$page, page, count, orders;
-
+        var orders;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _req$query$page = req.query.page, page = _req$query$page === void 0 ? 1 : _req$query$page;
-                _context.next = 3;
-                return _Order["default"].findAndCountAll();
-
-              case 3:
-                count = _context.sent;
-                _context.next = 6;
+                _context.next = 2;
                 return _Order["default"].findAll({
                   order: [['date', 'DESC']],
-                  limit: 15,
-                  offset: (page - 1) * 15,
                   where: {
                     user_id: req.params.id
                   },
@@ -87,12 +78,11 @@ var OrderUsersControllers = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 6:
+              case 2:
                 orders = _context.sent;
-                res.header('X-Total-Count', count.count);
                 return _context.abrupt("return", res.json(orders));
 
-              case 9:
+              case 4:
               case "end":
                 return _context.stop();
             }

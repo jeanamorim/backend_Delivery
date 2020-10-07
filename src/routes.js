@@ -170,7 +170,7 @@ routes.post('/address_estab', AddressesUserEstab.store);
 // buscar ofertas por estabelecimento no mobile
 routes.get('/offer/loja/:id', OfertasEstabelecimento.index);
 // buscar categorias por estabelecimento no mobile
-routes.get('/categories_estab/:id', CategoriasEstabelecimento.index);
+
 // buscar valores de frete por estabelecimento no mobile
 routes.get('/settings', SettingController.index);
 routes.put(
@@ -273,6 +273,7 @@ routes.post(
 routes.get('/categories', authMiddleware, CategoryController.index);
 routes.delete('/categories/:id', authMiddleware, CategoryController.delete);
 routes.put('/categories/:id', authMiddleware, CategoryController.update);
+routes.get('/categories/estab/:id', CategoriasEstabelecimento.index);
 // ofertas de cada estabelecimento
 routes.post(
   '/offers',

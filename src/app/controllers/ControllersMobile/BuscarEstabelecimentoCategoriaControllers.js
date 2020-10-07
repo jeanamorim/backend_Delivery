@@ -1,46 +1,17 @@
 import { Op } from 'sequelize';
 import Estabelecimento from '../../models/Estabelecimento';
 import File from '../../models/File';
+import Cache from '../../../lib/Cache';
 
 class BuscarEstabelecimentoCategoriaControllers {
   async index(req, res) {
-    if (req.params.id) {
-      const product = await Estabelecimento.findByPk(req.params.id, {
-        attributes: [
-          'id',
-          'name',
-          'name_loja',
-          'status',
-          'avaliacao',
-          'categoria',
-          'tempo_entrega',
-          'email',
-          'phone',
-          'birthday',
-          'gender',
-          'cpf',
-        ],
-        include: [
-          {
-            model: File,
-            as: 'image',
-            attributes: ['path', 'url'],
-          },
-        ],
-      });
-
-      return res.json(product);
-    }
-
     if (req.query) {
       if (req.query.category) {
-        const { page = 1 } = req.query;
-        const products = await Estabelecimento.findAll({
+        const estabelecimento = await Estabelecimento.findAll({
           where: {
             categoria: req.query.category,
           },
-          limit: 8,
-          offset: (page - 1) * 8,
+
           attributes: [
             'id',
             'name',
@@ -63,8 +34,12 @@ class BuscarEstabelecimentoCategoriaControllers {
             },
           ],
         });
+        const cached = await Cache.get(`estabelecimento`);
 
-        return res.json(products);
+        if (cached) return res.json(cached);
+        await Cache.set(`estabelecimento`, estabelecimento);
+
+        return res.json(estabelecimento);
       }
       if (req.query.search) {
         const searchedProducts = await Estabelecimento.findAll({
@@ -95,7 +70,10 @@ class BuscarEstabelecimentoCategoriaControllers {
             },
           ],
         });
+        const cached = await Cache.get(`estabelecimento`);
 
+        if (cached) return res.json(cached);
+        await Cache.set(`estabelecimento`, searchedProducts);
         return res.json(searchedProducts);
       }
     }

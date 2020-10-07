@@ -2,6 +2,7 @@ import User from '../models/User';
 import Favoritos from '../models/Favoritos';
 import Estabelecimento from '../models/Estabelecimento';
 import File from '../models/File';
+import Cache from '../../lib/Cache';
 
 class FavoritosController {
   async store(req, res) {
@@ -11,6 +12,8 @@ class FavoritosController {
       estabelecimento_id,
       user_id,
     });
+
+    await Cache.invalidate(`favoritos`);
 
     return res.json(favoritos);
   }
@@ -55,7 +58,10 @@ class FavoritosController {
         },
       ],
     });
+    const cached = await Cache.get(`favoritos`);
 
+    if (cached) return res.json(cached);
+    await Cache.set(`favoritos`, favoritos);
     return res.json(favoritos);
   }
 
@@ -65,7 +71,7 @@ class FavoritosController {
         estabelecimento_id: req.params.id,
       },
     });
-
+    await Cache.invalidate(`favoritos`);
     return res.json();
   }
 }

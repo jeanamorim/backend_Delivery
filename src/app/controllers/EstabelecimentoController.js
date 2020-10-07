@@ -1,7 +1,6 @@
 import Estabelecimento from '../models/Estabelecimento';
 import File from '../models/File';
-
-// import AdminCheckService from '../../services/AdminCheckService';
+import Cache from '../../lib/Cache';
 
 class EstabelecimentoController {
   async store(req, res) {
@@ -30,7 +29,8 @@ class EstabelecimentoController {
       cpf,
       image_id,
     } = await Estabelecimento.create(req.body);
-
+    await Cache.invalidate(`estabelecimento`);
+    await Cache.invalidate(`favoritos`);
     return res.json({
       id,
       name,
@@ -49,6 +49,9 @@ class EstabelecimentoController {
   }
 
   async index(req, res) {
+    const cached = await Cache.get(`estabelecimento`);
+
+    if (cached) return res.json(cached);
     const count = await Estabelecimento.findAndCountAll();
     const { page = 1 } = req.query;
     const estabelecimento = await Estabelecimento.findAll({
@@ -77,7 +80,7 @@ class EstabelecimentoController {
         },
       ],
     });
-
+    await Cache.set(`estabelecimento`, estabelecimento);
     res.header('X-Total-Count', count.count);
     return res.json(estabelecimento);
   }
@@ -120,7 +123,8 @@ class EstabelecimentoController {
       cpf,
       image_id,
     } = await user.update(req.body);
-
+    await Cache.invalidate(`estabelecimento`);
+    await Cache.invalidate(`favoritos`);
     return res.json({
       name,
       name_loja,

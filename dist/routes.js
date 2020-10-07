@@ -200,8 +200,7 @@ routes.put('/address_estab/:id', _AdressesUserLogadoController["default"].update
 routes.post('/address_estab', _AdressesUserLogadoController["default"].store); // buscar ofertas por estabelecimento no mobile
 
 routes.get('/offer/loja/:id', _OfertasestabelecimentoControllers["default"].index); // buscar categorias por estabelecimento no mobile
-
-routes.get('/categories_estab/:id', _CategoriaestabelecimentoControllers["default"].index); // buscar valores de frete por estabelecimento no mobile
+// buscar valores de frete por estabelecimento no mobile
 
 routes.get('/settings', _SettingController["default"].index);
 routes.put('/address', _auth["default"], _AddressUpdate["default"], _AddressController["default"].update); // buscar estabelecimento por categoria e pesquisar por nome
@@ -269,7 +268,8 @@ routes.post('/files', upload.single('file'), _FileController["default"].store); 
 routes.post('/categories', _authEstabelecimento["default"], _CategoryStore["default"], _CategoryController["default"].store);
 routes.get('/categories', _authEstabelecimento["default"], _CategoryController["default"].index);
 routes["delete"]('/categories/:id', _authEstabelecimento["default"], _CategoryController["default"]["delete"]);
-routes.put('/categories/:id', _authEstabelecimento["default"], _CategoryController["default"].update); // ofertas de cada estabelecimento
+routes.put('/categories/:id', _authEstabelecimento["default"], _CategoryController["default"].update);
+routes.get('/categories/estab/:id', _CategoriaestabelecimentoControllers["default"].index); // ofertas de cada estabelecimento
 
 routes.post('/offers', _authEstabelecimento["default"], _OfferStore["default"], _OfferController["default"].store);
 routes.get('/offer/loja/:id', _OfertasestabelecimentoControllers["default"].index);

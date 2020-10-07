@@ -17,6 +17,8 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _File = _interopRequireDefault(require("../../models/File"));
 
+var _Cache = _interopRequireDefault(require("../../../lib/Cache"));
+
 var _Category = _interopRequireDefault(require("../../models/Category"));
 
 var CategoriaestabelecimentoControllers = /*#__PURE__*/function () {
@@ -28,25 +30,16 @@ var CategoriaestabelecimentoControllers = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var count, _req$query$page, page, category;
-
+        var category, cached;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _Category["default"].findAndCountAll();
-
-              case 2:
-                count = _context.sent;
-                _req$query$page = req.query.page, page = _req$query$page === void 0 ? 1 : _req$query$page;
-                _context.next = 6;
                 return _Category["default"].findAll({
                   where: {
                     estabelecimento_id: req.params.id
                   },
-                  limit: 20,
-                  offset: (page - 1) * 20,
                   attributes: ['id', 'name'],
                   include: [{
                     model: _File["default"],
@@ -55,12 +48,29 @@ var CategoriaestabelecimentoControllers = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 6:
+              case 2:
                 category = _context.sent;
-                res.header('X-Total-Count', count.count);
+                _context.next = 5;
+                return _Cache["default"].get("categories");
+
+              case 5:
+                cached = _context.sent;
+
+                if (!cached) {
+                  _context.next = 8;
+                  break;
+                }
+
+                return _context.abrupt("return", res.json(cached));
+
+              case 8:
+                _context.next = 10;
+                return _Cache["default"].set("categories", category);
+
+              case 10:
                 return _context.abrupt("return", res.json(category));
 
-              case 9:
+              case 11:
               case "end":
                 return _context.stop();
             }

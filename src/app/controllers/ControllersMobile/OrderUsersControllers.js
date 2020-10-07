@@ -8,13 +8,8 @@ import Product from '../../models/Product';
 
 class OrderUsersControllers {
   async index(req, res) {
-    const { page = 1 } = req.query;
-    const count = await Order.findAndCountAll();
-
     const orders = await Order.findAll({
       order: [['date', 'DESC']],
-      limit: 15,
-      offset: (page - 1) * 15,
 
       where: {
         user_id: req.params.id,
@@ -79,7 +74,7 @@ class OrderUsersControllers {
         },
       ],
     });
-    res.header('X-Total-Count', count.count);
+
     return res.json(orders);
   }
 }

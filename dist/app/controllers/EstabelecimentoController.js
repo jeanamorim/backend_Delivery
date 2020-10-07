@@ -19,7 +19,8 @@ var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento
 
 var _File = _interopRequireDefault(require("../models/File"));
 
-// import AdminCheckService from '../../services/AdminCheckService';
+var _Cache = _interopRequireDefault(require("../../lib/Cache"));
+
 var EstabelecimentoController = /*#__PURE__*/function () {
   function EstabelecimentoController() {
     (0, _classCallCheck2["default"])(this, EstabelecimentoController);
@@ -73,6 +74,14 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                 gender = _yield$Estabeleciment.gender;
                 cpf = _yield$Estabeleciment.cpf;
                 image_id = _yield$Estabeleciment.image_id;
+                _context.next = 23;
+                return _Cache["default"].invalidate("estabelecimento");
+
+              case 23:
+                _context.next = 25;
+                return _Cache["default"].invalidate("favoritos");
+
+              case 25:
                 return _context.abrupt("return", res.json({
                   id: id,
                   name: name,
@@ -89,7 +98,7 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                   image_id: image_id
                 }));
 
-              case 22:
+              case 26:
               case "end":
                 return _context.stop();
             }
@@ -107,19 +116,33 @@ var EstabelecimentoController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var count, _req$query$page, page, estabelecimento;
+        var cached, count, _req$query$page, page, estabelecimento;
 
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Estabelecimento["default"].findAndCountAll();
+                return _Cache["default"].get("estabelecimento");
 
               case 2:
+                cached = _context2.sent;
+
+                if (!cached) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                return _context2.abrupt("return", res.json(cached));
+
+              case 5:
+                _context2.next = 7;
+                return _Estabelecimento["default"].findAndCountAll();
+
+              case 7:
                 count = _context2.sent;
                 _req$query$page = req.query.page, page = _req$query$page === void 0 ? 1 : _req$query$page;
-                _context2.next = 6;
+                _context2.next = 11;
                 return _Estabelecimento["default"].findAll({
                   order: [['status']],
                   limit: 15,
@@ -132,12 +155,16 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 6:
+              case 11:
                 estabelecimento = _context2.sent;
+                _context2.next = 14;
+                return _Cache["default"].set("estabelecimento", estabelecimento);
+
+              case 14:
                 res.header('X-Total-Count', count.count);
                 return _context2.abrupt("return", res.json(estabelecimento));
 
-              case 9:
+              case 16:
               case "end":
                 return _context2.stop();
             }
@@ -233,6 +260,14 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                 gender = _yield$user$update.gender;
                 cpf = _yield$user$update.cpf;
                 image_id = _yield$user$update.image_id;
+                _context3.next = 33;
+                return _Cache["default"].invalidate("estabelecimento");
+
+              case 33:
+                _context3.next = 35;
+                return _Cache["default"].invalidate("favoritos");
+
+              case 35:
                 return _context3.abrupt("return", res.json({
                   name: name,
                   name_loja: name_loja,
@@ -248,7 +283,7 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                   image_id: image_id
                 }));
 
-              case 32:
+              case 36:
               case "end":
                 return _context3.stop();
             }
