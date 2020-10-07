@@ -78,10 +78,6 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                 return _Cache["default"].invalidate("estabelecimento");
 
               case 23:
-                _context.next = 25;
-                return _Cache["default"].invalidate("favoritos");
-
-              case 25:
                 return _context.abrupt("return", res.json({
                   id: id,
                   name: name,
@@ -98,7 +94,7 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                   image_id: image_id
                 }));
 
-              case 26:
+              case 24:
               case "end":
                 return _context.stop();
             }
@@ -264,10 +260,6 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                 return _Cache["default"].invalidate("estabelecimento");
 
               case 33:
-                _context3.next = 35;
-                return _Cache["default"].invalidate("favoritos");
-
-              case 35:
                 return _context3.abrupt("return", res.json({
                   name: name,
                   name_loja: name_loja,
@@ -283,7 +275,7 @@ var EstabelecimentoController = /*#__PURE__*/function () {
                   image_id: image_id
                 }));
 
-              case 36:
+              case 34:
               case "end":
                 return _context3.stop();
             }

@@ -35,8 +35,6 @@ var _Opcao = _interopRequireDefault(require("../models/Opcao"));
 
 var _websocket = require("../../websocket");
 
-var _Cache = _interopRequireDefault(require("../../lib/Cache"));
-
 var _FormatProductService = _interopRequireDefault(require("../../services/FormatProductService"));
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -120,13 +118,9 @@ var ProductController = /*#__PURE__*/function () {
               case 7:
                 NewProduct = _context.sent;
                 (0, _websocket.sendMessage)(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
-                _context.next = 11;
-                return _Cache["default"].invalidate("products");
-
-              case 11:
                 return _context.abrupt("return", res.json(products));
 
-              case 12:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -144,7 +138,7 @@ var ProductController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var product, productFormatted, products, _productsFormatted, searchedProducts, _productsFormatted2, cached, _productsFormatted3, productsFormatted;
+        var product, productFormatted, products, _productsFormatted, searchedProducts, _productsFormatted2, productsFormatted;
 
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
@@ -309,36 +303,13 @@ var ProductController = /*#__PURE__*/function () {
 
               case 25:
                 _context2.next = 27;
-                return _Cache["default"].get("products");
-
-              case 27:
-                cached = _context2.sent;
-
-                if (!cached) {
-                  _context2.next = 33;
-                  break;
-                }
-
-                _context2.next = 31;
-                return _FormatProductService["default"].run(cached);
-
-              case 31:
-                _productsFormatted3 = _context2.sent;
-                return _context2.abrupt("return", res.json(_productsFormatted3));
-
-              case 33:
-                _context2.next = 35;
                 return _FormatProductService["default"].run();
 
-              case 35:
+              case 27:
                 productsFormatted = _context2.sent;
-                _context2.next = 38;
-                return _Cache["default"].set("products", productsFormatted);
-
-              case 38:
                 return _context2.abrupt("return", res.json(productsFormatted));
 
-              case 39:
+              case 29:
               case "end":
                 return _context2.stop();
             }
@@ -368,10 +339,6 @@ var ProductController = /*#__PURE__*/function () {
 
               case 3:
                 post = _context3.sent;
-                _context3.next = 6;
-                return _Cache["default"].invalidate("products");
-
-              case 6:
                 _req$body2 = req.body, variacao = _req$body2.variacao, data = (0, _objectWithoutProperties2["default"])(_req$body2, ["variacao"]);
                 post.update(data);
 
@@ -385,7 +352,7 @@ var ProductController = /*#__PURE__*/function () {
                 (0, _websocket.sendMessage)(req.estabelecimentoId, 'UPDATE_PRODUCT', result);
                 return _context3.abrupt("return", res.json(post));
 
-              case 12:
+              case 10:
               case "end":
                 return _context3.stop();
             }
@@ -415,13 +382,9 @@ var ProductController = /*#__PURE__*/function () {
                 });
 
               case 2:
-                _context4.next = 4;
-                return _Cache["default"].invalidate("products");
-
-              case 4:
                 return _context4.abrupt("return", res.json());
 
-              case 5:
+              case 3:
               case "end":
                 return _context4.stop();
             }

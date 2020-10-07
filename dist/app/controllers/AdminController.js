@@ -19,8 +19,6 @@ var _Admin = _interopRequireDefault(require("../models/Admin"));
 
 var _User = _interopRequireDefault(require("../models/User"));
 
-// import Cache from '../../lib/Cache';
-// import AdminCheckService from '../../services/AdminCheckService';
 var AdminController = /*#__PURE__*/function () {
   function AdminController() {
     (0, _classCallCheck2["default"])(this, AdminController);

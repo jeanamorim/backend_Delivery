@@ -3,16 +3,9 @@ import OrderDetail from '../models/OrderDetail';
 import Product from '../models/Product';
 import File from '../models/File';
 import User from '../models/User';
-// import Cache from '../../lib/Cache';
-
-// import AdminCheckService from '../../services/AdminCheckService';
 
 class UserOrderController {
   async index(req, res) {
-    // const cached = await Cache.get(`orders:users:${req.params.id}`);
-
-    // if (cached) return res.json(cached);
-
     const orders = await Order.findAll({
       where: {
         id: req.params.id,
@@ -62,8 +55,6 @@ class UserOrderController {
         },
       ],
     });
-
-    // await Cache.set(`orders:users:${req.params.id}`, orders);
 
     return res.json(orders);
   }

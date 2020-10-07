@@ -7,7 +7,7 @@ import Estabelecimento from '../models/Estabelecimento';
 import Variacao from '../models/Variacao';
 import Opcao from '../models/Opcao';
 import { sendMessage } from '../../websocket';
-import Cache from '../../lib/Cache';
+
 import FormatProductService from '../../services/FormatProductService';
 
 class ProductController {
@@ -80,7 +80,7 @@ class ProductController {
       ],
     });
     sendMessage(products.estabelecimento_id, 'NEW_PRODUCT', NewProduct);
-    await Cache.invalidate(`products`);
+
     return res.json(products);
   }
 
@@ -235,17 +235,8 @@ class ProductController {
         return res.json(productsFormatted);
       }
     }
-    const cached = await Cache.get(`products`);
-
-    if (cached) {
-      const productsFormatted = await FormatProductService.run(cached);
-
-      return res.json(productsFormatted);
-    }
 
     const productsFormatted = await FormatProductService.run();
-
-    await Cache.set(`products`, productsFormatted);
 
     return res.json(productsFormatted);
   }
@@ -253,8 +244,6 @@ class ProductController {
   async update(req, res) {
     const { id } = req.params;
     const post = await Product.findByPk(id);
-
-    await Cache.invalidate(`products`);
 
     const { variacao, ...data } = req.body;
     post.update(data);
@@ -279,7 +268,7 @@ class ProductController {
         id: req.params.id,
       },
     });
-    await Cache.invalidate(`products`);
+
     return res.json();
   }
 }

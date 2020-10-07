@@ -17,8 +17,6 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _User = _interopRequireDefault(require("../models/User"));
 
-// import Cache from '../../lib/Cache';
-// import AdminCheckService from '../../services/AdminCheckService';
 var UserController = /*#__PURE__*/function () {
   function UserController() {
     (0, _classCallCheck2["default"])(this, UserController);

@@ -17,6 +17,8 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _dateFns = require("date-fns");
 
+var _Cache = _interopRequireDefault(require("../../lib/Cache"));
+
 var _Offer = _interopRequireDefault(require("../models/Offer"));
 
 var _Product = _interopRequireDefault(require("../models/Product"));
@@ -30,8 +32,6 @@ var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento
 var _Variacao = _interopRequireDefault(require("../models/Variacao"));
 
 var _Opcao = _interopRequireDefault(require("../models/Opcao"));
-
-var _Cache = _interopRequireDefault(require("../../lib/Cache"));
 
 var OfferController = /*#__PURE__*/function () {
   function OfferController() {
@@ -64,16 +64,12 @@ var OfferController = /*#__PURE__*/function () {
               case 4:
                 id = _context.sent;
                 _context.next = 7;
-                return _Cache["default"].invalidate("offers");
+                return _Cache["default"].invalidate('offers');
 
               case 7:
-                _context.next = 9;
-                return _Cache["default"].invalidate("products");
-
-              case 9:
                 return _context.abrupt("return", res.json(id));
 
-              case 10:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -91,30 +87,12 @@ var OfferController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var cached, _expiredCheck, offers, expiredCheck;
-
+        var offers, expiredCheck;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _Cache["default"].get("offers");
-
-              case 2:
-                cached = _context2.sent;
-
-                if (!cached) {
-                  _context2.next = 6;
-                  break;
-                }
-
-                _expiredCheck = cached.filter(function (offer) {
-                  return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
-                });
-                return _context2.abrupt("return", res.json(_expiredCheck));
-
-              case 6:
-                _context2.next = 8;
                 return _Offer["default"].findAll({
                   where: {
                     estabelecimento_id: req.estabelecimentoId
@@ -160,18 +138,14 @@ var OfferController = /*#__PURE__*/function () {
                   }]
                 });
 
-              case 8:
+              case 2:
                 offers = _context2.sent;
                 expiredCheck = JSON.parse(JSON.stringify(offers)).filter(function (offer) {
                   return !(0, _dateFns.isBefore)((0, _dateFns.parseISO)(offer.expiration_date), new Date());
                 });
-                _context2.next = 12;
-                return _Cache["default"].set("offers", expiredCheck);
-
-              case 12:
                 return _context2.abrupt("return", res.json(expiredCheck));
 
-              case 13:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -212,13 +186,9 @@ var OfferController = /*#__PURE__*/function () {
                 from = _yield$offer$update.from;
                 to = _yield$offer$update.to;
                 _context3.next = 14;
-                return _Cache["default"].invalidate("offers");
+                return _Cache["default"].invalidate('offers');
 
               case 14:
-                _context3.next = 16;
-                return _Cache["default"].invalidate("products");
-
-              case 16:
                 return _context3.abrupt("return", res.json({
                   id: id,
                   quantity: quantity,
@@ -228,7 +198,7 @@ var OfferController = /*#__PURE__*/function () {
                   expiration_date: expiration_date
                 }));
 
-              case 17:
+              case 15:
               case "end":
                 return _context3.stop();
             }
@@ -259,7 +229,7 @@ var OfferController = /*#__PURE__*/function () {
 
               case 2:
                 _context4.next = 4;
-                return _Cache["default"].invalidate("offers");
+                return _Cache["default"].invalidate('offers');
 
               case 4:
                 return _context4.abrupt("return", res.json());

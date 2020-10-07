@@ -1,5 +1,5 @@
 import { addDays, isBefore, parseISO } from 'date-fns';
-
+import Cache from '../../lib/Cache';
 import Offer from '../models/Offer';
 import Product from '../models/Product';
 import File from '../models/File';
@@ -7,7 +7,6 @@ import Category from '../models/Category';
 import Estabelecimento from '../models/Estabelecimento';
 import Variacao from '../models/Variacao';
 import Opcao from '../models/Opcao';
-import Cache from '../../lib/Cache';
 
 class OfferController {
   async store(req, res) {
@@ -24,20 +23,11 @@ class OfferController {
       to,
       expiration_date,
     });
-    await Cache.invalidate(`offers`);
-    await Cache.invalidate(`products`);
+    await Cache.invalidate('offers');
     return res.json(id);
   }
 
   async index(req, res) {
-    const cached = await Cache.get(`offers`);
-
-    if (cached) {
-      const expiredCheck = cached.filter(
-        offer => !isBefore(parseISO(offer.expiration_date), new Date()),
-      );
-      return res.json(expiredCheck);
-    }
     const offers = await Offer.findAll({
       where: {
         estabelecimento_id: req.estabelecimentoId,
@@ -122,7 +112,6 @@ class OfferController {
     const expiredCheck = JSON.parse(JSON.stringify(offers)).filter(
       offer => !isBefore(parseISO(offer.expiration_date), new Date()),
     );
-    await Cache.set(`offers`, expiredCheck);
 
     return res.json(expiredCheck);
   }
@@ -140,10 +129,7 @@ class OfferController {
       from,
       to,
     } = await offer.update(req.body);
-
-    await Cache.invalidate(`offers`);
-    await Cache.invalidate(`products`);
-
+    await Cache.invalidate('offers');
     return res.json({
       id,
       quantity,
@@ -162,7 +148,7 @@ class OfferController {
         id: req.params.id,
       },
     });
-    await Cache.invalidate(`offers`);
+    await Cache.invalidate('offers');
     return res.json();
   }
 }

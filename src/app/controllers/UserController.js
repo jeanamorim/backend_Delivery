@@ -1,9 +1,5 @@
 import User from '../models/User';
 
-// import Cache from '../../lib/Cache';
-
-// import AdminCheckService from '../../services/AdminCheckService';
-
 class UserController {
   async store(req, res) {
     const userExists = await User.findOne({
@@ -27,8 +23,6 @@ class UserController {
       cpf,
     } = await User.create(req.body);
 
-    // /await Cache.invalidate('users');
-
     return res.json({
       id,
       name,
@@ -42,12 +36,6 @@ class UserController {
   }
 
   async index(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
-    // const cached = await Cache.get('users');
-
-    // if (cached) return res.json(cached);
-
     const users = await User.findAll({
       attributes: [
         'id',
@@ -60,8 +48,6 @@ class UserController {
         'cpf',
       ],
     });
-
-    // await Cache.set('users', users);
 
     return res.json(users);
   }
@@ -98,8 +84,6 @@ class UserController {
       gender,
       cpf,
     } = await user.update(req.body);
-
-    // await Cache.invalidate('users');
 
     return res.json({
       id,

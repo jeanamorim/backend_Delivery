@@ -25,8 +25,6 @@ var _File = _interopRequireDefault(require("../models/File"));
 
 var _User = _interopRequireDefault(require("../models/User"));
 
-// import Cache from '../../lib/Cache';
-// import AdminCheckService from '../../services/AdminCheckService';
 var UserOrderController = /*#__PURE__*/function () {
   function UserOrderController() {
     (0, _classCallCheck2["default"])(this, UserOrderController);

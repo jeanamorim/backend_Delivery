@@ -30,7 +30,7 @@ class EstabelecimentoController {
       image_id,
     } = await Estabelecimento.create(req.body);
     await Cache.invalidate(`estabelecimento`);
-    await Cache.invalidate(`favoritos`);
+
     return res.json({
       id,
       name,
@@ -124,7 +124,7 @@ class EstabelecimentoController {
       image_id,
     } = await user.update(req.body);
     await Cache.invalidate(`estabelecimento`);
-    await Cache.invalidate(`favoritos`);
+
     return res.json({
       name,
       name_loja,

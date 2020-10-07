@@ -36,8 +36,6 @@ class VariacaoController {
       ],
     });
 
-    // await Cache.set('categories', categories);
-
     return res.json(variacao);
   }
 

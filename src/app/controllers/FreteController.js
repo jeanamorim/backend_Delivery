@@ -3,8 +3,6 @@
 import Frete from '../models/Frete';
 import Estabelecimento from '../models/Estabelecimento';
 
-// import AdminCheckService from '../../services/AdminCheckService';
-
 class Fretes {
   async store(req, res) {
     const { frete } = req.body;
@@ -50,20 +48,14 @@ class Fretes {
   }
 
   async update(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
     const frete = await Frete.findByPk(req.params.id);
 
     const { price, status } = await frete.update(req.body);
-
-    // await Cache.invalidate('categories');
 
     return res.json({ price, status });
   }
 
   async delete(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
     await Frete.destroy({
       where: {
         estabelecimento_id: req.estabelecimentoId,

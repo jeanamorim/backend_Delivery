@@ -1,14 +1,8 @@
 import Admin from '../models/Admin';
 import User from '../models/User';
 
-// import Cache from '../../lib/Cache';
-
-// import AdminCheckService from '../../services/AdminCheckService';
-
 class AdminController {
   async store(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
     const alreadyIsAdminCheck = await Admin.findOne({
       where: {
         user_id: req.body.user_id,
@@ -21,18 +15,10 @@ class AdminController {
 
     const { id, user_id } = await Admin.create(req.body);
 
-    // await Cache.invalidate('admins');
-
     return res.json({ id, user_id });
   }
 
   async index(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
-    // const cached = await Cache.get('admins');
-
-    // if (cached) return res.json(cached);
-
     const admins = await Admin.findAll({
       attributes: ['id'],
       include: [
@@ -53,21 +39,15 @@ class AdminController {
       ],
     });
 
-    // await Cache.set('admins', admins);
-
     return res.json(admins);
   }
 
   async delete(req, res) {
-    // await AdminCheckService.run({ user_id: req.userId });
-
     await Admin.destroy({
       where: {
         id: req.params.id,
       },
     });
-
-    //  await Cache.invalidate('admins');
 
     return res.json();
   }

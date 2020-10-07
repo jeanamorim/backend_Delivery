@@ -23,8 +23,6 @@ var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento
 
 var _File = _interopRequireDefault(require("../models/File"));
 
-var _Cache = _interopRequireDefault(require("../../lib/Cache"));
-
 var FavoritosController = /*#__PURE__*/function () {
   function FavoritosController() {
     (0, _classCallCheck2["default"])(this, FavoritosController);
@@ -49,13 +47,9 @@ var FavoritosController = /*#__PURE__*/function () {
 
               case 3:
                 favoritos = _context.sent;
-                _context.next = 6;
-                return _Cache["default"].invalidate("favoritos");
-
-              case 6:
                 return _context.abrupt("return", res.json(favoritos));
 
-              case 7:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -73,7 +67,7 @@ var FavoritosController = /*#__PURE__*/function () {
     key: "index",
     value: function () {
       var _index = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-        var favoritos, cached;
+        var favoritos;
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -102,27 +96,9 @@ var FavoritosController = /*#__PURE__*/function () {
 
               case 2:
                 favoritos = _context2.sent;
-                _context2.next = 5;
-                return _Cache["default"].get("favoritos");
-
-              case 5:
-                cached = _context2.sent;
-
-                if (!cached) {
-                  _context2.next = 8;
-                  break;
-                }
-
-                return _context2.abrupt("return", res.json(cached));
-
-              case 8:
-                _context2.next = 10;
-                return _Cache["default"].set("favoritos", favoritos);
-
-              case 10:
                 return _context2.abrupt("return", res.json(favoritos));
 
-              case 11:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -152,13 +128,9 @@ var FavoritosController = /*#__PURE__*/function () {
                 });
 
               case 2:
-                _context3.next = 4;
-                return _Cache["default"].invalidate("favoritos");
-
-              case 4:
                 return _context3.abrupt("return", res.json());
 
-              case 5:
+              case 3:
               case "end":
                 return _context3.stop();
             }

@@ -22,7 +22,6 @@ var _Estabelecimento = _interopRequireDefault(require("../models/Estabelecimento
 /* eslint-disable func-names */
 
 /* eslint-disable no-unreachable */
-// import AdminCheckService from '../../services/AdminCheckService';
 var Fretes = /*#__PURE__*/function () {
   function Fretes() {
     (0, _classCallCheck2["default"])(this, Fretes);

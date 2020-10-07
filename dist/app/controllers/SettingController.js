@@ -17,8 +17,6 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _Setting = _interopRequireDefault(require("../models/Setting"));
 
-// import Cache from '../../lib/Cache';
-// import AdminCheckService from '../../services/AdminCheckService';
 var SettingController = /*#__PURE__*/function () {
   function SettingController() {
     (0, _classCallCheck2["default"])(this, SettingController);
