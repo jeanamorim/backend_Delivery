@@ -39,7 +39,7 @@ import EstabelecimentoControllers from './app/controllers/EstabelecimentoControl
 import SessionEstabelecimentoController from './app/controllers/SessionEstabelecimentoController';
 import OfertasEstabelecimento from './app/controllers/ControllersMobile/OfertasestabelecimentoControllers';
 import CategoriasEstabelecimento from './app/controllers/ControllersMobile/CategoriaestabelecimentoControllers';
-import offersEstabelecimento from './app/controllers/ControllersMobile/BuscarEstabelecimentoPorId';
+import EstabelecimentoById from './app/controllers/ControllersMobile/BuscarEstabelecimentoPorId';
 import ProductEstabelecimento from './app/controllers/ControllersMobile/ProductEstabelecimentoController';
 import AddressesUserEstab from './app/controllers/ControllersMobile/AdressesUserLogadoController';
 import OfertasGeral from './app/controllers/ControllersMobile/ListaOfertasGeralControllers';
@@ -122,7 +122,7 @@ routes.put(
   EstabelecimentoControllers.update,
 );
 routes.get('/estabelecimento', EstabelecimentoControllers.index);
-
+routes.get('/estabelecimento/:id', EstabelecimentoById.index);
 routes.post(
   '/sessions',
   bruteForce.prevent,
@@ -189,8 +189,6 @@ routes.get('/variacao_produto/:id', VariacaoProduto.index);
 routes.get('/opcao_variacao/:id', OpcaoVariacaoEstabControllers.index);
 // lista todas as produtos de uam categoria
 routes.get('/productsCategorias/:id', ProductEstabelecimento.index);
-// listar estabelecimento por id
-routes.get('/offersEstabelecimento/:id', offersEstabelecimento.index);
 
 routes.post('/banners', BannerController.store);
 routes.get('/banners', BannerController.index);

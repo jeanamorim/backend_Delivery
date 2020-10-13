@@ -183,6 +183,7 @@ routes.post('/users', _UserStore["default"], _UserController["default"].store);
 routes.post('/estabelecimento', _EstabelecimentoController["default"].store);
 routes.put('/estabelecimento', _authEstabelecimento["default"], _EstabelecimentoUpdate["default"], _EstabelecimentoController["default"].update);
 routes.get('/estabelecimento', _EstabelecimentoController["default"].index);
+routes.get('/estabelecimento/:id', _BuscarEstabelecimentoPorId["default"].index);
 routes.post('/sessions', bruteForce.prevent, _SessionStore["default"], _SessionController["default"].store);
 routes.post('/sessionsEstabelecimento', bruteForce.prevent, _SessionStore["default"], _SessionEstabelecimentoController["default"].store);
 routes.post('/admin/sessions', bruteForce.prevent, _SessionStore["default"], _AdminSessionController["default"].store);
@@ -212,9 +213,7 @@ routes.get('/variacao_produto/:id', _VariacaoProdutoControllers["default"].index
 
 routes.get('/opcao_variacao/:id', _OpcaoVariacaoEstabControllers["default"].index); // lista todas as produtos de uam categoria
 
-routes.get('/productsCategorias/:id', _ProductEstabelecimentoController["default"].index); // listar estabelecimento por id
-
-routes.get('/offersEstabelecimento/:id', _BuscarEstabelecimentoPorId["default"].index);
+routes.get('/productsCategorias/:id', _ProductEstabelecimentoController["default"].index);
 routes.post('/banners', _BannerController["default"].store);
 routes.get('/banners', _BannerController["default"].index);
 routes["delete"]('/banners/:id', _BannerController["default"]["delete"]); // relatorio dos pedidos por dia do estabelecimento
