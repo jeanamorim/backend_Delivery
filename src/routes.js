@@ -1,8 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Router } from 'express';
 import multer from 'multer';
-import redis from 'redis';
-import ExpressBruteFlexible from 'rate-limiter-flexible/lib/ExpressBruteFlexible';
 
 import Cache from './lib/Cache';
 
@@ -95,20 +93,6 @@ import authMiddleware from './app/middlewares/authEstabelecimento';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-const redisClient = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-  password: process.env.REDIS_PASSWORD,
-});
-
-const bruteForce = new ExpressBruteFlexible(
-  ExpressBruteFlexible.LIMITER_TYPES.REDIS,
-  {
-    freeRetries: 100,
-    storeClient: redisClient,
-  },
-);
-
 // routes
 // routes do administrador
 routes.get('/OrderAdmin', OrderControllerAdmins.index);
@@ -125,20 +109,20 @@ routes.get('/estabelecimento', EstabelecimentoControllers.index);
 routes.get('/estabelecimento/:id', EstabelecimentoById.index);
 routes.post(
   '/sessions',
-  bruteForce.prevent,
+
   validateSessionStore,
   SessionController.store,
 );
 routes.post(
   '/sessionsEstabelecimento',
-  bruteForce.prevent,
+
   validateSessionStore,
   SessionEstabelecimentoController.store,
 );
 
 routes.post(
   '/admin/sessions',
-  bruteForce.prevent,
+
   validateSessionStore,
   AdminSessionController.store,
 );
